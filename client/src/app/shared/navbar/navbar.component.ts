@@ -2,6 +2,9 @@ import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/co
 import { ROUTES } from '../../sidebar/sidebar.component';
 import { Router } from '@angular/router';
 import { Location} from '@angular/common';
+import { AccountService } from 'app/_services/account.service';
+import { User } from 'app/_models/user';
+import { Observable } from 'rxjs';
 
 @Component({
     moduleId: module.id,
@@ -16,10 +19,16 @@ export class NavbarComponent implements OnInit{
     private toggleButton;
     private sidebarVisible: boolean;
 
+    model: any = {};
+    currentUser$ : Observable<User>;
+
     public isCollapsed = true;
     @ViewChild("navbar-cmp", {static: false}) button;
 
-    constructor(location:Location, private renderer : Renderer2, private element : ElementRef, private router: Router) {
+    constructor(location:Location, private renderer : Renderer2, private element : 
+      ElementRef, 
+      private router: Router, 
+      private accountService : AccountService) {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
@@ -32,7 +41,83 @@ export class NavbarComponent implements OnInit{
         this.router.events.subscribe((event) => {
           this.sidebarClose();
        });
+       this.currentUser$ = this.accountService.currentUser$;
     }
+
+    login(){
+      this.accountService.login(this.model).subscribe(response => {
+      }, error => {
+        console.log(error);
+      })
+    }
+
+    logout(){
+      this.accountService.logout();
+    
+    
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     getTitle(){
       var titlee = this.location.prepareExternalUrl(this.location.path());
       if(titlee.charAt(0) === '#'){

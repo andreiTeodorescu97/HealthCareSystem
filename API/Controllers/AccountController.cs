@@ -41,7 +41,8 @@ namespace API.Controllers
                 }
             }
 
-            return new UserDto{
+            return new UserDto
+            {
 
                 Username = user.UserName,
                 Token = _tokenService.CreateToken(user)
@@ -59,11 +60,28 @@ namespace API.Controllers
 
             using var hmac = new HMACSHA512();
 
+            if (registerDto.IsPacientAccount)
+            {
+                var pacient = new Pacient
+                {
+                    FirstName = registerDto.pacientDTO.FirstName,
+                    SecondName = registerDto.pacientDTO.SecondName,
+                    Email = registerDto.pacientDTO.FirstName,
+                    IdentityNumber = registerDto.pacientDTO.IdentityNumber,
+                    Series = registerDto.pacientDTO.Series,
+                    CNP = registerDto.pacientDTO.CNP,
+                    DateOfBirth = registerDto.pacientDTO.DateOfBirth
+                };
+            }
+
+
+
             var user = new AppUser
             {
                 UserName = registerDto.Username.ToLower(),
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key
+                PasswordSalt = hmac.Key,
+                Pacient = pacient
             };
 
             try
@@ -77,11 +95,12 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
 
-            return new UserDto{
+            return new UserDto
+            {
 
                 Username = user.UserName,
                 Token = _tokenService.CreateToken(user)
-            };;
+            }; ;
         }
 
         private async Task<bool> UserExists(string username)
