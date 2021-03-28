@@ -28,18 +28,18 @@
         </div>
       </form>-->
 
-      <form #loginForm="ngForm" class="form-inline mt-2 mt-md-0" autocomplete="off" (ngSubmit)="login()" *ngIf="!(currentUser$ | async)">
+      <form #loginForm="ngForm" class="form-inline mt-2 mt-md-0" autocomplete="off" (ngSubmit)="login()" *ngIf="!(accountService.currentUser$ | async)">
         <input name="username" [(ngModel)]="model.username" class="form-control mr-sm-2" type="text" placeholder="Username">
         <input name="password" [(ngModel)]="model.password" class="form-control mr-sm-2" type="password" placeholder="Password">
         <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
       </form>
 
-      <ul class="navbar-nav" *ngIf="(currentUser$ | async)" >
+      <ul class="navbar-nav" *ngIf="(accountService.currentUser$ | async) as user" >
 
         <li class="nav-item btn-rotate" ngbDropdown placement="bottom-left">
           <a class="nav-link" ngbDropdownToggle id="navbarDropdownMenuLink">
             <p>
-              <strong> Bine ai venit, Dr. Mihai Popescu </strong>
+              <strong> Bine ai venit,  {{user.username}}</strong>
             </p>
           </a>
           <div ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">

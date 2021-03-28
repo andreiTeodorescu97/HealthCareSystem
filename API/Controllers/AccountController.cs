@@ -60,9 +60,12 @@ namespace API.Controllers
 
             using var hmac = new HMACSHA512();
 
-            if (registerDto.IsPacientAccount)
+            var user = new AppUser
             {
-                var pacient = new Pacient
+                UserName = registerDto.Username.ToLower(),
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
+                PasswordSalt = hmac.Key,
+/*                 Pacient = registerDto.IsPacientAccount ? new Pacient
                 {
                     FirstName = registerDto.pacientDTO.FirstName,
                     SecondName = registerDto.pacientDTO.SecondName,
@@ -70,18 +73,15 @@ namespace API.Controllers
                     IdentityNumber = registerDto.pacientDTO.IdentityNumber,
                     Series = registerDto.pacientDTO.Series,
                     CNP = registerDto.pacientDTO.CNP,
-                    DateOfBirth = registerDto.pacientDTO.DateOfBirth
-                };
-            }
-
-
-
-            var user = new AppUser
-            {
-                UserName = registerDto.Username.ToLower(),
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key,
-                Pacient = pacient
+                    DateOfBirth = registerDto.pacientDTO.DateOfBirth,
+                } : null,
+                Doctor = !registerDto.IsPacientAccount ? new Doctor
+                {
+                    FirstName = registerDto.doctorDTO.FirstName,
+                    SecondName = registerDto.doctorDTO.SecondName,
+                    Email = registerDto.doctorDTO.Email,
+                    DateOfBirth = registerDto.doctorDTO.DateOfBirth,
+                } : null */
             };
 
             try

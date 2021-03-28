@@ -9,15 +9,17 @@ import { MapsComponent } from '../../pages/maps/maps.component';
 import { NotificationsComponent } from '../../pages/notifications/notifications.component';
 import { UpgradeComponent } from '../../pages/upgrade/upgrade.component';
 import { RegisterComponent } from '../../pages/register/register.component';
+import { AuthGuard } from 'app/guards/auth.guard';
+import { NoauthGuard } from 'app/guards/noauth.guard';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
-    { path: 'user',           component: UserComponent },
-    { path: 'table',          component: TableComponent },
-    { path: 'typography',     component: TypographyComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
-    { path: 'notifications',  component: NotificationsComponent },
-    { path: 'upgrade',        component: UpgradeComponent },
-    { path: 'register',        component: RegisterComponent },
+    { path: 'user',           component: UserComponent, canActivate:[AuthGuard] },
+    { path: 'table',          component: TableComponent, canActivate:[AuthGuard] },
+    { path: 'typography',     component: TypographyComponent, canActivate:[AuthGuard] },
+    { path: 'icons',          component: IconsComponent, canActivate:[AuthGuard] },
+    { path: 'maps',           component: MapsComponent, canActivate:[AuthGuard] },
+    { path: 'notifications',  component: NotificationsComponent, canActivate:[AuthGuard] },
+    { path: 'upgrade',        component: UpgradeComponent, canActivate:[AuthGuard] },
+    { path: 'register',       component: RegisterComponent },
 ];

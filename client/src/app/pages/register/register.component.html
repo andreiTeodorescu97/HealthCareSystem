@@ -2,21 +2,60 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-4">
-                <form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+                <form [formGroup]='registerForm' (ngSubmit)="register()" autocomplete="off">
                     <H2 class="text-center text-primary">Inregistreaza-te</H2>
                     <hr>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="username" [(ngModel)]="model.username" placeholder="Nume utilizator">
+                        <input type="text"
+                            [class.is-invalid]='registerForm.get("username").errors && registerForm.get("username").touched'
+                            class="form-control" formControlName='username' placeholder="Nume utilizator">
+                        <div *ngIf="registerForm.get('username').hasError('required')" class="invalid-feedback">
+                            Adauga un nume de utilizator!
+                        </div>
+                        <div *ngIf="registerForm.get('username').hasError('minlength')" class="invalid-feedback">
+                            Numele de utilizator trebuie sa aibe minim 6 caractere!
+                        </div>
+                        <div *ngIf="registerForm.get('username').hasError('maxlength')" class="invalid-feedback">
+                            Numele de utilizator trebuie sa aibe maxim 15 caractere!
+                        </div>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" name="password" [(ngModel)]="model.password" placeholder="Parola">
+                        <input type="password"
+                            [class.is-invalid]='registerForm.get("password").errors && registerForm.get("password").touched'
+                            class="form-control" formControlName='password' placeholder="Parola">
+                        <div *ngIf="registerForm.get('password').hasError('required')" class="invalid-feedback">
+                            Adauga o parola!
+                        </div>
+                        <div *ngIf="registerForm.get('password').hasError('minlength')" class="invalid-feedback">
+                            Parola trebuie sa aibe minim 6 caractere!
+                        </div>
+                        <div *ngIf="registerForm.get('password').hasError('maxlength')" class="invalid-feedback">
+                            Parola trebuie sa aibe maxim 15 caractere!
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="password"
+                            [class.is-invalid]='registerForm.get("confirmPassword").errors && registerForm.get("confirmPassword").touched'
+                            class="form-control" formControlName='confirmPassword' placeholder="Confirma Parola">
+                        <div *ngIf="registerForm.get('confirmPassword').hasError('required')" class="invalid-feedback">
+                            Confima parola!
+                        </div>
+                        <div *ngIf="registerForm.get('confirmPassword').hasError('isMatching')"
+                            class="invalid-feedback">
+                            Parolele nu sunt identice!
+                        </div>
                     </div>
                     <div class="form-group text-center">
                         <button class="btn btn-success mr-2" type="submit">Inregistrare</button>
-                        <button class="btn btn-danger mr-2"  (click)="cancel()" type="button">Cancel</button>
+                        <button class="btn btn-danger mr-2" (click)="cancel()" type="button">Cancel</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<p>
+    Form value: {{registerForm.value | json}}
+    Form value: {{registerForm.status | json}}
+</p>

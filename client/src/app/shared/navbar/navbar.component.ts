@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit{
     constructor(location:Location, private renderer : Renderer2, private element : 
       ElementRef, 
       private router: Router, 
-      private accountService : AccountService) {
+      public accountService : AccountService) {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
@@ -49,12 +49,12 @@ export class NavbarComponent implements OnInit{
       }, error => {
         console.log(error);
       })
+      this.router.navigateByUrl('/dashboard');
     }
 
     logout(){
       this.accountService.logout();
-    
-    
+      this.router.navigateByUrl('/dashboard');
     }
 
 
