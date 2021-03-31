@@ -1,59 +1,77 @@
-<div class="container mt-5">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-4">
-                <form [formGroup]='registerForm' (ngSubmit)="register()" autocomplete="off">
-                    <H2 class="text-center text-primary">Inregistreaza-te</H2>
-                    <hr>
+<form [formGroup]='registerForm' (ngSubmit)="register()" autocomplete="off">
+    <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="card card-stats">
+                <div class="card-body ">
+                    <h6 class="text-primary">Date personale</h6>
+                    
                     <div class="form-group">
-                        <input type="text"
-                            [class.is-invalid]='registerForm.get("username").errors && registerForm.get("username").touched'
-                            class="form-control" formControlName='username' placeholder="Nume utilizator">
-                        <div *ngIf="registerForm.get('username').hasError('required')" class="invalid-feedback">
-                            Adauga un nume de utilizator!
-                        </div>
-                        <div *ngIf="registerForm.get('username').hasError('minlength')" class="invalid-feedback">
-                            Numele de utilizator trebuie sa aibe minim 6 caractere!
-                        </div>
-                        <div *ngIf="registerForm.get('username').hasError('maxlength')" class="invalid-feedback">
-                            Numele de utilizator trebuie sa aibe maxim 15 caractere!
-                        </div>
+                        <label class="control-label" style="margin-right: 10px;">Gen</label>
+                        <label class="radio-inline">
+                            <input type="radio" value='masculin' formControlName='gender'> Male
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" value='feminin' class="ml-3" formControlName='gender'> Female
+                        </label>
                     </div>
-                    <div class="form-group">
-                        <input type="password"
-                            [class.is-invalid]='registerForm.get("password").errors && registerForm.get("password").touched'
-                            class="form-control" formControlName='password' placeholder="Parola">
-                        <div *ngIf="registerForm.get('password').hasError('required')" class="invalid-feedback">
-                            Adauga o parola!
-                        </div>
-                        <div *ngIf="registerForm.get('password').hasError('minlength')" class="invalid-feedback">
-                            Parola trebuie sa aibe minim 6 caractere!
-                        </div>
-                        <div *ngIf="registerForm.get('password').hasError('maxlength')" class="invalid-feedback">
-                            Parola trebuie sa aibe maxim 15 caractere!
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="password"
-                            [class.is-invalid]='registerForm.get("confirmPassword").errors && registerForm.get("confirmPassword").touched'
-                            class="form-control" formControlName='confirmPassword' placeholder="Confirma Parola">
-                        <div *ngIf="registerForm.get('confirmPassword').hasError('required')" class="invalid-feedback">
-                            Confima parola!
-                        </div>
-                        <div *ngIf="registerForm.get('confirmPassword').hasError('isMatching')"
-                            class="invalid-feedback">
-                            Parolele nu sunt identice!
-                        </div>
-                    </div>
-                    <div class="form-group text-center">
-                        <button class="btn btn-success mr-2" type="submit">Inregistrare</button>
-                        <button class="btn btn-danger mr-2" (click)="cancel()" type="button">Cancel</button>
-                    </div>
-                </form>
+
+                    <app-text-input [formControl]='registerForm.controls["firstName"]' [label]='"Nume"'>
+                    </app-text-input>
+
+                    <app-text-input [formControl]='registerForm.controls["secondName"]' [label]='"Prenume"'>
+                    </app-text-input>
+
+                    
+                    <app-text-input [formControl]='registerForm.controls["dateOfBirth"]' [label]='"Data nasterii"'>
+                    </app-text-input>
+
+                    <app-text-input [formControl]='registerForm.controls["email"]' [label]='"Adresa e-mail"'>
+                    </app-text-input>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="card card-stats">
+                <div class="card-body ">
+                    <h6 class="text-primary">Date personale</h6>
+                    <app-text-input [formControl]='registerForm.controls["identityNumber"]' [label]='"Numar CI"'>
+                    </app-text-input>
+
+                    <app-text-input [formControl]='registerForm.controls["series"]' [label]='"Serie buletin"'>
+                    </app-text-input>
+
+                    <app-text-input [formControl]='registerForm.controls["cnp"]' [label]='"CNP"'>
+                    </app-text-input>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="card card-stats">
+                <div class="card-body ">
+                    <h6 class="text-primary">Date logare</h6>
+                    <app-text-input [formControl]='registerForm.controls["username"]' [label]='"Nume Utilizator"'>
+                    </app-text-input>
+
+                    <app-text-input [formControl]='registerForm.controls["password"]' [label]='"Parola"'
+                        [type]='"password"'>
+                    </app-text-input>
+
+                    <app-text-input [formControl]='registerForm.controls["confirmPassword"]' [label]='"Confirma parola"'
+                        [type]='"password"'>
+                    </app-text-input>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group text-center">
+        <button class="btn btn-success mr-2" type="submit">Inregistrare</button>
+        <button class="btn btn-danger mr-2" (click)="cancel()" type="button">Cancel</button>
+    </div>
+</form>
 
 <p>
     Form value: {{registerForm.value | json}}

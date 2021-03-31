@@ -65,11 +65,12 @@ namespace API.Controllers
                 UserName = registerDto.Username.ToLower(),
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key,
-/*                 Pacient = registerDto.IsPacientAccount ? new Pacient
+                Pacient = registerDto.IsPacientAccount ? new Pacient
                 {
                     FirstName = registerDto.pacientDTO.FirstName,
                     SecondName = registerDto.pacientDTO.SecondName,
                     Email = registerDto.pacientDTO.FirstName,
+                    Gender = registerDto.pacientDTO.Gender,
                     IdentityNumber = registerDto.pacientDTO.IdentityNumber,
                     Series = registerDto.pacientDTO.Series,
                     CNP = registerDto.pacientDTO.CNP,
@@ -81,7 +82,7 @@ namespace API.Controllers
                     SecondName = registerDto.doctorDTO.SecondName,
                     Email = registerDto.doctorDTO.Email,
                     DateOfBirth = registerDto.doctorDTO.DateOfBirth,
-                } : null */
+                } : null
             };
 
             try

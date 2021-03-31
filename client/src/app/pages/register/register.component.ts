@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from 'app/_services/account.service';
 import { ToastrService } from 'ngx-toastr';
@@ -13,18 +13,27 @@ export class RegisterComponent implements OnInit {
   model: any = {};
   registerForm: FormGroup;
 
-  constructor(private accountService: AccountService, private toastr: ToastrService, private router: Router) { }
+  constructor(private accountService: AccountService, private toastr: ToastrService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.initializeForm();
   }
 
   initializeForm() {
-    this.registerForm = new FormGroup({
-      username: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
-      confirmPassword: new FormControl('', [Validators.required, this.matchValues('password')]),
+    this.registerForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]],
+      confirmPassword: ['', [Validators.required, this.matchValues('password')]],
+      firstName: ['', [Validators.required]],
+      secondName: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      identityNumber: ['', [Validators.required]],
+      series: ['', [Validators.required]],
+      cnp: ['', [Validators.required]],
+      dateOfBirth: ['', [Validators.required]],
+      gender:['masculin']
     })
+    
     this.registerForm.controls.password.valueChanges.subscribe(() => {
       this.registerForm.controls.confirmPassword.updateValueAndValidity();
     })

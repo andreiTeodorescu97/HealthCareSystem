@@ -1,0 +1,34 @@
+<div class="form-group">
+    <input
+    [class.is-invalid]="ngControl.touched && ngControl.invalid"
+    type={{type}} 
+    class="form-control" 
+    [formControl]="ngControl.control"
+    placeholder={{label}}>
+
+    <div class="invalid-feedback" 
+    *ngIf="ngControl.control.errors?.required">
+        Te rog adauga  {{label}}!
+    </div>
+
+    <!-- IMPORTANT isMatching!!!!!!! -->
+    <div class="invalid-feedback" 
+    *ngIf="ngControl.control.errors?.minlength">
+        {{label}} trebuie sa aibe minim {{ngControl.control.errors.minlength['requiredLength']}} caracter!
+    </div>
+
+    <div class="invalid-feedback" 
+    *ngIf="ngControl.control.errors?.maxlength">
+    {{label}} trebuie sa aibe maxim {{ngControl.control.errors.maxlength['requiredLength']}} caractere!
+    </div>
+
+<!-- <div class="invalid-feedback" 
+    *ngIf="ngControl.control.errors?.pattern">
+    Password must contain at least: one lower case, one upper case, one digit and one special character!
+    </div> -->
+
+    <div class="invalid-feedback" 
+    *ngIf="ngControl.control.errors?.isMatching">
+        Parolele nu sunt identice!
+    </div>
+</div>

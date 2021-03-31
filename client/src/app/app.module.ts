@@ -14,14 +14,12 @@ import { AppRoutes } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { RegisterComponent } from './pages/register/register.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    RegisterComponent,
   ],
   imports: [
     BrowserAnimationsModule,
