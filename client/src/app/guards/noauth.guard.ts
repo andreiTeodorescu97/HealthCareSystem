@@ -17,10 +17,10 @@ export class NoauthGuard implements CanActivate {
       map(user => {
         if(!user) {
           return true;
-        }else{
-          this.router.navigateByUrl('/dashboard');
         }
-      })
+        this.router.navigateByUrl('/dashboard');
+      }
+      )
     );
   }
   

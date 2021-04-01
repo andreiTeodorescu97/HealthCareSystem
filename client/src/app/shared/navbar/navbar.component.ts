@@ -54,69 +54,8 @@ export class NavbarComponent implements OnInit{
 
     logout(){
       this.accountService.logout();
-      this.router.navigateByUrl('/dashboard');
+      this.router.navigateByUrl('/home');
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     getTitle(){
       var titlee = this.location.prepareExternalUrl(this.location.path());
@@ -128,7 +67,7 @@ export class NavbarComponent implements OnInit{
               return this.listTitles[item].title;
           }
       }
-      return 'Dashboard';
+      return '';
     }
     sidebarToggle() {
         if (this.sidebarVisible === false) {

@@ -1,6 +1,5 @@
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { ToastrModule } from "ngx-toastr";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -10,22 +9,46 @@ import { NavbarModule} from './shared/navbar/navbar.module';
 import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
 
 import { AppComponent } from './app.component';
-import { AppRoutes } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+
+import { CommonModule } from '@angular/common';
+
+import { DashboardComponent }       from './pages/dashboard/dashboard.component';
+import { UserComponent }            from './pages/user/user.component';
+import { TableComponent }           from './pages/table/table.component';
+import { TypographyComponent }      from './pages/typography/typography.component';
+import { IconsComponent }           from './pages/icons/icons.component';
+import { MapsComponent }            from './pages/maps/maps.component';
+import { NotificationsComponent }   from './pages/notifications/notifications.component';
+import { UpgradeComponent }         from './pages/upgrade/upgrade.component';
+import { RegisterComponent }        from './pages/register/register.component';
+import { HomeComponent }        from './pages/home/home.component';
+import { TextInputComponent } from './_forms/text-input/text-input.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppRoutingModule } from "./app-routing.module";
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    DashboardComponent,
+    UserComponent,
+    TableComponent,
+    TypographyComponent,
+    IconsComponent,
+    MapsComponent,
+    NotificationsComponent,
+    RegisterComponent,
+    UpgradeComponent,
+    TextInputComponent,
+    HomeComponent
   ],
   imports: [
     BrowserAnimationsModule,
-    RouterModule.forRoot(AppRoutes,{
-      useHash: true
-    }),
+    AppRoutingModule,
     SidebarModule,
     NavbarModule,
     ToastrModule.forRoot({
