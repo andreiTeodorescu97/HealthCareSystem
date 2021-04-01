@@ -11,8 +11,6 @@ import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-
 import { CommonModule } from '@angular/common';
 
 import { DashboardComponent }       from './pages/dashboard/dashboard.component';
@@ -33,7 +31,6 @@ import { AppRoutingModule } from "./app-routing.module";
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
     DashboardComponent,
     UserComponent,
     TableComponent,
