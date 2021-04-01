@@ -26,6 +26,11 @@ import { HomeComponent }        from './pages/home/home.component';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from "./app-routing.module";
+import { BsDatepickerModule} from "ngx-bootstrap/datepicker";
+import { DateInputComponent } from './_forms/date-input/date-input.component';
+import { defineLocale } from "ngx-bootstrap/chronos";
+import { roLocale } from "ngx-bootstrap/locale";
+defineLocale("ro", roLocale);
 
 
 @NgModule({
@@ -41,7 +46,8 @@ import { AppRoutingModule } from "./app-routing.module";
     RegisterComponent,
     UpgradeComponent,
     TextInputComponent,
-    HomeComponent
+    HomeComponent,
+    DateInputComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -58,7 +64,8 @@ import { AppRoutingModule } from "./app-routing.module";
     FixedPluginModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

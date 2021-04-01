@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RegisterDto } from 'app/_models/registerDto';
 import { AccountService } from 'app/_services/account.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -12,11 +13,15 @@ import { ToastrService } from 'ngx-toastr';
 export class RegisterComponent implements OnInit {
   model: any = {};
   registerForm: FormGroup;
+  maxDate: Date;
+  registerDto = { pacientDto: {} } as RegisterDto;
+  validationErrors: string[] = [];
 
   constructor(private accountService: AccountService, private toastr: ToastrService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.initializeForm();
+    this.maxDate = new Date();
   }
 
   initializeForm() {
@@ -31,9 +36,9 @@ export class RegisterComponent implements OnInit {
       series: ['', [Validators.required]],
       cnp: ['', [Validators.required]],
       dateOfBirth: ['', [Validators.required]],
-      gender:['masculin']
+      gender: ['masculin']
     })
-    
+
     this.registerForm.controls.password.valueChanges.subscribe(() => {
       this.registerForm.controls.confirmPassword.updateValueAndValidity();
     })
@@ -46,29 +51,41 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    console.log(this.registerForm.value);
-    /*     this.model.IsPacientAccount = true;
-        this.accountService.register(this.model).subscribe(response => {
-          console.log(response);
-          this.toastr.success(
-            '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Contul a fost creat cu succes!</span>',
-            "Register",
-            {
-              toastClass: "alert alert-success alert-with-icon",
-            }
-          );
-          this.router.navigateByUrl('/dashboard');
-        }, error => {
-          console.log(error);
-          this.toastr.error(
-            '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">' + error.error + '</span>',
-            "Register",
-            {
-              toastClass: "alert alert-danger alert-with-icon",
-            }
-          )
+    this.model.IsPacientAccount = true;
+    this.registerDto.username = this.registerForm.value.username;
+    this.registerDto.password = this.registerForm.value.password;
+    this.registerDto.isPacientAccount = true;
+    this.registerDto.pacientDto.firstName = this.registerForm.value.firstName;
+    this.registerDto.pacientDto.secondName = this.registerForm.value.secondName;
+    this.registerDto.pacientDto.email = this.registerForm.value.email;
+    this.registerDto.pacientDto.gender = this.registerForm.value.gender;
+    this.registerDto.pacientDto.series = this.registerForm.value.series;
+    this.registerDto.pacientDto.identityNumber = this.registerForm.value.identityNumber;
+    this.registerDto.pacientDto.cnp = this.registerForm.value.cnp;
+    this.registerDto.pacientDto.dateOfBirth = this.registerForm.value.dateOfBirth;
+
+    this.accountService.register(this.registerDto).subscribe(response => {
+      console.log(response);
+      this.toastr.success(
+        '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Contul a fost creat cu succes!</span>',
+        "Register",
+        {
+          toastClass: "alert alert-success alert-with-icon",
         }
-        ) */
+      );
+      this.router.navigateByUrl('/dashboard');
+    }, error => {
+      console.log(error);
+      this.toastr.error(
+        '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">' + error.error + '</span>',
+        "Register",
+        {
+          toastClass: "alert alert-danger alert-with-icon",
+        }
+      )
+      this.validationErrors = error;
+    }
+    )
   }
 
   cancel() {

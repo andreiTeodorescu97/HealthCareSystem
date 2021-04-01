@@ -100,6 +100,9 @@ namespace API.Controllers
             {
 
                 Username = user.UserName,
+                IsDoctor = !registerDto.IsPacientAccount,
+                FirstName = registerDto.IsPacientAccount ? user.Pacient.FirstName : user.Doctor.FirstName,
+                SecondName = registerDto.IsPacientAccount ? user.Pacient.SecondName : user.Doctor.SecondName,
                 Token = _tokenService.CreateToken(user)
             }; ;
         }

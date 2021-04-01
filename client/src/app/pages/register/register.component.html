@@ -1,8 +1,8 @@
-<form [formGroup]='registerForm' (ngSubmit)="register()" autocomplete="off">
-    <div class="row">
+<form [formGroup]='registerForm' (ngSubmit)="registerForm.valid && register()" autocomplete="off">
+    <div class="row justify-content-center">
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="card card-stats">
-                <div class="card-body ">
+                <div class="card-body text-center">
                     <h6 class="text-primary">Date personale</h6>
                     
                     <div class="form-group">
@@ -22,19 +22,12 @@
                     </app-text-input>
 
                     
-                    <app-text-input [formControl]='registerForm.controls["dateOfBirth"]' [label]='"Data nasterii"'>
-                    </app-text-input>
+                    <app-date-input [formControl]='registerForm.controls["dateOfBirth"]' [label]='"Data nasterii"' [maxDate]='maxDate'>
+                    </app-date-input>
 
                     <app-text-input [formControl]='registerForm.controls["email"]' [label]='"Adresa e-mail"'>
                     </app-text-input>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-12 col-sm-12">
-            <div class="card card-stats">
-                <div class="card-body ">
-                    <h6 class="text-primary">Date personale</h6>
+                    
                     <app-text-input [formControl]='registerForm.controls["identityNumber"]' [label]='"Numar CI"'>
                     </app-text-input>
 
@@ -43,15 +36,14 @@
 
                     <app-text-input [formControl]='registerForm.controls["cnp"]' [label]='"CNP"'>
                     </app-text-input>
-
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="card card-stats">
-                <div class="card-body ">
+                <div class="card-body text-center">
                     <h6 class="text-primary">Date logare</h6>
                     <app-text-input [formControl]='registerForm.controls["username"]' [label]='"Nume Utilizator"'>
                     </app-text-input>
@@ -67,8 +59,15 @@
             </div>
         </div>
     </div>
+    <div class="row" *ngIf="validationErrors.length > 0">
+        <ul class="text-danger">
+            <li *ngFor="let error of validationErrors">
+                {{error}}
+            </li>
+        </ul>
+    </div>
     <div class="form-group text-center">
-        <button class="btn btn-success mr-2" type="submit">Inregistrare</button>
+        <button [disabled]='!registerForm.valid' class="btn btn-success mr-2" type="submit">Inregistrare</button>
         <button class="btn btn-danger mr-2" (click)="cancel()" type="button">Cancel</button>
     </div>
 </form>
