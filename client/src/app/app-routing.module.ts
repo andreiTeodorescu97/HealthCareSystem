@@ -13,6 +13,9 @@ import { AuthGuard } from 'app/guards/auth.guard';
 import { NoauthGuard } from './guards/noauth.guard';
 import { HomeComponent } from './pages/home/home.component';
 import { RegisterDoctorComponent } from './pages/register-doctor/register-doctor.component';
+import { TestErrorsComponent } from './pages/errors/test-errors/test-errors.component';
+import { ServerErrorComponent } from './pages/errors/server-error/server-error.component';
+import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent, canActivate: [NoauthGuard]},
@@ -20,6 +23,9 @@ const routes: Routes = [
   {path:'register', component: RegisterComponent, canActivate: [NoauthGuard]},
   {path:'docregister', component: RegisterDoctorComponent, canActivate: [NoauthGuard]},
   {path:'dashboard', component: DashboardComponent},
+  {path:'errors', component: TestErrorsComponent},
+  {path:'server-error', component: ServerErrorComponent},
+  {path:'not-found', component: NotFoundComponent},
   {
     /* protected routes by authentication */
     path:'',

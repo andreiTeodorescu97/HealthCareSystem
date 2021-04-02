@@ -9,7 +9,7 @@ import { NavbarModule} from './shared/navbar/navbar.module';
 import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
 
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { CommonModule } from '@angular/common';
 
@@ -31,6 +31,12 @@ import { DateInputComponent } from './_forms/date-input/date-input.component';
 import { defineLocale } from "ngx-bootstrap/chronos";
 import { roLocale } from "ngx-bootstrap/locale";
 import { RegisterDoctorComponent } from './pages/register-doctor/register-doctor.component';
+import { ErrorInterceptor } from "./interceptors/error.interceptor";
+import { TestErrorsComponent } from "./pages/errors/test-errors/test-errors.component";
+import { ServerErrorComponent } from "./pages/errors/server-error/server-error.component";
+import { NotFoundComponent } from "./pages/errors/not-found/not-found.component";
+
+
 defineLocale("ro", roLocale);
 
 
@@ -49,7 +55,10 @@ defineLocale("ro", roLocale);
     TextInputComponent,
     HomeComponent,
     DateInputComponent,
-    RegisterDoctorComponent
+    RegisterDoctorComponent,
+    TestErrorsComponent,
+    ServerErrorComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -69,7 +78,7 @@ defineLocale("ro", roLocale);
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

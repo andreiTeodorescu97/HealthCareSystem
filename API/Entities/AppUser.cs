@@ -12,5 +12,6 @@ namespace API.Entities
         public byte[] PasswordSalt { get; set; }
         public Pacient Pacient { get; set; }
         public Doctor Doctor { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

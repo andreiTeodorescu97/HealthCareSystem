@@ -24,6 +24,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/table', title: 'Table List', icon: 'nc-tile-56', class: '', isRegisterRequired: true },
     { path: '/typography', title: 'Typography', icon: 'nc-caps-small', class: '', isRegisterRequired: true },
     { path: '/upgrade', title: 'Upgrade to PRO', icon: 'nc-spaceship', class: 'active-pro', isRegisterRequired: true },
+    { path: '/errors', title: 'Errors', icon: 'nc-spaceship', class: '', isRegisterRequired: true },
 ];
 
 @Component({

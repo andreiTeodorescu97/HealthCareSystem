@@ -45,8 +45,8 @@ namespace API.Controllers
             {
                 Username = user.UserName,
                 Token = _tokenService.CreateToken(user),
-                FirstName = user.Doctor != null ? user.Doctor.FirstName : user.Doctor.FirstName,
-                SecondName = user.Doctor != null ? user.Doctor.SecondName : user.Doctor.SecondName,
+                FirstName = user.Doctor != null ? user.Doctor.FirstName : user.Pacient.FirstName,
+                SecondName = user.Doctor != null ? user.Doctor.SecondName : user.Pacient.SecondName,
                 Title = user.Doctor != null ? "Dr." : null,
             };
         }
@@ -67,6 +67,7 @@ namespace API.Controllers
                 UserName = registerDto.Username.ToLower(),
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key,
+                DateCreated = DateTime.Now,
                 Pacient = registerDto.IsPacientAccount ? new Pacient
                 {
                     FirstName = registerDto.pacientDTO.FirstName,

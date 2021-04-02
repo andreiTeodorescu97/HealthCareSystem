@@ -15,5 +15,7 @@ namespace API.Entities
         public DateTime DateOfBirth { get; set; }
         public int UserId { get; set; }
         public AppUser User { get; set; }
+        public PacientContact PacientContact { get; set; }
+        public PacientGeneralMedicalData MyProperty { get; set; }
     }
 }
