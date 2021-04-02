@@ -5,16 +5,6 @@
                 <div class="card-body text-center">
                     <h6 class="text-primary">Date personale</h6>
                     
-                    <div class="form-group">
-                        <label class="control-label" style="margin-right: 10px;">Sex</label>
-                        <label class="radio-inline">
-                            <input type="radio" value='masculin' formControlName='gender'> Masculin
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" value='feminin' class="ml-3" formControlName='gender'> Feminin
-                        </label>
-                    </div>
-
                     <app-text-input [formControl]='registerForm.controls["firstName"]' [label]='"Nume"'>
                     </app-text-input>
 
@@ -26,15 +16,6 @@
                     </app-date-input>
 
                     <app-text-input [formControl]='registerForm.controls["email"]' [label]='"Adresa e-mail"'>
-                    </app-text-input>
-                    
-                    <app-text-input [formControl]='registerForm.controls["identityNumber"]' [label]='"Numar CI"'>
-                    </app-text-input>
-
-                    <app-text-input [formControl]='registerForm.controls["series"]' [label]='"Serie buletin"'>
-                    </app-text-input>
-
-                    <app-text-input [formControl]='registerForm.controls["cnp"]' [label]='"CNP"'>
                     </app-text-input>
                 </div>
             </div>

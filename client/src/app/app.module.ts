@@ -30,6 +30,7 @@ import { BsDatepickerModule} from "ngx-bootstrap/datepicker";
 import { DateInputComponent } from './_forms/date-input/date-input.component';
 import { defineLocale } from "ngx-bootstrap/chronos";
 import { roLocale } from "ngx-bootstrap/locale";
+import { RegisterDoctorComponent } from './pages/register-doctor/register-doctor.component';
 defineLocale("ro", roLocale);
 
 
@@ -47,7 +48,8 @@ defineLocale("ro", roLocale);
     UpgradeComponent,
     TextInputComponent,
     HomeComponent,
-    DateInputComponent
+    DateInputComponent,
+    RegisterDoctorComponent
   ],
   imports: [
     BrowserAnimationsModule,

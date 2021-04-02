@@ -12,11 +12,13 @@ import { RegisterComponent } from './pages/register/register.component';
 import { AuthGuard } from 'app/guards/auth.guard';
 import { NoauthGuard } from './guards/noauth.guard';
 import { HomeComponent } from './pages/home/home.component';
+import { RegisterDoctorComponent } from './pages/register-doctor/register-doctor.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent, canActivate: [NoauthGuard]},
   {path:'home', component: HomeComponent, canActivate: [NoauthGuard]},
   {path:'register', component: RegisterComponent, canActivate: [NoauthGuard]},
+  {path:'docregister', component: RegisterDoctorComponent, canActivate: [NoauthGuard]},
   {path:'dashboard', component: DashboardComponent},
   {
     /* protected routes by authentication */

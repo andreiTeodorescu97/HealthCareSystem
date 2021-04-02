@@ -3,6 +3,7 @@ export interface RegisterDto{
     password: string;
     isPacientAccount: boolean;
     pacientDto: PacientDto;
+    doctorDto: DoctorDto;
 }
 
 export interface PacientDto{
@@ -13,5 +14,12 @@ export interface PacientDto{
     series: string;
     identityNumber: string;
     cnp: string;
+    dateOfBirth: Date;
+}
+
+export interface DoctorDto{
+    firstName: string;
+    secondName: string;
+    email: string;
     dateOfBirth: Date;
 }

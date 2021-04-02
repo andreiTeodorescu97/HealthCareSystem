@@ -25,7 +25,7 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
+            var user = await _context.Users.Include("Doctor").Include("Pacient").SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
 
             if (user == null) return Unauthorized("Credentiale invalide!");
 
@@ -43,9 +43,11 @@ namespace API.Controllers
 
             return new UserDto
             {
-
                 Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                FirstName = user.Doctor != null ? user.Doctor.FirstName : user.Doctor.FirstName,
+                SecondName = user.Doctor != null ? user.Doctor.SecondName : user.Doctor.SecondName,
+                Title = user.Doctor != null ? "Dr." : null,
             };
         }
 
@@ -100,11 +102,11 @@ namespace API.Controllers
             {
 
                 Username = user.UserName,
-                IsDoctor = !registerDto.IsPacientAccount,
+                Title = registerDto.IsPacientAccount == true ? null : "Dr.",
                 FirstName = registerDto.IsPacientAccount ? user.Pacient.FirstName : user.Doctor.FirstName,
                 SecondName = registerDto.IsPacientAccount ? user.Pacient.SecondName : user.Doctor.SecondName,
                 Token = _tokenService.CreateToken(user)
-            }; ;
+            };
         }
 
         private async Task<bool> UserExists(string username)
