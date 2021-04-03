@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 namespace API.Entities
 {
+
     public class Region
     {
         public int Id { get; set; }

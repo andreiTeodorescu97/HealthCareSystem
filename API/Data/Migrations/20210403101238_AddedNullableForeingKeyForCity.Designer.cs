@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210402195318_AddedPacientContactAndPacientGeneralMedData")]
-    partial class AddedPacientContactAndPacientGeneralMedData
+    [Migration("20210403101238_AddedNullableForeingKeyForCity")]
+    partial class AddedNullableForeingKeyForCity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -52,9 +52,6 @@ namespace API.Data.Migrations
                         .HasColumnType("integer")
                         .UseIdentityByDefaultColumn();
 
-                    b.Property<int?>("CityId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
@@ -62,8 +59,6 @@ namespace API.Data.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CityId");
 
                     b.HasIndex("RegionId");
 
@@ -179,7 +174,7 @@ namespace API.Data.Migrations
                         .HasColumnType("integer")
                         .UseIdentityByDefaultColumn();
 
-                    b.Property<int>("CityId")
+                    b.Property<int?>("CityId")
                         .HasColumnType("integer");
 
                     b.Property<string>("FirstPhone")
@@ -263,10 +258,6 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.City", b =>
                 {
-                    b.HasOne("API.Entities.City", null)
-                        .WithMany("Cities")
-                        .HasForeignKey("CityId");
-
                     b.HasOne("API.Entities.Region", "Region")
                         .WithMany("Cities")
                         .HasForeignKey("RegionId")
@@ -302,9 +293,7 @@ namespace API.Data.Migrations
                 {
                     b.HasOne("API.Entities.City", "City")
                         .WithMany()
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CityId");
 
                     b.HasOne("API.Entities.Pacient", "Pacient")
                         .WithOne("PacientContact")
@@ -333,11 +322,6 @@ namespace API.Data.Migrations
                     b.Navigation("Doctor");
 
                     b.Navigation("Pacient");
-                });
-
-            modelBuilder.Entity("API.Entities.City", b =>
-                {
-                    b.Navigation("Cities");
                 });
 
             modelBuilder.Entity("API.Entities.Pacient", b =>

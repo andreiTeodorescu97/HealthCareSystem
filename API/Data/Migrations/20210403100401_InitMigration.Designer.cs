@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210402191214_AddedDateCreatedToUser")]
-    partial class AddedDateCreatedToUser
+    [Migration("20210403100401_InitMigration")]
+    partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,6 +43,26 @@ namespace API.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("API.Entities.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("RegionId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RegionId");
+
+                    b.ToTable("City");
                 });
 
             modelBuilder.Entity("API.Entities.Doctor", b =>
@@ -147,6 +167,106 @@ namespace API.Data.Migrations
                     b.ToTable("Pacients");
                 });
 
+            modelBuilder.Entity("API.Entities.PacientContact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("FirstPhone")
+                        .HasColumnType("text");
+
+                    b.Property<int>("PacientId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SecondPhone")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("text");
+
+                    b.Property<int>("StreetNumber")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("PacientId")
+                        .IsUnique();
+
+                    b.ToTable("PacientContact");
+                });
+
+            modelBuilder.Entity("API.Entities.PacientGeneralMedicalData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<string>("BloodType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("GeneticDiseases")
+                        .HasColumnType("text");
+
+                    b.Property<float>("HeightBirth")
+                        .HasColumnType("real");
+
+                    b.Property<bool>("IsSmoker")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("NumberOfAvortions")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("NumberOfBirths")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PacientId")
+                        .HasColumnType("integer");
+
+                    b.Property<float>("WeightBirth")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PacientId")
+                        .IsUnique();
+
+                    b.ToTable("PacientGeneralMedicalData");
+                });
+
+            modelBuilder.Entity("API.Entities.Region", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Region");
+                });
+
+            modelBuilder.Entity("API.Entities.City", b =>
+                {
+                    b.HasOne("API.Entities.Region", "Region")
+                        .WithMany("Cities")
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Region");
+                });
+
             modelBuilder.Entity("API.Entities.Doctor", b =>
                 {
                     b.HasOne("API.Entities.AppUser", "User")
@@ -169,11 +289,53 @@ namespace API.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("API.Entities.PacientContact", b =>
+                {
+                    b.HasOne("API.Entities.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Pacient", "Pacient")
+                        .WithOne("PacientContact")
+                        .HasForeignKey("API.Entities.PacientContact", "PacientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
+
+                    b.Navigation("Pacient");
+                });
+
+            modelBuilder.Entity("API.Entities.PacientGeneralMedicalData", b =>
+                {
+                    b.HasOne("API.Entities.Pacient", "Pacient")
+                        .WithOne("MyProperty")
+                        .HasForeignKey("API.Entities.PacientGeneralMedicalData", "PacientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pacient");
+                });
+
             modelBuilder.Entity("API.Entities.AppUser", b =>
                 {
                     b.Navigation("Doctor");
 
                     b.Navigation("Pacient");
+                });
+
+            modelBuilder.Entity("API.Entities.Pacient", b =>
+                {
+                    b.Navigation("MyProperty");
+
+                    b.Navigation("PacientContact");
+                });
+
+            modelBuilder.Entity("API.Entities.Region", b =>
+                {
+                    b.Navigation("Cities");
                 });
 #pragma warning restore 612, 618
         }
