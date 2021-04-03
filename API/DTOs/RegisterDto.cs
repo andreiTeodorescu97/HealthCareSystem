@@ -13,7 +13,7 @@ namespace API.DTOs
         ErrorMessage = "Password should be minimum 6 characters and a maximum of 15 characters")]
         public string Password { get; set; }
         public bool IsPacientAccount { get; set; }
-        public PacientDTO pacientDTO { get; set; }
-        public DoctorDto doctorDTO { get; set; }
+        public RegisterPacientDto pacientDto { get; set; }
+        public RegisterDoctorDto doctorDto { get; set; }
     }
 }

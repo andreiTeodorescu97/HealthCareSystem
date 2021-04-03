@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210403101238_AddedNullableForeingKeyForCity")]
-    partial class AddedNullableForeingKeyForCity
+    [Migration("20210403191151_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,7 +62,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("RegionId");
 
-                    b.ToTable("City");
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("API.Entities.Doctor", b =>
@@ -253,7 +253,7 @@ namespace API.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Region");
+                    b.ToTable("Regions");
                 });
 
             modelBuilder.Entity("API.Entities.City", b =>
@@ -292,7 +292,7 @@ namespace API.Data.Migrations
             modelBuilder.Entity("API.Entities.PacientContact", b =>
                 {
                     b.HasOne("API.Entities.City", "City")
-                        .WithMany()
+                        .WithMany("PacientContacts")
                         .HasForeignKey("CityId");
 
                     b.HasOne("API.Entities.Pacient", "Pacient")
@@ -309,7 +309,7 @@ namespace API.Data.Migrations
             modelBuilder.Entity("API.Entities.PacientGeneralMedicalData", b =>
                 {
                     b.HasOne("API.Entities.Pacient", "Pacient")
-                        .WithOne("MyProperty")
+                        .WithOne("PacientGeneralMedicalData")
                         .HasForeignKey("API.Entities.PacientGeneralMedicalData", "PacientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -324,11 +324,16 @@ namespace API.Data.Migrations
                     b.Navigation("Pacient");
                 });
 
+            modelBuilder.Entity("API.Entities.City", b =>
+                {
+                    b.Navigation("PacientContacts");
+                });
+
             modelBuilder.Entity("API.Entities.Pacient", b =>
                 {
-                    b.Navigation("MyProperty");
-
                     b.Navigation("PacientContact");
+
+                    b.Navigation("PacientGeneralMedicalData");
                 });
 
             modelBuilder.Entity("API.Entities.Region", b =>

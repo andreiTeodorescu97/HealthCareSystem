@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace API.DTOs
 {
-    public class PacientDTO
+    public class RegisterPacientDto
     {
         [Required]
         public string FirstName { get; set; }

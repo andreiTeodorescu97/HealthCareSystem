@@ -1,4 +1,136 @@
-<div class="row">
+<div class="row" *ngIf="model">
+  <div class="col-md-8">
+    <div class="card card-user">
+      <div class="card-header">
+        <h5 class="card-title">Editeaza Profilul</h5>
+      </div>
+      <div class="card-body">
+        <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
+          <div class="row">
+            <div class="col-md-5 pr-1">
+              <div class="form-group">
+                <label>Nume</label>
+                <input type="text" class="form-control" [(ngModel)]="model.firstName" name="firstName"
+                  placeholder="Nume" value="">
+              </div>
+            </div>
+            <div class="col-md-3 px-1">
+              <div class="form-group">
+                <label>Prenume</label>
+                <input type="text" class="form-control" [(ngModel)]="model.secondName" name="secondName"
+                  placeholder="Prenume" value="">
+              </div>
+            </div>
+            <div class="col-md-4 pl-1">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email </label>
+                <input type="email" class="form-control" [(ngModel)]="model.email" name="email" placeholder="Email">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 pr-1">
+              <div class="form-group">
+                <label>Serie</label>
+                <input type="text" class="form-control" [(ngModel)]="model.series" name="series" disabled=""
+                  placeholder="Serie" value="">
+              </div>
+            </div>
+            <div class="col-md-3 pl-1 pr-1">
+              <div class="form-group">
+                <label>Numar</label>
+                <input type="text" class="form-control" [(ngModel)]="model.identityNumber" name="identityNumber"
+                  disabled="" placeholder="Numar" value="">
+              </div>
+            </div>
+            <div class="col-md-7 pl-1">
+              <div class="form-group">
+                <label>CNP</label>
+                <input type="text" class="form-control" [(ngModel)]="model.cnp" name="cnp" disabled="" placeholder="CNP"
+                  value="">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Data nasterii</label>
+                <input type="text" class="form-control" [(ngModel)]="model.dateOfBirth" name="dateOfBirth" disabled=""
+                  placeholder="Data nasterii" value="">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 pr-1">
+              <div class="form-group">
+                <label>Telefon 1</label>
+                <input type="text" class="form-control" [(ngModel)]="model.pacientContact.firstPhone" name="firstPhone"
+                  placeholder="Telefon 1" value="">
+              </div>
+            </div>
+            <div class="col-md-4 px-1">
+              <div class="form-group">
+                <label>Telefon 2</label>
+                <input type="text" class="form-control" [(ngModel)]="model.pacientContact.secondPhone"
+                  name="secondPhone" placeholder="Telefon 2" value="">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 pr-1">
+              <div class="form-group">
+                <label>Strada</label>
+                <input type="text" class="form-control" [(ngModel)]="model.pacientContact.street" name="street"
+                  placeholder="Strada" value="">
+              </div>
+            </div>
+            <div class="col-md-4 px-1">
+              <div class="form-group">
+                <label>Numar strada</label>
+                <input type="text" class="form-control" [(ngModel)]="model.pacientContact.streetNumber"
+                  name="streetNumber" placeholder="Numar strada" value="">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 pr-1">
+              <div class="form-group">
+                <label>Judet</label>
+                <input type="text" class="form-control" [(ngModel)]="model.pacientContact.region" name="region"
+                  placeholder="Judet" value="">
+              </div>
+            </div>
+            <div class="col-md-4 px-1">
+              <div class="form-group">
+                <label>Oras</label>
+                <input type="text" class="form-control" [(ngModel)]="model.pacientContact.city" name="city"
+                  placeholder="Oras" value="">
+              </div>
+            </div>
+            <div class="col-md-4 px-1">
+              <div class="form-group">
+                <label>Tara</label>
+                <input type="text" class="form-control" disabled='' placeholder="Tara" value="Romania">
+              </div>
+            </div>
+          </div>
+          <!--        <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>About Me</label>
+                <textarea class="form-control textarea">Oh so, your weak rhyme You doubt I'll bother, reading into it</textarea>
+              </div>
+            </div>
+          </div>  -->
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button type="submit" class="btn btn-primary btn-round">Editeaza profilul</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <div class="col-md-4">
     <div class="card card-user">
       <div class="image">
@@ -56,7 +188,8 @@
             <div class="row">
               <div class="col-md-2 col-2">
                 <div class="avatar">
-                  <img src="assets/img/faces/ayo-ogunseinde-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                  <img src="assets/img/faces/ayo-ogunseinde-2.jpg" alt="Circle Image"
+                    class="img-circle img-no-padding img-responsive">
                 </div>
               </div>
               <div class="col-md-7 col-7">
@@ -67,7 +200,8 @@
                 </span>
               </div>
               <div class="col-md-3 col-3 text-right">
-                <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></button>
+                <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i
+                    class="fa fa-envelope"></i></button>
               </div>
             </div>
           </li>
@@ -75,7 +209,8 @@
             <div class="row">
               <div class="col-md-2 col-2">
                 <div class="avatar">
-                  <img src="assets/img/faces/joe-gardner-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                  <img src="assets/img/faces/joe-gardner-2.jpg" alt="Circle Image"
+                    class="img-circle img-no-padding img-responsive">
                 </div>
               </div>
               <div class="col-md-7 col-7">
@@ -86,7 +221,8 @@
                 </span>
               </div>
               <div class="col-md-3 col-3 text-right">
-                <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></button>
+                <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i
+                    class="fa fa-envelope"></i></button>
               </div>
             </div>
           </li>
@@ -94,7 +230,8 @@
             <div class="row">
               <div class="col-md-2 col-2">
                 <div class="avatar">
-                  <img src="assets/img/faces/clem-onojeghuo-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                  <img src="assets/img/faces/clem-onojeghuo-2.jpg" alt="Circle Image"
+                    class="img-circle img-no-padding img-responsive">
                 </div>
               </div>
               <div class="col-ms-7 col-7">
@@ -105,97 +242,12 @@
                 </span>
               </div>
               <div class="col-md-3 col-3 text-right">
-                <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></button>
+                <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i
+                    class="fa fa-envelope"></i></button>
               </div>
             </div>
           </li>
         </ul>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-8">
-    <div class="card card-user">
-      <div class="card-header">
-        <h5 class="card-title">Edit Profile</h5>
-      </div>
-      <div class="card-body">
-        <form>
-          <div class="row">
-            <div class="col-md-5 pr-1">
-              <div class="form-group">
-                <label>Company (disabled)</label>
-                <input type="text" class="form-control" disabled="" placeholder="Company" value="Creative Code Inc.">
-              </div>
-            </div>
-            <div class="col-md-3 px-1">
-              <div class="form-group">
-                <label>Username</label>
-                <input type="text" class="form-control" placeholder="Username" value="michael23">
-              </div>
-            </div>
-            <div class="col-md-4 pl-1">
-              <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" placeholder="Email">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 pr-1">
-              <div class="form-group">
-                <label>First Name</label>
-                <input type="text" class="form-control" placeholder="Company" value="Chet">
-              </div>
-            </div>
-            <div class="col-md-6 pl-1">
-              <div class="form-group">
-                <label>Last Name</label>
-                <input type="text" class="form-control" placeholder="Last Name" value="Faker">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label>Address</label>
-                <input type="text" class="form-control" placeholder="Home Address" value="Melbourne, Australia">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 pr-1">
-              <div class="form-group">
-                <label>City</label>
-                <input type="text" class="form-control" placeholder="City" value="Melbourne">
-              </div>
-            </div>
-            <div class="col-md-4 px-1">
-              <div class="form-group">
-                <label>Country</label>
-                <input type="text" class="form-control" placeholder="Country" value="Australia">
-              </div>
-            </div>
-            <div class="col-md-4 pl-1">
-              <div class="form-group">
-                <label>Postal Code</label>
-                <input type="number" class="form-control" placeholder="ZIP Code">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label>About Me</label>
-                <textarea class="form-control textarea">Oh so, your weak rhyme You doubt I'll bother, reading into it</textarea>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="update ml-auto mr-auto">
-              <button type="submit" class="btn btn-primary btn-round">Update Profile</button>
-            </div>
-          </div>
-        </form>
       </div>
     </div>
   </div>

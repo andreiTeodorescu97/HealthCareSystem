@@ -35,6 +35,7 @@ import { ErrorInterceptor } from "./interceptors/error.interceptor";
 import { TestErrorsComponent } from "./pages/errors/test-errors/test-errors.component";
 import { ServerErrorComponent } from "./pages/errors/server-error/server-error.component";
 import { NotFoundComponent } from "./pages/errors/not-found/not-found.component";
+import { PacientProfileComponent } from './pages/pacient-profile/pacient-profile.component';
 
 
 defineLocale("ro", roLocale);
@@ -58,7 +59,8 @@ defineLocale("ro", roLocale);
     RegisterDoctorComponent,
     TestErrorsComponent,
     ServerErrorComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    PacientProfileComponent
   ],
   imports: [
     BrowserAnimationsModule,

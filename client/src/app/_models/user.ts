@@ -5,4 +5,5 @@ export interface User{
     title: string;
     secondName: string;
     isPacientAccount: boolean;
+    cnp: string;
 }

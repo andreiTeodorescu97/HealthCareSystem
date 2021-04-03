@@ -42,5 +42,21 @@ VALUES
 ('Mureș'),
 ('Sibiu'),
 ('Olt');
+
+INSERT INTO public."City"(
+"Name", "RegionId")
+VALUES ('Bucuresti', 13);
+	
+INSERT INTO public."City"(
+"Name", "RegionId")
+VALUES ('Mizil', 17);
+
+
+
+INSERT INTO public."PacientContact"(
+	"Street", "StreetNumber", "FirstPhone", "SecondPhone", "PacientId", "CityId")
+	VALUES ('Cameliei', 1, '0724385758', '0723453372', 1, 1);
+	
+
 	
 	

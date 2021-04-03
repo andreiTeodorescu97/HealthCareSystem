@@ -2,7 +2,7 @@ using System;
 
 namespace API.DTOs
 {
-    public class DoctorDto
+    public class RegisterDoctorDto
     {
         public string FirstName { get; set; }
         public string SecondName { get; set; }

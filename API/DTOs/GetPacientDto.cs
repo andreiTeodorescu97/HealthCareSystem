@@ -1,9 +1,9 @@
 using System;
-using API.Extensions;
+using API.Entities;
 
-namespace API.Entities
+namespace API.DTOs
 {
-    public class Pacient
+    public class GetPacientDto
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -14,13 +14,9 @@ namespace API.Entities
         public string Series { get; set; }
         public string CNP { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public int Age { get; set; }
         public int UserId { get; set; }
-        public AppUser User { get; set; }
-        public PacientContact PacientContact { get; set; }
-        public PacientGeneralMedicalData PacientGeneralMedicalData { get; set; }
-/*         public int GetAge()
-        {
-            return DateOfBirth.CalculateAge();
-        } */
+        /* public AppUser User { get; set; } */
+        public PacientContactDto PacientContact { get; set; }
     }
 }

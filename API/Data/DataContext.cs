@@ -13,5 +13,7 @@ namespace API.Data
         public DbSet<Pacient> Pacients { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Error> Errors { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Region> Regions { get; set; }
     }
 }

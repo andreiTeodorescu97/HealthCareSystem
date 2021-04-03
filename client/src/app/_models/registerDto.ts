@@ -15,6 +15,7 @@ export interface PacientDto{
     identityNumber: string;
     cnp: string;
     dateOfBirth: Date;
+    /* pacientContact: PacientContactDto; */
 }
 
 export interface DoctorDto{
@@ -22,4 +23,14 @@ export interface DoctorDto{
     secondName: string;
     email: string;
     dateOfBirth: Date;
+}
+
+
+export interface PacientContactDto{
+    street: string;
+    streetNumber: number;
+    firstPhone: string;
+    secondPhone: string;
+    city: string;
+    region: string;
 }

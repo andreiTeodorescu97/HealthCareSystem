@@ -48,6 +48,8 @@ namespace API.Controllers
                 FirstName = user.Doctor != null ? user.Doctor.FirstName : user.Pacient.FirstName,
                 SecondName = user.Doctor != null ? user.Doctor.SecondName : user.Pacient.SecondName,
                 Title = user.Doctor != null ? "Dr." : null,
+                CNP = user.Doctor != null ? null : user.Pacient.CNP,
+                IsPacientAccount = user.Doctor == null ? true : false
             };
         }
 
@@ -70,21 +72,21 @@ namespace API.Controllers
                 DateCreated = DateTime.Now,
                 Pacient = registerDto.IsPacientAccount ? new Pacient
                 {
-                    FirstName = registerDto.pacientDTO.FirstName,
-                    SecondName = registerDto.pacientDTO.SecondName,
-                    Email = registerDto.pacientDTO.FirstName,
-                    Gender = registerDto.pacientDTO.Gender,
-                    IdentityNumber = registerDto.pacientDTO.IdentityNumber,
-                    Series = registerDto.pacientDTO.Series,
-                    CNP = registerDto.pacientDTO.CNP,
-                    DateOfBirth = registerDto.pacientDTO.DateOfBirth,
+                    FirstName = registerDto.pacientDto.FirstName,
+                    SecondName = registerDto.pacientDto.SecondName,
+                    Email = registerDto.pacientDto.FirstName,
+                    Gender = registerDto.pacientDto.Gender,
+                    IdentityNumber = registerDto.pacientDto.IdentityNumber,
+                    Series = registerDto.pacientDto.Series,
+                    CNP = registerDto.pacientDto.CNP,
+                    DateOfBirth = registerDto.pacientDto.DateOfBirth,
                 } : null,
                 Doctor = !registerDto.IsPacientAccount ? new Doctor
                 {
-                    FirstName = registerDto.doctorDTO.FirstName,
-                    SecondName = registerDto.doctorDTO.SecondName,
-                    Email = registerDto.doctorDTO.Email,
-                    DateOfBirth = registerDto.doctorDTO.DateOfBirth,
+                    FirstName = registerDto.doctorDto.FirstName,
+                    SecondName = registerDto.doctorDto.SecondName,
+                    Email = registerDto.doctorDto.Email,
+                    DateOfBirth = registerDto.doctorDto.DateOfBirth,
                 } : null
             };
 
@@ -106,7 +108,9 @@ namespace API.Controllers
                 Title = registerDto.IsPacientAccount == true ? null : "Dr.",
                 FirstName = registerDto.IsPacientAccount ? user.Pacient.FirstName : user.Doctor.FirstName,
                 SecondName = registerDto.IsPacientAccount ? user.Pacient.SecondName : user.Doctor.SecondName,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                CNP = registerDto.IsPacientAccount == true ? user.Pacient.CNP : null,
+                IsPacientAccount = registerDto.IsPacientAccount
             };
         }
 
