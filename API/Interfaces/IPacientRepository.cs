@@ -15,5 +15,6 @@ namespace API.Interfaces
         Task<GetPacientDto> GetPacientByCnpUsingDtoAsync(string cnp);
         Task<IEnumerable<Pacient>> GetPacientsAsync();
         Task<Pacient> GetPacientByCnpAsync(string cnp);
+        Task<AppUser> GetPacientByUsername(string userName);
     }
 }

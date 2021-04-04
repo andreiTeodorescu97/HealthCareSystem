@@ -4,7 +4,7 @@ namespace API.Entities
     {
         public int Id { get; set; }
         public string Street { get; set; }
-        public int StreetNumber { get; set; }
+        public int? StreetNumber { get; set; }
         public string FirstPhone { get; set; }
         public string SecondPhone { get; set; }
         public int PacientId { get; set; }

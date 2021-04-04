@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Pacient } from 'app/_models/pacient';
-import { PacientDto } from 'app/_models/registerDto';
 import { User } from 'app/_models/user';
 import { AccountService } from 'app/_services/account.service';
 import { PacientService } from 'app/_services/pacient.service';

@@ -2,11 +2,11 @@ export interface RegisterDto{
     username: string;
     password: string;
     isPacientAccount: boolean;
-    pacientDto: PacientDto;
-    doctorDto: DoctorDto;
+    pacientDto: PacientRegisterDto;
+    doctorDto: DoctorRegisterDto;
 }
 
-export interface PacientDto{
+export interface PacientRegisterDto{
     firstName: string;
     secondName: string;
     email: string;
@@ -15,22 +15,11 @@ export interface PacientDto{
     identityNumber: string;
     cnp: string;
     dateOfBirth: Date;
-    /* pacientContact: PacientContactDto; */
 }
 
-export interface DoctorDto{
+export interface DoctorRegisterDto{
     firstName: string;
     secondName: string;
     email: string;
     dateOfBirth: Date;
-}
-
-
-export interface PacientContactDto{
-    street: string;
-    streetNumber: number;
-    firstPhone: string;
-    secondPhone: string;
-    city: string;
-    region: string;
 }

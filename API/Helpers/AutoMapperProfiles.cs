@@ -13,10 +13,10 @@ namespace API.Helpers
             .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
 
             CreateMap<PacientContact, PacientContactDto>()
-            .ForMember(destination => destination.City,
-            options => options.MapFrom(source => source.City.Name))
-            .ForMember(destination => destination.Region,
-            options => options.MapFrom(source => source.City.Region.Name));
+            .ForMember(destination => destination.CityId,
+            options => options.MapFrom(source => source.City.Id))
+            .ForMember(destination => destination.RegionId,
+            options => options.MapFrom(source => source.City.Region.Id));
 
             CreateMap<City, CityDto>()
             .ForMember(destination => destination.RegionId,

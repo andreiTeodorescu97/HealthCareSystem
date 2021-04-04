@@ -1,4 +1,5 @@
-import { PacientContactDto } from "./registerDto";
+import { PacientContactDto } from "./pacientContactDto";
+
 
 export interface Pacient{
     firstName: string;

@@ -6,7 +6,7 @@ namespace API.DTOs
         public int? StreetNumber { get; set; }
         public string FirstPhone { get; set; }
         public string SecondPhone { get; set; }
-        public string City { get; set; }
-        public string Region { get; set; }
+        public int? CityId { get; set; }
+        public int? RegionId { get; set; }
     }
 }

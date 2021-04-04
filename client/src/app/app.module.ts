@@ -36,6 +36,7 @@ import { TestErrorsComponent } from "./pages/errors/test-errors/test-errors.comp
 import { ServerErrorComponent } from "./pages/errors/server-error/server-error.component";
 import { NotFoundComponent } from "./pages/errors/not-found/not-found.component";
 import { PacientProfileComponent } from './pages/pacient-profile/pacient-profile.component';
+import { JwtInterceptor } from "./interceptors/jwt.interceptor";
 
 
 defineLocale("ro", roLocale);
@@ -80,7 +81,10 @@ defineLocale("ro", roLocale);
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

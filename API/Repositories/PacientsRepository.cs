@@ -54,8 +54,8 @@ namespace API.Repositories
                     SecondPhone = c.PacientContact.SecondPhone,
                     Street = c.PacientContact.Street,
                     StreetNumber = c.PacientContact.StreetNumber,
-                    City = c.PacientContact.City != null ? c.PacientContact.City.Name : null,
-                    Region = c.PacientContact.City != null ? c.PacientContact.City.Region.Name : null
+                    CityId = c.PacientContact.City != null ? c.PacientContact.City.Id : null,
+                    RegionId = c.PacientContact.City != null ? c.PacientContact.City.Region.Id : null
                 }
             }).FirstOrDefaultAsync(c => c.CNP == cnp);
         }
@@ -92,8 +92,8 @@ namespace API.Repositories
                     SecondPhone = c.PacientContact.SecondPhone,
                     Street = c.PacientContact.Street,
                     StreetNumber = c.PacientContact.StreetNumber,
-                    City = c.PacientContact.City != null ? c.PacientContact.City.Name : null,
-                    Region = c.PacientContact.City != null ? c.PacientContact.City.Region.Name : null
+                    CityId = c.PacientContact.City != null ? c.PacientContact.City.Id : null,
+                    RegionId = c.PacientContact.City != null ? c.PacientContact.City.Region.Id : null
                 }
             }).FirstOrDefaultAsync(c => c.Id == id);
         }
@@ -116,6 +116,13 @@ namespace API.Repositories
         public async Task<Pacient> GetPacientByCnpAsync(string cnp)
         {
             return await _context.Pacients.Include("PacientContact").SingleOrDefaultAsync(x => x.CNP == cnp);
+        }
+
+        public async Task<AppUser> GetPacientByUsername(string userName)
+        {
+            return await _context.Users
+            .Include(c => c.Pacient.PacientContact.City.Region)
+            .SingleOrDefaultAsync(x => x.UserName == userName);
         }
     }
 }

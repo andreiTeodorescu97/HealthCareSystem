@@ -5,7 +5,7 @@
         <h5 class="card-title">Editeaza Profilul</h5>
       </div>
       <div class="card-body">
-        <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
+        <form #editForm="ngForm" id="editForm" (ngSubmit)="updatePacient()">
           <div class="row">
             <div class="col-md-5 pr-1">
               <div class="form-group">
@@ -55,7 +55,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label>Data nasterii</label>
-                <input type="text" class="form-control" [(ngModel)]="model.dateOfBirth" name="dateOfBirth" disabled=""
+                <input type="text" class="form-control" [(ngModel)]="dateFormated" name="dateFormated" disabled=""
                   placeholder="Data nasterii" value="">
               </div>
             </div>
@@ -87,7 +87,7 @@
             <div class="col-md-4 px-1">
               <div class="form-group">
                 <label>Numar strada</label>
-                <input type="text" class="form-control" [(ngModel)]="model.pacientContact.streetNumber"
+                <input type="number" class="form-control" [(ngModel)]="model.pacientContact.streetNumber"
                   name="streetNumber" placeholder="Numar strada" value="">
               </div>
             </div>
@@ -96,15 +96,21 @@
             <div class="col-md-4 pr-1">
               <div class="form-group">
                 <label>Judet</label>
-                <input type="text" class="form-control" [(ngModel)]="model.pacientContact.region" name="region"
-                  placeholder="Judet" value="">
+                  <select name="region" [(ngModel)]="model.pacientContact.regionId" (ngModelChange)="regionChange()" class="form-control" placeholder="Judet">
+                    <option *ngFor="let region of regions" [value]="region.id">
+                        {{region.name}}
+                    </option>
+                </select>
               </div>
             </div>
             <div class="col-md-4 px-1">
               <div class="form-group">
                 <label>Oras</label>
-                <input type="text" class="form-control" [(ngModel)]="model.pacientContact.city" name="city"
-                  placeholder="Oras" value="">
+                <select name="city" [(ngModel)]="model.pacientContact.cityId" class="form-control" placeholder="Oras">
+                  <option *ngFor="let city of cities" [value]="city.id">
+                      {{city.name}}
+                  </option>
+              </select>
               </div>
             </div>
             <div class="col-md-4 px-1">
@@ -126,6 +132,9 @@
             <div class="update ml-auto mr-auto">
               <button type="submit" class="btn btn-primary btn-round">Editeaza profilul</button>
             </div>
+          </div>
+          <div class="row justify-content-center">
+            <p>*Veti fi delogat dupa salvare!</p>
           </div>
         </form>
       </div>

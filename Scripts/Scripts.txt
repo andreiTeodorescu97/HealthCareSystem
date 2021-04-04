@@ -1,4 +1,4 @@
-INSERT INTO public."Region"("Name")
+INSERT INTO public."Regions"("Name")
 VALUES 
 ('Bacau'),
 ('Dolj'),
@@ -43,11 +43,11 @@ VALUES
 ('Sibiu'),
 ('Olt');
 
-INSERT INTO public."City"(
+INSERT INTO public."Cities"(
 "Name", "RegionId")
 VALUES ('Bucuresti', 13);
 	
-INSERT INTO public."City"(
+INSERT INTO public."Cities"(
 "Name", "RegionId")
 VALUES ('Mizil', 17);
 

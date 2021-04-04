@@ -1,11 +1,14 @@
 import { DatePipe } from '@angular/common';
-import { AbstractType, Component, OnInit } from '@angular/core';
+import { AbstractType, Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { City } from 'app/_models/city';
 import { Pacient } from 'app/_models/pacient';
-import { PacientDto } from 'app/_models/registerDto';
+import { Region } from 'app/_models/region';
 import { User } from 'app/_models/user';
 import { AccountService } from 'app/_services/account.service';
 import { CityService } from 'app/_services/city.service';
 import { PacientService } from 'app/_services/pacient.service';
+import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -17,10 +20,13 @@ import { take } from 'rxjs/operators';
 export class UserComponent implements OnInit {
     model: Pacient;
     user: User;
-    cities: any;
-    regions: any;
+    cities: City[];
+    citiesReplica: City[];
+    regions: Region[];
+    @ViewChild('editForm') editForm : NgForm;
+    dateFormated: any;
 
-    constructor(private pacientService: PacientService, private accountService: AccountService, private cityService: CityService) {
+    constructor(private pacientService: PacientService, private accountService: AccountService, private cityService: CityService, private toastr:ToastrService) {
         this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
     }
 
@@ -33,27 +39,42 @@ export class UserComponent implements OnInit {
         this.pacientService.getPacientByCnp(this.user.cnp)
             .subscribe(response => {
                 this.model = response;
-                var userdate: any = new Date(this.model.dateOfBirth).toDateString();
+                this.dateFormated = this.model.dateOfBirth;
+                var userdate: any = new Date(this.dateFormated);
                 var datePipe = new DatePipe('en-US')
-                this.model.dateOfBirth = datePipe.transform(userdate, 'dd.MMM.yyyy');
+                this.dateFormated = datePipe.transform(userdate, 'dd.MMM.yyyy');
             });
     }
 
     getCities() {
         this.cityService.getCities().subscribe(response => {
             this.cities = response;
-            console.log(response);
+            this.citiesReplica = response;
         })
     }
 
     getRegions() {
         this.cityService.getRegions().subscribe(response => {
             this.regions = response;
-            console.log(response);
         })
     }
 
-    updateMember() {
+    updatePacient(){
         console.log(this.model);
-    }
+        this.pacientService.updatePacient(this.model).subscribe(() => {
+          this.toastr.success(
+            '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Profilul a fost actualizat cu succes!</span>',
+            "Update",
+            {
+              toastClass: "alert alert-success alert-with-icon",
+            }
+          );
+          this.accountService.logout();
+        })
+      }
+
+      regionChange(){
+        this.model.pacientContact.cityId = null;
+        this.cities = this.citiesReplica.filter(city => city.regionId == this.model.pacientContact.regionId);
+      }
 }

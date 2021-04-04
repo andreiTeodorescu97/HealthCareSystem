@@ -20,12 +20,12 @@ export const ROUTES: RouteInfo[] = [
     { path: '/icons', title: 'Icons', icon: 'nc-diamond', class: '', isRegisterRequired: true },
     { path: '/maps', title: 'Maps', icon: 'nc-pin-3', class: '', isRegisterRequired: true },
     { path: '/notifications', title: 'Notifications', icon: 'nc-bell-55', class: '', isRegisterRequired: true },
-    { path: '/user', title: 'User Profile', icon: 'nc-single-02', class: '', isRegisterRequired: true },
     { path: '/pacient_profile', title: 'Pacient Profile', icon: 'nc-single-02', class: '', isRegisterRequired: true },
     { path: '/table', title: 'Table List', icon: 'nc-tile-56', class: '', isRegisterRequired: true },
     { path: '/typography', title: 'Typography', icon: 'nc-caps-small', class: '', isRegisterRequired: true },
     { path: '/upgrade', title: 'Upgrade to PRO', icon: 'nc-spaceship', class: 'active-pro', isRegisterRequired: true },
     { path: '/errors', title: 'Errors', icon: 'nc-spaceship', class: '', isRegisterRequired: true },
+    { path: '/user', title: 'Profil Pacient', icon: 'nc-single-02', class: '', isRegisterRequired: true },
 ];
 
 @Component({
