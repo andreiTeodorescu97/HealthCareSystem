@@ -3,15 +3,17 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210406173906_AddedPhotoAndStudies")]
+    partial class AddedPhotoAndStudies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,7 +264,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Photos");
+                    b.ToTable("Photo");
                 });
 
             modelBuilder.Entity("API.Entities.Region", b =>
@@ -306,7 +308,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("StudiesAndExperiences");
+                    b.ToTable("StudiesAndExperience");
                 });
 
             modelBuilder.Entity("API.Entities.City", b =>

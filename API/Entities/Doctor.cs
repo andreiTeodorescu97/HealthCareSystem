@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace API.Entities
 {
@@ -11,5 +12,7 @@ namespace API.Entities
         public DateTime DateOfBirth { get; set; }
         public int UserId { get; set; }
         public AppUser User { get; set; }
+        public ICollection<StudiesAndExperience> StudiesAndExperience { get; set; }
+        public ICollection<Photo> Photos { get; set; }
     }
 }

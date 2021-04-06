@@ -43,7 +43,7 @@ namespace API.Controllers
 
             return new UserDto
             {
-                Username = user.UserName,
+                UserName = user.UserName,
                 Token = _tokenService.CreateToken(user),
                 FirstName = user.Doctor != null ? user.Doctor.FirstName : user.Pacient.FirstName,
                 SecondName = user.Doctor != null ? user.Doctor.SecondName : user.Pacient.SecondName,
@@ -104,7 +104,7 @@ namespace API.Controllers
             return new UserDto
             {
 
-                Username = user.UserName,
+                UserName = user.UserName,
                 Title = registerDto.IsPacientAccount == true ? null : "Dr.",
                 FirstName = registerDto.IsPacientAccount ? user.Pacient.FirstName : user.Doctor.FirstName,
                 SecondName = registerDto.IsPacientAccount ? user.Pacient.SecondName : user.Doctor.SecondName,

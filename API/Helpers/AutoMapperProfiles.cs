@@ -9,6 +9,9 @@ namespace API.Helpers
     {
         public AutoMapperProfiles()
         {
+            CreateMap<AppUser, UserDoctorDto>();
+            CreateMap<Doctor, DoctorDto>();
+            
             CreateMap<Pacient, GetPacientDto>()
             .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
 
@@ -23,6 +26,7 @@ namespace API.Helpers
             options => options.MapFrom(source => source.RegionId));
 
             CreateMap<Region, RegionDto>();
+
         }
     }
 }

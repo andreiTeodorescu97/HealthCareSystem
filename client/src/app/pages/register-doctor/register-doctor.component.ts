@@ -67,14 +67,6 @@ export class RegisterDoctorComponent implements OnInit {
       );
       this.router.navigateByUrl('/dashboard');
     }, error => {
-      console.log(error);
-      this.toastr.error(
-        '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">' + error.error + '</span>',
-        "Register",
-        {
-          toastClass: "alert alert-danger alert-with-icon",
-        }
-      )
       this.validationErrors = error;
     }
     )

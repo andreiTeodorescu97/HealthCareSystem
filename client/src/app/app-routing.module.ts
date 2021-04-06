@@ -16,7 +16,7 @@ import { RegisterDoctorComponent } from './pages/register-doctor/register-doctor
 import { TestErrorsComponent } from './pages/errors/test-errors/test-errors.component';
 import { ServerErrorComponent } from './pages/errors/server-error/server-error.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
-import { PacientProfileComponent } from './pages/pacient-profile/pacient-profile.component';
+import { DoctorProfileComponent } from './pages/doctor-profile/doctor-profile.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent, canActivate: [NoauthGuard]},
@@ -41,7 +41,7 @@ const routes: Routes = [
       {path:'maps', component: MapsComponent},
       {path:'notifications', component: NotificationsComponent},
       {path:'upgrade', component: UpgradeComponent}, 
-      {path:'pacient_profile', component: PacientProfileComponent}, 
+      {path:'doctor_profile', component: DoctorProfileComponent}, 
     ]
   },
   {path:'**', component: HomeComponent, canActivate: [NoauthGuard]}

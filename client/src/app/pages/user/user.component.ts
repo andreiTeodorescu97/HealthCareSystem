@@ -23,7 +23,6 @@ export class UserComponent implements OnInit {
     cities: City[];
     citiesReplica: City[];
     regions: Region[];
-    /* @ViewChild('editForm') editForm : NgForm; */
     dateFormated: any;
     editForm: FormGroup;
 
@@ -71,7 +70,7 @@ export class UserComponent implements OnInit {
                 this.editForm.patchValue (this.model, {emitEvent:false});
                 this.dateFormated = this.model.dateOfBirth;
                 var userdate: any = new Date(this.dateFormated);
-                var datePipe = new DatePipe('en-US')
+                var datePipe = new DatePipe('en-US');
                 this.dateFormated = datePipe.transform(userdate, 'dd.MMM.yyyy');
             });
     }
