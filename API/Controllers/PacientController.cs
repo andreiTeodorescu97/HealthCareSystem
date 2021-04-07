@@ -65,10 +65,6 @@ namespace API.Controllers
             if(await _pacientRepository.SaveAllAsync()) return NoContent();
 
             return BadRequest("Upss...ceva nu a mers!");
-
-
         }
-
-
     }
 }

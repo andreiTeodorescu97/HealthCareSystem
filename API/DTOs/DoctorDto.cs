@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace API.DTOs
 {
@@ -8,5 +9,6 @@ namespace API.DTOs
         public string SecondName { get; set; }
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public ICollection<StudiesAndExperienceDto> StudiesAndExperience { get; set; }
     }
 }

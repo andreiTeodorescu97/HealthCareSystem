@@ -9,5 +9,6 @@ namespace API.Interfaces
         void Update(Doctor doctor);
         Task<bool> SaveAllAsync();
         Task<UserDoctorDto> GetDoctorByUsername (string userName);
+        Task<AppUser> GetDoctorByUsernameForUpdate (string userName);
     }
 }

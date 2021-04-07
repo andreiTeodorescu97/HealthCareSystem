@@ -27,6 +27,12 @@ namespace API.Helpers
 
             CreateMap<Region, RegionDto>();
 
+            CreateMap<DoctorDto, Doctor>();
+
+            CreateMap<StudiesAndExperience, StudiesAndExperienceDto>();
+            
+            CreateMap<StudiesAndExperienceDto, StudiesAndExperience>();
+
         }
     }
 }

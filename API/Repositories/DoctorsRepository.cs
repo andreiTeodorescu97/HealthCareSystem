@@ -35,5 +35,12 @@ namespace API.Repositories
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<AppUser> GetDoctorByUsernameForUpdate(string userName)
+        {
+            //eager loading
+            return await _context.Users.Include(p => p.Doctor.StudiesAndExperience)
+            .SingleOrDefaultAsync(c => c.UserName == userName);
+        }
     }
 }

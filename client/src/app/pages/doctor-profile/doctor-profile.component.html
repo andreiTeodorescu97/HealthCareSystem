@@ -1,10 +1,24 @@
 <div class="row" *ngIf="doctor">
-  <div class="col-md-8">
+  <div class="col-md-12">
     <div class="card card-user">
-      <div class="card-header">
-        <h5 class="card-title">Editeaza Profilul</h5>
+      <div class="image">
+        <img src="assets/img/cover2.jpeg" alt="...">
       </div>
+<!--       <div class="card-header">
+        <h5 class="card-title">Editeaza Profilul</h5>
+      </div> -->
       <div class="card-body">
+        <div class="author">
+          <a href="#">
+            <img class="avatar border-gray" src="assets/img/doctor.png" alt="...">
+            <h5 class="title">Dr. {{doctor.doctor.firstName}} {{doctor.doctor.secondName}}</h5>
+          </a>
+        </div>
+        <p class="description text-center">
+          "I like the way you work it
+          <br> No diggity
+          <br> I wanna bag it up"
+        </p>
         <form [formGroup]='editForm' id="editForm" (ngSubmit)="updateDoctor()">
           <div formGroupName="doctor">
             <div class="row">
@@ -33,7 +47,8 @@
               <div class="col-md-4 pl-1">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Email </label>
-                  <input type="email" [class.is-invalid]='editForm.get("doctor.email").errors && editForm.get("doctor.email").touched'
+                  <input type="email"
+                    [class.is-invalid]='editForm.get("doctor.email").errors && editForm.get("doctor.email").touched'
                     class="form-control" formControlName="email" placeholder="Email" email>
                   <div *ngIf="editForm.get('doctor.email').hasError('required')" class="invalid-feedback">
                     Email-ul este obligatoriu
@@ -48,31 +63,63 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Data nasterii</label>
-                  <input type="text" class="form-control" disabled=""
-                    placeholder="Data nasterii" value={{dateFormated}}>
+                  <input type="text" class="form-control" formControlName="dateOfBirth" placeholder="Data nasterii" bsDatepicker [bsConfig]='bsConfig'>
                 </div>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="update ml-auto mr-auto">
-              <button type="submit" [disabled]='!editForm.valid' class="btn btn-primary btn-round">Editeaza
-                profilul</button>
-            </div>
-          </div>
-          <div class="row justify-content-center">
-            <p>*Veti fi delogat dupa salvare!</p>
-            <p>
-              Form value: {{editForm.value | json}}
-              Form value: {{editForm.status | json}}
-            </p>
-          </div>
         </form>
+        <div class="table-responsive" style="overflow-x: hidden; overflow-y:hidden;">
+          <table class="table">
+            <thead class=" text-primary">
+              <tr>
+                <th>Denumire</th>
+                <th>Locatie</th>
+                <th>Data inceput</th>
+                <th>Data finalizare</th>
+                <!-- <th><button class="btn btn-success btn-fill" (click)="addFieldValue({name: '', location: '', startDate: null, endDate: null})">+</button></th> -->
+                <th><button class="btn btn-success btn-fill" (click)="addFieldValue()">+</button></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let field of studiesArray; let i = index">
+                <td style="width: 30%">
+                  <input [(ngModel)]="field.name" class="form-control" type="text" name="{{field.name}}"/>
+                </td>
+                <td style="width: 40%">
+                  <input [(ngModel)]="field.location" class="form-control" type="text" name="{{field.location}}" />
+                </td>
+                <td style="width: 15%">
+                  <input [(ngModel)]="field.startDate" class="form-control" type="text" name="{{field.startDate}}" bsDatepicker [bsConfig]='bsConfig'/>
+                </td>
+                <td style="width: 15%">
+                  <input [(ngModel)]="field.endDate" class="form-control" type="text" name="{{field.endDate}}" bsDatepicker [bsConfig]='bsConfig'/>
+                </td>
+                <td>
+                  <button class="btn btn-danger" type="button" (click)="deleteFieldValue(i)">-</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row">
+          <div class="update ml-auto mr-auto">
+            <button type="submit" [disabled]='!editForm.valid' (click)="updateDoctor()" class="btn btn-primary btn-round">Editeaza
+              profilul</button>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <p>*Veti fi delogat dupa salvare!</p>
+        <p>
+          Form value: {{editForm.value | json}}
+          Form value: {{editForm.status | json}}
+        </p>
       </div>
     </div>
   </div>
-  <div class="col-md-4">
-    <div class="card card-user">
+  <div class="col-md-12">
+<!--     <div class="card card-user">
       <div class="image">
         <img src="assets/img/cover2.jpeg" alt="...">
       </div>
@@ -82,9 +129,6 @@
             <img class="avatar border-gray" src="assets/img/doctor.png" alt="...">
             <h5 class="title">Dr. {{doctor.doctor.firstName}} {{doctor.doctor.secondName}}</h5>
           </a>
-          <p class="description">
-            @EASY-MED
-          </p>
         </div>
         <p class="description text-center">
           "I like the way you work it
@@ -117,8 +161,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="card">
+    </div> -->
+    <!--     <div class="card">
       <div class="card-header">
         <h4 class="card-title">Team Members</h4>
       </div>
@@ -189,6 +233,66 @@
           </li>
         </ul>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
+<!-- <div class="card">
+  <div class="card-header">
+    <h4 class="card-title">Studii si Experiente</h4>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead class=" text-primary">
+          <tr>
+            <th>Denumire</th>
+            <th>Locatie</th>
+            <th>Data inceput</th>
+            <th>Data finalizare</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let field of fieldArray; let i = index">
+            <td>
+              <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" />
+            </td>
+            <td>
+              <input [(ngModel)]="field.name" class="form-control" type="text" name="{{field.name}}" />
+            </td>
+            <td>
+              <input [(ngModel)]="field.price" class="form-control" type="text" name="{{field.price}}" />
+            </td>
+            <td>
+              <input [(ngModel)]="field.price" class="form-control" type="text" name="{{field.price}}" />
+            </td>
+            <td>
+              <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input class="form-control" type="text" id="newAttributeCode" [(ngModel)]="newAttribute.code"
+                name="newAttributeCode" />
+            </td>
+            <td>
+              <input class="form-control" type="text" id="newAttributeName" [(ngModel)]="newAttribute.name"
+                name="newAttributeName" />
+            </td>
+            <td>
+              <input class="form-control" type="text" id="newAttributePrice" [(ngModel)]="newAttribute.price"
+                name="newAttributePrice" />
+            </td>
+            <td>
+              <input class="form-control" type="text" id="newAttributePrice" [(ngModel)]="newAttribute.price"
+                name="newAttributePrice" />
+            </td>
+            <td>
+              <button class="btn btn-success btn-fill" (click)="addFieldValue()">+</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> -->

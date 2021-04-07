@@ -21,7 +21,6 @@ export class DateInputComponent implements OnInit {
     this.bsConfig = {
       containerClass: 'theme-green',
       dateInputFormat: 'DD MMMM YYYY',
-      
     }
     this.localeService.use(this.locale);
    }
