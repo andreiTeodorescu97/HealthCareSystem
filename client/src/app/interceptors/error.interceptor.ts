@@ -57,7 +57,7 @@ export class ErrorInterceptor implements HttpInterceptor {
               case 401:
                 this.toastr.error(
                   '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">' + 
-                  error.statusText === 'OK' ? 'Nu sunteti autorizat!' : error.statusText + '</span>',
+                  error.statusText === 'OK' ? 'Nu sunteti autorizat!' : error.error + '</span>',
                   error.status,
                   {
                     toastClass: "alert alert-danger alert-with-icon",
