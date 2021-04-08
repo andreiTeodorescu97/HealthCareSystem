@@ -1,0 +1,48 @@
+<div class="row" *ngIf="workDaysArray">
+    <div class="col-md-12">
+        <div class="card card-user">
+            <div class="card-body">
+                <div class="table-responsive" style="overflow-x: hidden; overflow-y:hidden;">
+                    <table class="table">
+                        <thead class=" text-primary">
+                            <tr class="text-center">
+                                <th>Zi</th>
+                                <th>Ora venire</th>
+                                <th>Ora plecare</th>
+                                <th><button class="btn btn-success btn-fill" (click)="addFieldValue()">+</button></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let field of workDaysArray; let i = index" class="justify-content-center">
+                                <td style="width: 30%">
+                                    <select [(ngModel)]="field.day" name="{{field.day}}" class="form-control" placeholder="Zi">
+                                        <option *ngFor="let day of days" [value]="day.name">
+                                            {{day.name}}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td style="width: 40%">
+                                    <timepicker class="row justify-content-center" [(ngModel)]="field.startHour" name="{{field.startHour}}" 
+                                    [showMeridian]=false [showSpinners]=false></timepicker>
+                                </td>
+                                <td style="width: 40%">
+                                    <timepicker class="row justify-content-center" [(ngModel)]="field.endHour" name="{{field.endHour}}" 
+                                    [showMeridian]=false [showSpinners]=false></timepicker>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger" type="button"
+                                        (click)="deleteFieldValue(i)">-</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="update ml-auto mr-auto">
+                        <button type="submit" (click)="save()" class="btn btn-primary btn-round">Salveaza</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -17,6 +17,7 @@ import { TestErrorsComponent } from './pages/errors/test-errors/test-errors.comp
 import { ServerErrorComponent } from './pages/errors/server-error/server-error.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 import { DoctorProfileComponent } from './pages/doctor-profile/doctor-profile.component';
+import { DoctorWorkDaysComponent } from './pages/doctor-work-days/doctor-work-days.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent, canActivate: [NoauthGuard]},
@@ -42,6 +43,7 @@ const routes: Routes = [
       {path:'notifications', component: NotificationsComponent},
       {path:'upgrade', component: UpgradeComponent}, 
       {path:'doctor_profile', component: DoctorProfileComponent}, 
+      {path:'doctor_work_days', component: DoctorWorkDaysComponent}, 
     ]
   },
   {path:'**', component: HomeComponent, canActivate: [NoauthGuard]}

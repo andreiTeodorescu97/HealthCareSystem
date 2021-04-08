@@ -14,5 +14,6 @@ namespace API.Entities
         public AppUser User { get; set; }
         public ICollection<StudiesAndExperience> StudiesAndExperience { get; set; }
         public ICollection<Photo> Photos { get; set; }
+        public ICollection<WorkDay> WorkDays { get; set; }
     }
 }

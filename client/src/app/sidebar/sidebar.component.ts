@@ -25,6 +25,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/upgrade', title: 'Upgrade to PRO', icon: 'nc-spaceship', class: 'active-pro', isRegisterRequired: true },
     { path: '/errors', title: 'Errors', icon: 'nc-spaceship', class: '', isRegisterRequired: true },
     { path: '/user', title: 'Profil Pacient', icon: 'nc-single-02', class: '', isRegisterRequired: true },
+    { path: '/doctor_work_days', title: 'Orar', icon: 'nc-time-alarm', class: '', isRegisterRequired: true },
     { path: '/doctor_profile', title: 'Profil Doctor', icon: 'nc-single-02', class: '', isRegisterRequired: true },
 ];
 

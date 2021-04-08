@@ -33,6 +33,9 @@ namespace API.Helpers
             
             CreateMap<StudiesAndExperienceDto, StudiesAndExperience>();
 
+            CreateMap<WorkDay, WorkDayDto>();
+            
+            CreateMap<WorkDayDto, WorkDay>();
         }
     }
 }

@@ -10,5 +10,6 @@ namespace API.DTOs
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
         public ICollection<StudiesAndExperienceDto> StudiesAndExperience { get; set; }
+        public ICollection<WorkDayDto> WorkDays { get; set; }
     }
 }

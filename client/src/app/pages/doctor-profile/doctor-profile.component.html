@@ -84,10 +84,10 @@
             <tbody>
               <tr *ngFor="let field of studiesArray; let i = index">
                 <td style="width: 30%">
-                  <input [(ngModel)]="field.name" class="form-control" type="text" name="{{field.name}}"/>
+                  <input [(ngModel)]="field.name" class="form-control" type="text" name="{{field.name}}" required/>
                 </td>
                 <td style="width: 40%">
-                  <input [(ngModel)]="field.location" class="form-control" type="text" name="{{field.location}}" />
+                  <input [(ngModel)]="field.location" class="form-control" type="text" name="{{field.location}}" required/>
                 </td>
                 <td style="width: 15%">
                   <input [(ngModel)]="field.startDate" class="form-control" type="text" name="{{field.startDate}}" bsDatepicker [bsConfig]='bsConfig'/>

@@ -40,6 +40,7 @@ namespace API.Repositories
         {
             //eager loading
             return await _context.Users.Include(p => p.Doctor.StudiesAndExperience)
+            .Include(p => p.Doctor.WorkDays)
             .SingleOrDefaultAsync(c => c.UserName == userName);
         }
     }

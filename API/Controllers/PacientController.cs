@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using API.DTOs;
+using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -47,7 +48,7 @@ namespace API.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdatePacient(GetPacientDto pacientDto)
         {
-            var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userName = User.GetUserName();
 
             var pacient = await _pacientRepository.GetPacientByUsername(userName);
 
