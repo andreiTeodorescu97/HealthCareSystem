@@ -7,10 +7,12 @@ using API.Entities;
 using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    [Authorize]
     public class DoctorsController : BaseApiController
     {
         private readonly IDoctorRepository _doctorRepository;
@@ -27,6 +29,14 @@ namespace API.Controllers
             var doctor = await _doctorRepository.GetDoctorByUsername(userName);
             doctor.Doctor.StudiesAndExperience = doctor.Doctor.StudiesAndExperience.OrderByDescending(c => c.StartDate).ToList();
             return Ok(doctor);
+        }
+
+        [HttpGet("work-days")]
+        public async Task<ActionResult<IEnumerable<WorkDayDto>>> GetWorkDays(){
+            
+            var userId = User.GetUserId();
+            var workDays = await _doctorRepository.GetWorkDays(await _doctorRepository.GetDoctorId(userId));
+            return Ok(workDays); 
         }
 
         [HttpPut]
@@ -58,9 +68,17 @@ namespace API.Controllers
 
             foreach (var item in workDays)
             {
+                item.StartHour = item.StartHour.AddHours(3);
+                item.EndHour = item.EndHour.AddHours(3);
                 var workDay = new WorkDay();
                 _mapper.Map(item, workDay);
                 doctorUser.Doctor.WorkDays.Add(workDay);
+            }
+
+            if(doctorUser.Doctor.WorkDays.Count() > 0){
+                doctorUser.Doctor.HasWorkDays = true;
+            }else{
+                doctorUser.Doctor.HasWorkDays = false;
             }
 
             _doctorRepository.Update(doctorUser.Doctor);

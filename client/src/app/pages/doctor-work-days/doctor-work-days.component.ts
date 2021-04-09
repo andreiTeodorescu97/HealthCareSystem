@@ -16,15 +16,14 @@ export class DoctorWorkDaysComponent implements OnInit {
   user: User;
   workDaysArray: Array<WorkDayDto> = [];
   newWorkDay: WorkDayDto = { day: null, startHour: null, endHour: null };
-  initalDays = [{ name: 'Luni' }, { name: 'Marti' }, { name: 'Miercuri' }, { name: 'Joi' }, { name: 'Vineri' }, { name: 'Samabata' }, { name: 'Duminica' }];
-  days: any;
+  days = [{ name: 'Luni' }, { name: 'Marti' }, { name: 'Miercuri' }, { name: 'Joi' }, { name: 'Vineri' }, { name: 'Sambata' }, { name: 'Duminica' }];
 
   constructor(private doctorsService: DoctorService, private accountService: AccountService, private toastr: ToastrService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
   ngOnInit(): void {
-    this.days = this.initalDays;
+    this.getWorkDays();
   }
 
   addFieldValue() {
@@ -35,8 +34,6 @@ export class DoctorWorkDaysComponent implements OnInit {
   deleteFieldValue(index) {
     this.workDaysArray.splice(index, 1);
   }
-
-
 
   validateInputs(): boolean {
     var keepGoing = true;
@@ -73,6 +70,12 @@ export class DoctorWorkDaysComponent implements OnInit {
       return false;
     }
   }
+
+  getWorkDays(){
+    this.doctorsService.getWorkDays().subscribe(response => {
+      this.workDaysArray = response;
+    })
+  };
 
   save() {
     if (this.validateInputs() == true) {

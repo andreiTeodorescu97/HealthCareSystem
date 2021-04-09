@@ -29,8 +29,7 @@ export class DoctorProfileComponent implements OnInit {
     private localeService: BsLocaleService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
     this.bsConfig = {
-      containerClass: 'theme-green',
-      dateInputFormat: 'DD MMMM YYYY',
+      /* containerClass: 'theme-green', */
     }
     this.localeService.use(this.locale);
   }

@@ -26,7 +26,7 @@ import { HomeComponent }        from './pages/home/home.component';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from "./app-routing.module";
-import { BsDatepickerModule} from "ngx-bootstrap/datepicker";
+import { BsDatepickerConfig, BsDatepickerModule} from "ngx-bootstrap/datepicker";
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { DateInputComponent } from './_forms/date-input/date-input.component';
 import { defineLocale } from "ngx-bootstrap/chronos";
@@ -39,6 +39,7 @@ import { NotFoundComponent } from "./pages/errors/not-found/not-found.component"
 import { JwtInterceptor } from "./interceptors/jwt.interceptor";
 import { DoctorProfileComponent } from './pages/doctor-profile/doctor-profile.component';
 import { DoctorWorkDaysComponent } from './pages/doctor-work-days/doctor-work-days.component';
+import { NaoDatepickerConfig } from "./adapters/nao-date-picker.adapter";
 
 
 defineLocale("ro", roLocale);
@@ -88,6 +89,7 @@ defineLocale("ro", roLocale);
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    { provide: BsDatepickerConfig, useFactory: NaoDatepickerConfig }
   ],
   bootstrap: [AppComponent]
 })

@@ -23,11 +23,11 @@
                                 </td>
                                 <td style="width: 40%">
                                     <timepicker class="row justify-content-center" [(ngModel)]="field.startHour" name="{{field.startHour}}" 
-                                    [showMeridian]=false [showSpinners]=false></timepicker>
+                                    [showMeridian]=false [showSpinners]=false [minuteStep]="15"></timepicker>
                                 </td>
                                 <td style="width: 40%">
                                     <timepicker class="row justify-content-center" [(ngModel)]="field.endHour" name="{{field.endHour}}" 
-                                    [showMeridian]=false [showSpinners]=false></timepicker>
+                                    [showMeridian]=false [showSpinners]=false [minuteStep]="15"></timepicker>
                                 </td>
                                 <td>
                                     <button class="btn btn-danger" type="button"

@@ -10,6 +10,7 @@ namespace API.Entities
         public string SecondName { get; set; }
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public bool HasWorkDays { get; set; }
         public int UserId { get; set; }
         public AppUser User { get; set; }
         public ICollection<StudiesAndExperience> StudiesAndExperience { get; set; }

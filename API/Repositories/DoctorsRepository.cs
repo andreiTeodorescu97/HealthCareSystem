@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
@@ -42,6 +44,20 @@ namespace API.Repositories
             return await _context.Users.Include(p => p.Doctor.StudiesAndExperience)
             .Include(p => p.Doctor.WorkDays)
             .SingleOrDefaultAsync(c => c.UserName == userName);
+        }
+
+        public async Task<IEnumerable<WorkDayDto>> GetWorkDays(int doctorId)
+        {
+            return  await _context.WorkDays
+            .Where(c => c.DoctorId == doctorId)
+            .ProjectTo<WorkDayDto>(_mapper.ConfigurationProvider)
+            .ToListAsync();
+        }
+
+        public async Task<int> GetDoctorId(int userId)
+        {
+           var user = await _context.Users.Include(p => p.Doctor).SingleOrDefaultAsync(c => c.Id == userId);
+           return user.Doctor.Id;
         }
     }
 }

@@ -87,6 +87,7 @@ namespace API.Controllers
                     SecondName = registerDto.doctorDto.SecondName,
                     Email = registerDto.doctorDto.Email,
                     DateOfBirth = registerDto.doctorDto.DateOfBirth,
+                    HasWorkDays = false,
                 } : null
             };
 

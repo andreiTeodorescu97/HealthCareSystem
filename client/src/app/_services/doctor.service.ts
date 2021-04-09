@@ -25,4 +25,8 @@ export class DoctorService {
     return this.http.post(this.baseUrl + 'doctors/add-work-days', workDays);
   }
 
+  getWorkDays() {
+    return this.http.get<WorkDayDto[]>(this.baseUrl + 'doctors/work-days');
+  }
+
 }
