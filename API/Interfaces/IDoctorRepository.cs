@@ -13,7 +13,7 @@ namespace API.Interfaces
         Task<AppUser> GetDoctorByUsernameForUpdate (string userName);
         Task<int> GetDoctorId (int userId);
         Task<IEnumerable<WorkDayDto>> GetWorkDays (int userId);
-        Task<IEnumerable<DoctorDto>> GetDoctors();
+        Task<IEnumerable<DoctorGridDto>> GetDoctors();
 
     }
 }

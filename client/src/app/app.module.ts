@@ -41,6 +41,8 @@ import { DoctorProfileComponent } from './pages/doctor-profile/doctor-profile.co
 import { DoctorWorkDaysComponent } from './pages/doctor-work-days/doctor-work-days.component';
 import { NaoDatepickerConfig } from "./adapters/nao-date-picker.adapter";
 import { DoctorsListComponent } from './pages/doctors-list/doctors-list.component';
+import { DataTablesModule } from "angular-datatables";
+import { RomaniandatePipe } from './pipes/romaniandate.pipe';
 
 
 defineLocale("ro", roLocale);
@@ -67,7 +69,8 @@ defineLocale("ro", roLocale);
     NotFoundComponent,
     DoctorProfileComponent,
     DoctorWorkDaysComponent,
-    DoctorsListComponent
+    DoctorsListComponent,
+    RomaniandatePipe
   ],
   imports: [
     BrowserAnimationsModule,
@@ -87,6 +90,7 @@ defineLocale("ro", roLocale);
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
+    DataTablesModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

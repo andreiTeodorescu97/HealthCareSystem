@@ -1,31 +1,33 @@
-<div class="row" *ngIf="doctors">
+<div class="row">
     <div class="col-md-12">
-        <div class="card card-user">
+        <div class="card ">
             <div class="card-body">
-                <div class="table-responsive" style="overflow-x: hidden; overflow-y:hidden;">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Avatar</th>
-                                <th>Ora venire</th>
-                                <th>Ora plecare</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let doctor of doctors; let i = index" class="justify-content-center">
-                                <td style="width: 30%">
-                                </td>
-                                <td style="width: 40%">
-                                </td>
-                                <td style="width: 40%">
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Nume</th>
+                        <th>Prenume</th>
+                        <th>Email</th>
+                        <th>Data nasterii</th>
+                        <th>Varsta</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let doctor of doctors">
+                        <td>                <div>
+                            <img src="assets/img/faces/ayo-ogunseinde-2.jpg" alt="Circle Image"
+                              class="img-circle img-no-padding img-responsive">
+                          </div></td>
+                        <td>{{ doctor.firstName }}</td>
+                        <td>{{ doctor.secondName }}</td>
+                        <td>{{ doctor.email }}</td>
+                        <td>{{ doctor.dateOfBirth | romanianDate }}</td>
+                        <td>{{ doctor.age }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
             </div>
         </div>
     </div>
-</div>
+</div>  

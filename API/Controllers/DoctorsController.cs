@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Entities;
@@ -25,7 +26,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DoctorDto>>> GetDoctors()
+        public async Task<ActionResult<IEnumerable<DoctorGridDto>>> GetDoctors()
         {
            var doctors =  await _doctorRepository.GetDoctors();
            return Ok(doctors);

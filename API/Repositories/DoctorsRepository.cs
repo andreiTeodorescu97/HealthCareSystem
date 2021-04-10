@@ -61,11 +61,11 @@ namespace API.Repositories
            return user.Doctor.Id;
         }
 
-        public async Task<IEnumerable<DoctorDto>> GetDoctors()
+        public async Task<IEnumerable<DoctorGridDto>> GetDoctors()
         {
             return await _context.Doctors
 /*             .Where(d => d.HasWorkDays == true) */
-            .Select(c => new DoctorDto(){
+            .Select(c => new DoctorGridDto(){
                 FirstName = c.FirstName,
                 SecondName = c.SecondName,
                 Email = c.Email,
