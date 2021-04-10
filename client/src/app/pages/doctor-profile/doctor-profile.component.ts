@@ -1,6 +1,5 @@
-import { DatePipe } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'app/_models/user';
 import { UserDoctorDto } from 'app/_models/userDoctorDto';
 import { StudiesAndExperience } from 'app/_models/studiesAndExperienceDto';
@@ -29,7 +28,10 @@ export class DoctorProfileComponent implements OnInit {
     private localeService: BsLocaleService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
     this.bsConfig = {
-      /* containerClass: 'theme-green', */
+      dateInputFormat: 'DD MMMM YYYY',
+      containerClass: 'theme-dark-blue',
+      isAnimated: true,
+      adaptivePosition: true
     }
     this.localeService.use(this.locale);
   }
@@ -52,27 +54,58 @@ export class DoctorProfileComponent implements OnInit {
   }
 
   updateDoctor() {
-    const user: UserDoctorDto = this.editForm.value;
-    user.doctor.studiesAndExperience = this.studiesArray;
-    console.log(user);
-    this.doctorsService.updateDoctor(user).subscribe(() => {
-      this.toastr.success(
-        '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Profilul a fost actualizat cu succes!</span>',
-        "Update",
-        {
-          toastClass: "alert alert-success alert-with-icon",
-        }
-      );
-      this.accountService.logout();
-    })
+    if (this.validateInputs() == true) {
+      const user: UserDoctorDto = this.editForm.value;
+      user.doctor.studiesAndExperience = this.studiesArray;
+      user.doctor.dateOfBirth = new Date(user.doctor.dateOfBirth);
+      console.log(user);
+      this.doctorsService.updateDoctor(user).subscribe(() => {
+        this.toastr.success(
+          '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Profilul a fost actualizat cu succes!</span>',
+          "Update",
+          {
+            toastClass: "alert alert-success alert-with-icon",
+          }
+        );
+        /* this.accountService.logout(); */
+      })
+    }
   }
+
+  validateInputs(): boolean {
+    var keepGoing = true;
+    this.studiesArray.forEach(study => {
+      if (keepGoing) {
+        if (study.name == "" || study.location == "" || study.startDate == null || study.endDate == null) {
+          this.toastr.error(
+            '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Va rugam completati toate campurile sau verificati corectitudinea datelor!</span>',
+            'Date invalide!',
+            {
+              toastClass: "alert alert-danger alert-with-icon",
+            }
+          );
+          keepGoing = false;
+        }
+      }
+    }
+    )
+    if (keepGoing) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 
   getDoctor() {
     this.doctorsService.getDoctorByUsername(this.user.userName)
       .subscribe(response => {
         this.doctor = response;
+        this.doctor.doctor.dateOfBirth = new Date(this.doctor.doctor.dateOfBirth);
         this.editForm.patchValue(this.doctor, { emitEvent: false });
         this.doctor.doctor.studiesAndExperience.forEach(study => {
+          study.startDate = new Date(study.startDate);
+          study.endDate = new Date(study.endDate);
           this.studiesArray.push(study);
         });
       });
@@ -80,7 +113,7 @@ export class DoctorProfileComponent implements OnInit {
 
   addFieldValue() {
     this.studiesArray.push(this.newStudy)
-    this.newStudy = {name: '', location: '', startDate: null, endDate: null};
+    this.newStudy = { name: '', location: '', startDate: null, endDate: null };
   }
 
   deleteFieldValue(index) {

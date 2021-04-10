@@ -20,6 +20,6 @@ namespace API.DTOs
         [Required]
         public string CNP { get; set; }
         [Required]
-        public DateTime DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
     }
 }

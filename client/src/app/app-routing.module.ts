@@ -18,6 +18,7 @@ import { ServerErrorComponent } from './pages/errors/server-error/server-error.c
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 import { DoctorProfileComponent } from './pages/doctor-profile/doctor-profile.component';
 import { DoctorWorkDaysComponent } from './pages/doctor-work-days/doctor-work-days.component';
+import { DoctorsListComponent } from './pages/doctors-list/doctors-list.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent, canActivate: [NoauthGuard]},
@@ -44,6 +45,7 @@ const routes: Routes = [
       {path:'upgrade', component: UpgradeComponent}, 
       {path:'doctor_profile', component: DoctorProfileComponent}, 
       {path:'doctor_work_days', component: DoctorWorkDaysComponent}, 
+      {path:'doctors', component: DoctorsListComponent}, 
     ]
   },
   {path:'**', component: HomeComponent, canActivate: [NoauthGuard]}

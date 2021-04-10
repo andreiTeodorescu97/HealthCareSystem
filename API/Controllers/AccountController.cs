@@ -69,7 +69,7 @@ namespace API.Controllers
                 UserName = registerDto.Username.ToLower(),
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key,
-                DateCreated = DateTime.Now,
+                DateCreated = DateTime.UtcNow,
                 Pacient = registerDto.IsPacientAccount ? new Pacient
                 {
                     FirstName = registerDto.pacientDto.FirstName,
@@ -79,14 +79,14 @@ namespace API.Controllers
                     IdentityNumber = registerDto.pacientDto.IdentityNumber,
                     Series = registerDto.pacientDto.Series,
                     CNP = registerDto.pacientDto.CNP,
-                    DateOfBirth = registerDto.pacientDto.DateOfBirth,
+                    DateOfBirth = DateTime.ParseExact(registerDto.pacientDto.DateOfBirth, "yyyy-MM-ddTHH:mm:ss.fffZ", System.Globalization.CultureInfo.InvariantCulture),
                 } : null,
                 Doctor = !registerDto.IsPacientAccount ? new Doctor
                 {
                     FirstName = registerDto.doctorDto.FirstName,
                     SecondName = registerDto.doctorDto.SecondName,
                     Email = registerDto.doctorDto.Email,
-                    DateOfBirth = registerDto.doctorDto.DateOfBirth,
+                    DateOfBirth = DateTime.ParseExact(registerDto.doctorDto.DateOfBirth, "yyyy-MM-ddTHH:mm:ss.fffZ", System.Globalization.CultureInfo.InvariantCulture),
                     HasWorkDays = false,
                 } : null
             };

@@ -22,6 +22,11 @@
     {{label}} trebuie sa aibe maxim {{ngControl.control.errors.maxlength['requiredLength']}} caractere!
     </div>
 
+    <div class="invalid-feedback" 
+    *ngIf="ngControl.control.errors?.pattern">
+    Email-ul nu are formatul corect!
+    </div>
+
 <!-- <div class="invalid-feedback" 
     *ngIf="ngControl.control.errors?.pattern">
     Password must contain at least: one lower case, one upper case, one digit and one special character!

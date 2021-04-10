@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -21,6 +22,13 @@ namespace API.Controllers
         {
             _mapper = mapper;
             _doctorRepository = doctorRepository;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<DoctorDto>>> GetDoctors()
+        {
+           var doctors =  await _doctorRepository.GetDoctors();
+           return Ok(doctors);
         }
 
         [HttpGet("{userName}")]

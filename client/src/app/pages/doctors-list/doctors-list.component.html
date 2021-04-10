@@ -1,0 +1,31 @@
+<div class="row" *ngIf="doctors">
+    <div class="col-md-12">
+        <div class="card card-user">
+            <div class="card-body">
+                <div class="table-responsive" style="overflow-x: hidden; overflow-y:hidden;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Ora venire</th>
+                                <th>Ora plecare</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let doctor of doctors; let i = index" class="justify-content-center">
+                                <td style="width: 30%">
+                                </td>
+                                <td style="width: 40%">
+                                </td>
+                                <td style="width: 40%">
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

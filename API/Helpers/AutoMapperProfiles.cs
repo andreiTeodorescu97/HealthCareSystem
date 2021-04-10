@@ -1,3 +1,4 @@
+using System;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
@@ -10,7 +11,10 @@ namespace API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<AppUser, UserDoctorDto>();
-            CreateMap<Doctor, DoctorDto>();
+            CreateMap<Doctor, DoctorDto>()
+            .ForMember(
+            destination => destination.Age, 
+            options => options.MapFrom( source => source.DateOfBirth.CalculateAge()));
             
             CreateMap<Pacient, GetPacientDto>()
             .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
@@ -35,7 +39,9 @@ namespace API.Helpers
 
             CreateMap<WorkDay, WorkDayDto>();
             
-            CreateMap<WorkDayDto, WorkDay>();
+            CreateMap<WorkDayDto, WorkDay>()
+            .ForMember(dest => dest.StartTimeSpan, opt => opt.MapFrom(src => (int)src.StartHour.TimeOfDay.TotalMinutes))
+            .ForMember(dest => dest.EndTimeSpan, opt => opt.MapFrom(src => (int)src.EndHour.TimeOfDay.TotalMinutes));
         }
     }
 }

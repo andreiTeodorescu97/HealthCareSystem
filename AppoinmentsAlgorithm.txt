@@ -1,0 +1,49 @@
+using System;
+					
+public class Program
+{
+	public static void Main()
+	{
+		var fromSpan = 0;
+		var toSpan = 1440;
+		var from = TimeSpan.FromMinutes(fromSpan);
+		var to = TimeSpan.FromMinutes(toSpan);
+		var availableTimeInterval = to.TotalMinutes - from.TotalMinutes;
+		var consultationDuration = 30;
+		var numberOfTotalSlots = availableTimeInterval / consultationDuration;
+		
+		var appoimentOneFrom = 810;
+		var appoinmentOneTo = 840;
+		
+		Console.WriteLine(from);
+		Console.WriteLine(to);
+		Console.WriteLine(availableTimeInterval);
+		Console.WriteLine(numberOfTotalSlots);
+		Console.WriteLine(TimeSpan.FromMinutes(appoimentOneFrom));
+		Console.WriteLine(TimeSpan.FromMinutes(appoinmentOneTo));
+		
+		Console.WriteLine("Available slots: ");
+		
+		//Timespan should be from 0 to 1440
+		
+		var copyFrom = fromSpan;
+		var copyTo = toSpan;
+		
+		for(int i=0; i<numberOfTotalSlots; i++)
+		{
+				var fromX = copyFrom;
+				var toX = fromX + consultationDuration;
+				
+				//check if there is another appoiment at timespans
+				if(fromX != appoimentOneFrom & toX != appoinmentOneTo)
+				{
+					Console.WriteLine(TimeSpan.FromMinutes(fromX) + "-" +  TimeSpan.FromMinutes(toX));
+				}
+			
+			copyFrom = copyFrom + consultationDuration;
+				
+		}
+		
+
+	}
+}

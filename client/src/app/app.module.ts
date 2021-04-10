@@ -40,6 +40,7 @@ import { JwtInterceptor } from "./interceptors/jwt.interceptor";
 import { DoctorProfileComponent } from './pages/doctor-profile/doctor-profile.component';
 import { DoctorWorkDaysComponent } from './pages/doctor-work-days/doctor-work-days.component';
 import { NaoDatepickerConfig } from "./adapters/nao-date-picker.adapter";
+import { DoctorsListComponent } from './pages/doctors-list/doctors-list.component';
 
 
 defineLocale("ro", roLocale);
@@ -65,7 +66,8 @@ defineLocale("ro", roLocale);
     ServerErrorComponent,
     NotFoundComponent,
     DoctorProfileComponent,
-    DoctorWorkDaysComponent
+    DoctorWorkDaysComponent,
+    DoctorsListComponent
   ],
   imports: [
     BrowserAnimationsModule,

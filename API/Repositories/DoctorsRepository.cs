@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
 using API.Entities;
+using API.Extensions;
 using API.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -58,6 +59,20 @@ namespace API.Repositories
         {
            var user = await _context.Users.Include(p => p.Doctor).SingleOrDefaultAsync(c => c.Id == userId);
            return user.Doctor.Id;
+        }
+
+        public async Task<IEnumerable<DoctorDto>> GetDoctors()
+        {
+            return await _context.Doctors
+/*             .Where(d => d.HasWorkDays == true) */
+            .Select(c => new DoctorDto(){
+                FirstName = c.FirstName,
+                SecondName = c.SecondName,
+                Email = c.Email,
+                DateOfBirth = c.DateOfBirth.ToString(),
+                Age = c.DateOfBirth.CalculateAge(),
+            })
+            .ToListAsync();
         }
     }
 }

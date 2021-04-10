@@ -61,6 +61,17 @@ export class DoctorWorkDaysComponent implements OnInit {
           );
           keepGoing = false;
         }
+
+        if(workDay.startHour > workDay.endHour){
+          this.toastr.error(
+            '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Ora de venire nu poate fi mai mare ca ora de plecare!</span>',
+            'Date invalide!',
+            {
+              toastClass: "alert alert-danger alert-with-icon",
+            }
+          );
+          keepGoing = false;
+        }
       }
     }
     )
