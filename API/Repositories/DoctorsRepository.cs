@@ -49,7 +49,7 @@ namespace API.Repositories
 
         public async Task<IEnumerable<WorkDayDto>> GetWorkDays(int doctorId)
         {
-            return  await _context.WorkDays
+            return await _context.WorkDays
             .Where(c => c.DoctorId == doctorId)
             .ProjectTo<WorkDayDto>(_mapper.ConfigurationProvider)
             .ToListAsync();
@@ -57,15 +57,17 @@ namespace API.Repositories
 
         public async Task<int> GetDoctorId(int userId)
         {
-           var user = await _context.Users.Include(p => p.Doctor).SingleOrDefaultAsync(c => c.Id == userId);
-           return user.Doctor.Id;
+            var user = await _context.Users.Include(p => p.Doctor).SingleOrDefaultAsync(c => c.Id == userId);
+            return user.Doctor.Id;
         }
 
         public async Task<IEnumerable<DoctorGridDto>> GetDoctors()
         {
             return await _context.Doctors
-/*             .Where(d => d.HasWorkDays == true) */
-            .Select(c => new DoctorGridDto(){
+            /*             .Where(d => d.HasWorkDays == true) */
+            .Select(c => new DoctorGridDto()
+            {
+                Id = c.Id,
                 FirstName = c.FirstName,
                 SecondName = c.SecondName,
                 Email = c.Email,
@@ -73,6 +75,13 @@ namespace API.Repositories
                 Age = c.DateOfBirth.CalculateAge(),
             })
             .ToListAsync();
+        }
+
+        public async Task<DoctorDto> GetDoctorByDoctorId(int doctorId)
+        {
+            return await _context.Doctors
+            .ProjectTo<DoctorDto>(_mapper.ConfigurationProvider)
+            .SingleOrDefaultAsync(x => x.Id == doctorId);
         }
     }
 }

@@ -14,6 +14,6 @@ namespace API.Interfaces
         Task<int> GetDoctorId (int userId);
         Task<IEnumerable<WorkDayDto>> GetWorkDays (int userId);
         Task<IEnumerable<DoctorGridDto>> GetDoctors();
-
+        Task<DoctorDto> GetDoctorByDoctorId (int doctorId);
     }
 }

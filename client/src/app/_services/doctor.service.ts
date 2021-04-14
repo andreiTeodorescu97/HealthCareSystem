@@ -35,4 +35,8 @@ export class DoctorService {
     return this.http.get<DoctorGriDto[]>(this.baseUrl + 'doctors');
   }
 
+  getDoctorByDoctorId(id: string) {
+    return this.http.get<DoctorDto>(this.baseUrl + 'doctors/getdoctor/?doctorId=' + id);
+  }
+
 }

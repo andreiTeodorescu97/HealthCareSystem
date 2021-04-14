@@ -10,7 +10,7 @@ enum Months {
   iulie,
   august,
   septembrie,
-  obtombrie,
+  octombrie,
   noiembrie,
   decembrie
 }

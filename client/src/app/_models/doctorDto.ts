@@ -1,4 +1,5 @@
 import { StudiesAndExperience } from "./studiesAndExperienceDto";
+import { WorkDayDto } from "./workDayDto";
 
 export interface DoctorDto {
     firstName: string;
@@ -7,4 +8,5 @@ export interface DoctorDto {
     dateOfBirth: Date;
     age: number;
     studiesAndExperience: StudiesAndExperience[];
+    workDays: WorkDayDto[];
   }

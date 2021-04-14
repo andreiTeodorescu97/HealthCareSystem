@@ -5,28 +5,28 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SidebarModule } from './sidebar/sidebar.module';
 import { FooterModule } from './shared/footer/footer.module';
-import { NavbarModule} from './shared/navbar/navbar.module';
-import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
+import { NavbarModule } from './shared/navbar/navbar.module';
+import { FixedPluginModule } from './shared/fixedplugin/fixedplugin.module';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { CommonModule } from '@angular/common';
 
-import { DashboardComponent }       from './pages/dashboard/dashboard.component';
-import { UserComponent }            from './pages/user/user.component';
-import { TableComponent }           from './pages/table/table.component';
-import { TypographyComponent }      from './pages/typography/typography.component';
-import { IconsComponent }           from './pages/icons/icons.component';
-import { MapsComponent }            from './pages/maps/maps.component';
-import { NotificationsComponent }   from './pages/notifications/notifications.component';
-import { UpgradeComponent }         from './pages/upgrade/upgrade.component';
-import { RegisterComponent }        from './pages/register/register.component';
-import { HomeComponent }        from './pages/home/home.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { UserComponent } from './pages/user/user.component';
+import { TableComponent } from './pages/table/table.component';
+import { TypographyComponent } from './pages/typography/typography.component';
+import { IconsComponent } from './pages/icons/icons.component';
+import { MapsComponent } from './pages/maps/maps.component';
+import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { UpgradeComponent } from './pages/upgrade/upgrade.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { HomeComponent } from './pages/home/home.component';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from "./app-routing.module";
-import { BsDatepickerConfig, BsDatepickerModule} from "ngx-bootstrap/datepicker";
+import { BsDatepickerConfig, BsDatepickerModule } from "ngx-bootstrap/datepicker";
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { DateInputComponent } from './_forms/date-input/date-input.component';
 import { defineLocale } from "ngx-bootstrap/chronos";
@@ -43,7 +43,8 @@ import { NaoDatepickerConfig } from "./adapters/nao-date-picker.adapter";
 import { DoctorsListComponent } from './pages/doctors-list/doctors-list.component';
 import { DataTablesModule } from "angular-datatables";
 import { RomaniandatePipe } from './pipes/romaniandate.pipe';
-
+import { DoctorDetailComponent } from './pages/doctor-detail/doctor-detail.component';
+import { TabsModule } from "ngx-bootstrap/tabs";
 
 defineLocale("ro", roLocale);
 
@@ -70,7 +71,8 @@ defineLocale("ro", roLocale);
     DoctorProfileComponent,
     DoctorWorkDaysComponent,
     DoctorsListComponent,
-    RomaniandatePipe
+    RomaniandatePipe,
+    DoctorDetailComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -90,11 +92,12 @@ defineLocale("ro", roLocale);
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
+    TabsModule.forRoot(),
     DataTablesModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: BsDatepickerConfig, useFactory: NaoDatepickerConfig }
   ],
   bootstrap: [AppComponent]

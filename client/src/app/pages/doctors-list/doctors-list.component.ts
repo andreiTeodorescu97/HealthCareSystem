@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DoctorGriDto } from 'app/_models/doctorGridDto';
 import { gridSettings } from 'app/_models/grid';
 import { User } from 'app/_models/user';
@@ -19,12 +20,14 @@ export class DoctorsListComponent implements OnDestroy, OnInit {
   user: User;
   doctors: DoctorGriDto[] = [];
   dtOptions: DataTables.Settings = {};
+  isVisible = false;
 
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private doctorsService: DoctorService, private accountService: AccountService, private toastr: ToastrService, private httpClient: HttpClient) {
+  constructor(private doctorsService: DoctorService, private accountService: AccountService, 
+    private toastr: ToastrService, private httpClient: HttpClient, private router: Router) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
@@ -37,9 +40,18 @@ export class DoctorsListComponent implements OnDestroy, OnInit {
       pagingType: 'full_numbers',
       pageLength: 10,
       columnDefs: [
-        { orderable: false, targets: 4 },
+        { orderable: false, targets: 5 },
       ],
-      language: gridSettings
+      language: gridSettings,
+      rowCallback: (row: Node, data: any[] | Object, index: number) => {
+        const self = this;
+
+        $('td', row).off('click');
+        $('td', row).on('click', () => {
+          self.someClickHandler(data);
+        });
+        return row;
+      }
     };
     this.doctorsService.getDoctors()
       .subscribe(data => {
@@ -51,8 +63,12 @@ export class DoctorsListComponent implements OnDestroy, OnInit {
       });
   }
 
+  someClickHandler(info: any): void {
+    this.router.navigateByUrl('doctor/detail/' + info[1]);
+    console.log(info);
+  }
+
   ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
 }

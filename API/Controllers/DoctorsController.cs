@@ -40,6 +40,14 @@ namespace API.Controllers
             return Ok(doctor);
         }
 
+        [HttpGet("getdoctor")]
+        public async Task<ActionResult<DoctorDto>> GetDoctorByDoctorId(int doctorId)
+        {
+            var doctor = await _doctorRepository.GetDoctorByDoctorId(doctorId);
+            doctor.StudiesAndExperience = doctor.StudiesAndExperience.OrderByDescending(c => c.StartDate).ToList();
+            return Ok(doctor);
+        }
+
         [HttpGet("work-days")]
         public async Task<ActionResult<IEnumerable<WorkDayDto>>> GetWorkDays(){
             
