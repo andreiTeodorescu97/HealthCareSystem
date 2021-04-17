@@ -79,9 +79,11 @@ namespace API.Repositories
 
         public async Task<DoctorDto> GetDoctorByDoctorId(int doctorId)
         {
-            return await _context.Doctors
+            var x = await _context.Doctors.Where(x => x.Id == doctorId)
             .ProjectTo<DoctorDto>(_mapper.ConfigurationProvider)
-            .SingleOrDefaultAsync(x => x.Id == doctorId);
+            .SingleOrDefaultAsync();
+
+            return x;
         }
     }
 }

@@ -2,17 +2,12 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from '@angular/core';
 import { ToastrModule } from "ngx-toastr";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { SidebarModule } from './sidebar/sidebar.module';
 import { FooterModule } from './shared/footer/footer.module';
 import { NavbarModule } from './shared/navbar/navbar.module';
 import { FixedPluginModule } from './shared/fixedplugin/fixedplugin.module';
-
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
-import { CommonModule } from '@angular/common';
-
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UserComponent } from './pages/user/user.component';
 import { TableComponent } from './pages/table/table.component';
@@ -24,7 +19,6 @@ import { UpgradeComponent } from './pages/upgrade/upgrade.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from "./app-routing.module";
 import { BsDatepickerConfig, BsDatepickerModule } from "ngx-bootstrap/datepicker";
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
@@ -45,6 +39,8 @@ import { DataTablesModule } from "angular-datatables";
 import { RomaniandatePipe } from './pipes/romaniandate.pipe';
 import { DoctorDetailComponent } from './pages/doctor-detail/doctor-detail.component';
 import { TabsModule } from "ngx-bootstrap/tabs";
+import { HourPipe } from './pipes/hour.pipe';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 defineLocale("ro", roLocale);
 
@@ -72,7 +68,8 @@ defineLocale("ro", roLocale);
     DoctorWorkDaysComponent,
     DoctorsListComponent,
     RomaniandatePipe,
-    DoctorDetailComponent
+    DoctorDetailComponent,
+    HourPipe,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -93,7 +90,8 @@ defineLocale("ro", roLocale);
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     TabsModule.forRoot(),
-    DataTablesModule
+    DataTablesModule,
+    ModalModule.forRoot(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

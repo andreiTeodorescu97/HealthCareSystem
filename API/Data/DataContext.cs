@@ -20,10 +20,12 @@ namespace API.Data
         public DbSet<City> Cities { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<WorkDay> WorkDays { get; set; }
+        public DbSet<Appoinment> Appoinments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<Doctor>().HasKey(g => new { g.Id });
             builder.ApplyUtcDateTimeConverter();
         }
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using API.Extensions;
 
 namespace API.Entities
@@ -18,9 +19,6 @@ namespace API.Entities
         public AppUser User { get; set; }
         public PacientContact PacientContact { get; set; }
         public PacientGeneralMedicalData PacientGeneralMedicalData { get; set; }
-/*         public int GetAge()
-        {
-            return DateOfBirth.CalculateAge();
-        } */
+        public ICollection<Appoinment> Appoinments { get; set; }
     }
 }

@@ -85,8 +85,8 @@ namespace API.Controllers
 
             foreach (var item in workDays)
             {
-                item.StartHour = item.StartHour.AddHours(3);
-                item.EndHour = item.EndHour.AddHours(3);
+                item.StartHour = item.StartHour;
+                item.EndHour = item.EndHour;
                 var workDay = new WorkDay();
                 _mapper.Map(item, workDay);
                 doctorUser.Doctor.WorkDays.Add(workDay);

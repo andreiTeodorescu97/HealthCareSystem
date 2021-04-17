@@ -11,6 +11,7 @@ export class DateInputComponent implements OnInit {
 
   @Input() label : string;
   @Input() maxDate: Date;
+  @Input() minDate: Date;
   locale = 'ro';
   
   //we can provide only some of the configuration option from bsdatepicker

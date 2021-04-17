@@ -13,9 +13,9 @@ namespace API.Helpers
             CreateMap<AppUser, UserDoctorDto>();
             CreateMap<Doctor, DoctorDto>()
             .ForMember(
-            destination => destination.Age, 
-            options => options.MapFrom( source => source.DateOfBirth.CalculateAge()));
-            
+            destination => destination.Age,
+            options => options.MapFrom(source => source.DateOfBirth.CalculateAge()));
+
             CreateMap<Pacient, GetPacientDto>()
             .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
 
@@ -31,17 +31,18 @@ namespace API.Helpers
 
             CreateMap<Region, RegionDto>();
 
-            CreateMap<DoctorDto, Doctor>();
+            CreateMap<DoctorDto, Doctor>()
+            .ForMember(x => x.WorkDays, opt => opt.Ignore());
 
             CreateMap<StudiesAndExperience, StudiesAndExperienceDto>();
-            
+
             CreateMap<StudiesAndExperienceDto, StudiesAndExperience>();
 
             CreateMap<WorkDay, WorkDayDto>();
-            
+
             CreateMap<WorkDayDto, WorkDay>()
-            .ForMember(dest => dest.StartTimeSpan, opt => opt.MapFrom(src => (int)src.StartHour.TimeOfDay.TotalMinutes))
-            .ForMember(dest => dest.EndTimeSpan, opt => opt.MapFrom(src => (int)src.EndHour.TimeOfDay.TotalMinutes));
+            .ForMember(dest => dest.StartTimeSpan, opt => opt.MapFrom(src => (int)DateTime.Parse(src.StartHour).TimeOfDay.TotalMinutes))
+            .ForMember(dest => dest.EndTimeSpan, opt => opt.MapFrom(src => (int)DateTime.Parse(src.EndHour).TimeOfDay.TotalMinutes));
         }
     }
 }
