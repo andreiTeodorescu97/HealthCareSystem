@@ -20,6 +20,9 @@ import { DoctorProfileComponent } from './pages/doctor-profile/doctor-profile.co
 import { DoctorWorkDaysComponent } from './pages/doctor-work-days/doctor-work-days.component';
 import { DoctorsListComponent } from './pages/doctors-list/doctors-list.component';
 import { DoctorDetailComponent } from './pages/doctor-detail/doctor-detail.component';
+import { DoctorAppoinmentsComponent } from './pages/doctor-appoinments/doctor-appoinments.component';
+import { PacientAppoinmentsComponent } from './pages/pacient-appoinments/pacient-appoinments.component';
+import { ConsultationFormComponent } from './pages/consultation-form/consultation-form.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent, canActivate: [NoauthGuard]},
@@ -48,6 +51,9 @@ const routes: Routes = [
       {path:'doctor_work_days', component: DoctorWorkDaysComponent}, 
       {path:'doctors', component: DoctorsListComponent}, 
       {path:'doctor/detail/:id', component: DoctorDetailComponent}, 
+      {path:'doctor/appoinments', component: DoctorAppoinmentsComponent}, 
+      {path:'pacient/appoinments', component: PacientAppoinmentsComponent}, 
+      {path:'pacient/consultation/:appoinmentId/:pacientFirstName/:pacientSecondName', component: ConsultationFormComponent}, 
     ]
   },
   {path:'**', component: HomeComponent, canActivate: [NoauthGuard]}

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FreeHourDto } from 'app/_models/freehourDto';
+import { GetAppoinmentDto } from 'app/_models/getAppoinmentDto';
 import { MakeAnAppoinmentDto } from 'app/_models/makeAnAppoinmentDto';
 import { environment } from 'environments/environment';
 
@@ -19,5 +20,13 @@ export class AppoinmentsService {
 
   makeAnAppoinment(model: MakeAnAppoinmentDto) {
     return this.http.post(this.baseUrl + 'appoinments/add', model);
+  }
+
+  getAppoinmentsForDoctor() {
+    return this.http.get<GetAppoinmentDto[]>(this.baseUrl + 'appoinments/doctorAppoinmets');
+  }
+
+  getAppoinmentsForPacient() {
+    return this.http.get<GetAppoinmentDto[]>(this.baseUrl + 'appoinments/pacientAppoinmets');
   }
 }

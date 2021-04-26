@@ -1,0 +1,92 @@
+<form [formGroup]='consultationForm' (ngSubmit)="consultationForm.valid && addConsultation()" autocomplete="off">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="card card-stats">
+                <div class="card-body text-center">
+                    <h5 class="text-primary">Consultatie {{pacientFirstName}} {{pacientSecondName}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="card card-stats">
+                <div class="card-body text-center">
+
+                    <app-text-input [formControl]='consultationForm.controls["height"]' [label]='"Inaltime [cm]"'>
+                    </app-text-input>
+
+                    <app-text-input [formControl]='consultationForm.controls["weight"]' [label]='"Greutate [kg]"'>
+                    </app-text-input>
+
+                    <app-text-input [formControl]='consultationForm.controls["systolicBp"]'
+                        [label]='"Presiune Sistolica [mmHg]"'>
+                    </app-text-input>
+
+                    <app-text-input [formControl]='consultationForm.controls["diastolicBp"]'
+                        [label]='"Presiune Diastolica [mmHg]"'>
+                    </app-text-input>
+
+                    <app-text-input [formControl]='consultationForm.controls["temperature"]' [label]='"Temperatura [°C]"'>
+                    </app-text-input>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="card card-stats">
+                <div class="card-body text-center">
+
+                    <app-text-input [formControl]='consultationForm.controls["heartRate"]' [label]='"Puls"'>
+                    </app-text-input>
+
+                    <app-text-input [formControl]='consultationForm.controls["bloodSugar"]' [label]='"Glicemie [mg/dl]"'>
+                    </app-text-input>
+
+                    <app-text-input [formControl]='consultationForm.controls["bmi"]' [label]='"Indice masa corporala [kg/m^2] "'>
+                    </app-text-input>
+
+                    <app-text-input [formControl]='consultationForm.controls["respiratoryRate"]'
+                        [label]='"Respiratii pe minut"'>
+                    </app-text-input>
+
+                    <app-text-input [formControl]='consultationForm.controls["numberOfCigarettesPerDay"]'
+                        [label]='"Numar de tigari pe zi"'>
+                    </app-text-input>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="card card-stats">
+                <div class="card-body text-center">
+                    <app-text-input [formControl]='consultationForm.controls["generalFeeling"]'
+                        [label]='"Stare generala"'>
+                    </app-text-input>
+
+                    <app-text-input [formControl]='consultationForm.controls["comments"]' [label]='"Comentarii"'>
+                    </app-text-input>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="card card-stats">
+                <div class="card-body text-center">
+                    <button [disabled]='!consultationForm.valid' class="btn btn-success mr-2" type="submit">Salveaza</button>
+                    <button class="btn btn-danger mr-2" (click)="cancel()" type="button">Renunta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="row" *ngIf="validationErrors.length > 0">
+    <ul class="text-danger">
+        <li *ngFor="let error of validationErrors">
+            {{error}}
+        </li>
+    </ul>
+</div>

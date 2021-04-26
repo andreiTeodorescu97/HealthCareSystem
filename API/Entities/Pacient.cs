@@ -20,5 +20,6 @@ namespace API.Entities
         public PacientContact PacientContact { get; set; }
         public PacientGeneralMedicalData PacientGeneralMedicalData { get; set; }
         public ICollection<Appoinment> Appoinments { get; set; }
+        public ICollection<Consultation> Consultations { get; set; }
     }
 }

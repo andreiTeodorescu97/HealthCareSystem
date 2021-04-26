@@ -21,6 +21,7 @@ namespace API.Data
         public DbSet<Region> Regions { get; set; }
         public DbSet<WorkDay> WorkDays { get; set; }
         public DbSet<Appoinment> Appoinments { get; set; }
+        public DbSet<Consultation> Consultations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

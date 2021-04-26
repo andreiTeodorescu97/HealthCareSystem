@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using API.DTOs;
 using API.Helpers;
 using API.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -14,8 +13,11 @@ namespace API.Controllers
     {
         private readonly IAppoinmentsRepository _appoinmentsRepository;
         private readonly IPacientRepository _pacientRepository;
-        public AppoinmentsController(IAppoinmentsRepository appoinmentsRepository, IPacientRepository pacientRepository)
+        private readonly IDoctorRepository _doctorRepository;
+        public AppoinmentsController(IAppoinmentsRepository appoinmentsRepository, IPacientRepository pacientRepository,
+        IDoctorRepository doctorRepository)
         {
+            _doctorRepository = doctorRepository;
             _pacientRepository = pacientRepository;
             _appoinmentsRepository = appoinmentsRepository;
         }
@@ -52,6 +54,22 @@ namespace API.Controllers
             }
 
             return BadRequest("Upps..ceva nu a mers!");
+        }
+
+        [HttpGet("pacientAppoinmets")]
+        public async Task<ActionResult<IEnumerable<GetAppoimnetsDto>>> GetPacientAppoinments()
+        {
+            var userPacient = await _pacientRepository.GetPacientByUsername(User.GetUserName());
+
+            return Ok(await _appoinmentsRepository.GetPacientAppoinments(userPacient.Id));
+        }
+
+        [HttpGet("doctorAppoinmets")]
+        public async Task<ActionResult<IEnumerable<GetAppoimnetsDto>>> GetDoctorAppoinments()
+        {
+            var doctorId = await _doctorRepository.GetDoctorId(User.GetUserId());
+
+            return Ok(await _appoinmentsRepository.GetDoctorAppoinments(doctorId));
         }
     }
 }

@@ -7,6 +7,7 @@ using API.DTOs;
 using API.Entities;
 using API.Interfaces;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories
@@ -25,7 +26,7 @@ namespace API.Repositories
         {
             var workHoursForDay = await _context.WorkDays.Where(d => d.DoctorId == doctorId & d.Day == GetEnglishDayName(date)).SingleOrDefaultAsync();
 
-            if(workHoursForDay == null)
+            if (workHoursForDay == null)
             {
                 return null;
             }
@@ -35,21 +36,22 @@ namespace API.Repositories
             var appoimentsForDoctor = await _context.Appoinments.Where(d => d.DoctorId == doctorId & d.AppoinmentDate.Contains(dateString)).ToListAsync();
 
             //An appoiment will have be default 30 minutes
-            var numberOfSlots = (workHoursForDay.EndTimeSpan - workHoursForDay.StartTimeSpan)/30;
+            var numberOfSlots = (workHoursForDay.EndTimeSpan - workHoursForDay.StartTimeSpan) / 30;
 
             var from = workHoursForDay.StartTimeSpan;
             var to = workHoursForDay.StartTimeSpan + 30;
             var availableSpots = new List<FreeHourDto>();
             var id = 0;
 
-            for(int i=0; i<numberOfSlots; i++)
+            for (int i = 0; i < numberOfSlots; i++)
             {
-                if(!appoimentsForDoctor.Any(d => d.AppoinmentStartSpan == from && d.AppoinmentEndSpan == to))
-                {                    
-                    availableSpots.Add(new FreeHourDto{
+                if (!appoimentsForDoctor.Any(d => d.AppoinmentStartSpan == from && d.AppoinmentEndSpan == to))
+                {
+                    availableSpots.Add(new FreeHourDto
+                    {
                         Id = id,
-                        FromHour = TimeSpan.FromMinutes((int)from).ToString().Remove(TimeSpan.FromMinutes((int)from).ToString().Length-3),
-                        ToHour = TimeSpan.FromMinutes((int)to).ToString().Remove(TimeSpan.FromMinutes((int)to).ToString().Length-3),
+                        FromHour = TimeSpan.FromMinutes((int)from).ToString().Remove(TimeSpan.FromMinutes((int)from).ToString().Length - 3),
+                        ToHour = TimeSpan.FromMinutes((int)to).ToString().Remove(TimeSpan.FromMinutes((int)to).ToString().Length - 3),
                         FromTimeSpan = (int)from,
                         ToTimeSpan = (int)to,
                     });
@@ -65,15 +67,18 @@ namespace API.Repositories
 
         public async Task<bool> AddAppoinmentAsync(MakeAnAppoinmentDto makeAnAppoinmentDto, int pacientId)
         {
-            var time = TimeSpan.FromMinutes((int)makeAnAppoinmentDto.FromTimeSpan).ToString() + "-" +
-                        TimeSpan.FromMinutes((int)makeAnAppoinmentDto.ToTimeSpan).ToString();
+            var time = TimeSpan.FromMinutes((int)makeAnAppoinmentDto.FromTimeSpan).ToString().
+                Substring(0,TimeSpan.FromMinutes((int)makeAnAppoinmentDto.FromTimeSpan).ToString().Length - 3) + "-" +
+                        TimeSpan.FromMinutes((int)makeAnAppoinmentDto.ToTimeSpan).ToString().
+                Substring(0,TimeSpan.FromMinutes((int)makeAnAppoinmentDto.ToTimeSpan).ToString().Length - 3);
 
             var dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
             dtDateTime = dtDateTime.AddSeconds(makeAnAppoinmentDto.DayUnixTime);
 
-            var dateId = (dtDateTime.Year * 100 + dtDateTime.Month)*100 + dtDateTime.Day;
+            var dateId = (dtDateTime.Year * 100 + dtDateTime.Month) * 100 + dtDateTime.Day;
 
-            var newAppoinment = new Appoinment{
+            var newAppoinment = new Appoinment
+            {
                 AppoinmentDate = dtDateTime.ToString("dd/MM/yyyy"),
                 AppoinmentHour = time,
                 AppoinmentStartSpan = makeAnAppoinmentDto.FromTimeSpan,
@@ -82,13 +87,29 @@ namespace API.Repositories
                 DateId = dateId,
                 PacientId = pacientId,
                 DoctorId = makeAnAppoinmentDto.DoctorId,
+                IsConsultationAdded = false
             };
 
-             _context.Appoinments.Add(newAppoinment);
+            _context.Appoinments.Add(newAppoinment);
 
-             return await _context.SaveChangesAsync() > 0;
+            return await _context.SaveChangesAsync() > 0;
         }
 
+        public async Task<IEnumerable<GetAppoimnetsDto>> GetPacientAppoinments(int pacientId)
+        {
+            return await _context.Appoinments.Where(c => c.PacientId == pacientId)
+                    .ProjectTo<GetAppoimnetsDto>(_mapper.ConfigurationProvider)
+                    .OrderBy(c => c.DateId)
+                    .ToListAsync();
+        }
+
+        public async Task<IEnumerable<GetAppoimnetsDto>> GetDoctorAppoinments(int doctorId)
+        {
+            return await _context.Appoinments.Where(c => c.DoctorId == doctorId)
+                    .ProjectTo<GetAppoimnetsDto>(_mapper.ConfigurationProvider)
+                    .OrderBy(c => c.DateId)
+                    .ToListAsync();
+        }
         private string GetEnglishDayName(DateTime date)
         {
             string nameOfDay = date.ToString("dddd");

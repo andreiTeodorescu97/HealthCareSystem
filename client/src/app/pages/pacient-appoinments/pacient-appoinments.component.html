@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card ">
+            <div class="card-body">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+                    <thead>
+                        <tr>
+                            <th>Nume</th>
+                            <th>Prenume</th>
+                            <th>Data</th>
+                            <th>Ora</th>
+                            <th>Data adaugarii</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let appoinment of appoinments">
+                            <td>Dr. {{ appoinment.doctorFirstName }}</td>
+                            <td>{{ appoinment.doctorSecondName }}</td>
+                            <td>{{ appoinment.appoinmentDate }}</td>
+                            <td>{{ appoinment.appoinmentHour }}</td>
+                            <td>{{ appoinment.dateCreated | date : 'dd/MM/yyyy'}}</td>
+                            <td>-</td>
+                            <td>
+                                <div class="btn-group" dropdown>
+                                    <button id="button-basic" dropdownToggle type="button" class="btn btn-info btn-round dropdown-toggle"
+                                            aria-controls="dropdown-basic">
+                                            <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                                        role="menu" aria-labelledby="button-basic">
+                                      <li role="menuitem"><a class="dropdown-item"><i class="fa fa-times" aria-hidden="true"></i> Anuleaza</a></li>
+                                    </ul>
+                                  </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

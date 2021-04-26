@@ -65,7 +65,6 @@ export class DoctorsListComponent implements OnDestroy, OnInit {
 
   someClickHandler(info: any): void {
     this.router.navigateByUrl('doctor/detail/' + info[1]);
-    console.log(info);
   }
 
   ngOnDestroy(): void {

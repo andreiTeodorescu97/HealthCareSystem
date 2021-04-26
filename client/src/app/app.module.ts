@@ -41,6 +41,10 @@ import { DoctorDetailComponent } from './pages/doctor-detail/doctor-detail.compo
 import { TabsModule } from "ngx-bootstrap/tabs";
 import { HourPipe } from './pipes/hour.pipe';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { DoctorAppoinmentsComponent } from './pages/doctor-appoinments/doctor-appoinments.component';
+import { PacientAppoinmentsComponent } from './pages/pacient-appoinments/pacient-appoinments.component';
+import { ConsultationFormComponent } from './pages/consultation-form/consultation-form.component';
 
 defineLocale("ro", roLocale);
 
@@ -70,6 +74,9 @@ defineLocale("ro", roLocale);
     RomaniandatePipe,
     DoctorDetailComponent,
     HourPipe,
+    DoctorAppoinmentsComponent,
+    PacientAppoinmentsComponent,
+    ConsultationFormComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -92,6 +99,7 @@ defineLocale("ro", roLocale);
     TabsModule.forRoot(),
     DataTablesModule,
     ModalModule.forRoot(),
+    BsDropdownModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

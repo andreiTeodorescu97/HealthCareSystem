@@ -43,6 +43,14 @@ namespace API.Helpers
             CreateMap<WorkDayDto, WorkDay>()
             .ForMember(dest => dest.StartTimeSpan, opt => opt.MapFrom(src => (int)DateTime.Parse(src.StartHour).TimeOfDay.TotalMinutes))
             .ForMember(dest => dest.EndTimeSpan, opt => opt.MapFrom(src => (int)DateTime.Parse(src.EndHour).TimeOfDay.TotalMinutes));
+
+            CreateMap<Appoinment, GetAppoimnetsDto>()
+            .ForMember(dest => dest.DoctorFirstName, options => options.MapFrom(source => source.Doctor.FirstName))
+            .ForMember(dest => dest.DoctorSecondName, options => options.MapFrom(source => source.Doctor.SecondName))
+            .ForMember(dest => dest.PacientFirstName, options => options.MapFrom(source => source.Pacient.FirstName))
+            .ForMember(dest => dest.PacientSecondName, options => options.MapFrom(source => source.Pacient.SecondName));
+
+            CreateMap<ConsultationDto, Consultation>();
         }
     }
 }
