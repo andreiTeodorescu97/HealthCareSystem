@@ -18,5 +18,7 @@ namespace API.Entities
         public int DoctorId { get; set; }
         public Doctor Doctor { get; set; }
         public Consultation Consultation { get; set; }
+        public int StatusId { get; set; }
+        public Status Status { get; set; }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Constants;
 using API.Data;
 using API.DTOs;
 using API.Entities;
@@ -87,12 +88,25 @@ namespace API.Repositories
                 DateId = dateId,
                 PacientId = pacientId,
                 DoctorId = makeAnAppoinmentDto.DoctorId,
-                IsConsultationAdded = false
+                IsConsultationAdded = false,
+                StatusId = (int)AppoinmentStatuses.Pending,
             };
 
             _context.Appoinments.Add(newAppoinment);
 
             return await _context.SaveChangesAsync() > 0;
+        }
+
+
+        public async Task<bool> UpdateAppoinmentStatus(UpdateAppoinmentStatusDto updateAppoinmentStatusDto)
+        {
+            var apppoinment = await _context.Appoinments.FindAsync(updateAppoinmentStatusDto.AppoinmentId);
+
+            apppoinment.StatusId = updateAppoinmentStatusDto.NewStatusId;
+
+            _context.Entry(apppoinment).State = EntityState.Modified;
+
+            return await _context.SaveChangesAsync() > 0; 
         }
 
         public async Task<IEnumerable<GetAppoimnetsDto>> GetPacientAppoinments(int pacientId)

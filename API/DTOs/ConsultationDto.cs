@@ -21,8 +21,7 @@ namespace API.DTOs
         public int? NumberOfCigarettesPerDay { get; set; }
         public string GeneralFeeling { get; set; }
         public string Comments { get; set; }
-        public DateTime DateAdded { get; set; }
         public int AppoinmentId { get; set; }
-        public int PacientId { get; set; }
+        public int? PacientId { get; set; }
     }
 }

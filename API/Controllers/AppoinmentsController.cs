@@ -71,5 +71,16 @@ namespace API.Controllers
 
             return Ok(await _appoinmentsRepository.GetDoctorAppoinments(doctorId));
         }
+
+        [HttpPost("updateStatus")]
+        public async Task<ActionResult> UpdateStatus(UpdateAppoinmentStatusDto updateAppoinmentStatusDto)
+        {
+            if (await _appoinmentsRepository.UpdateAppoinmentStatus(updateAppoinmentStatusDto))
+            {
+                return Ok();
+            }
+
+            return BadRequest("Upps..ceva nu a mers!");
+        }
     }
 }

@@ -13,4 +13,7 @@ export interface GetAppoinmentDto {
     doctorId: number;
     doctorFirstName: string;
     doctorSecondName: string;
+    statusId: number;
+    status: string;
+    isConsultationAdded: boolean;
 }

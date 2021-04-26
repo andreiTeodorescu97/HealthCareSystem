@@ -22,6 +22,7 @@ namespace API.Data
         public DbSet<WorkDay> WorkDays { get; set; }
         public DbSet<Appoinment> Appoinments { get; set; }
         public DbSet<Consultation> Consultations { get; set; }
+        public DbSet<Status> Statuses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

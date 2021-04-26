@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConsultationDto } from 'app/_models/consultationDto';
 import { ConsultationService } from 'app/_services/consultation.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-consultation-form',
@@ -15,10 +17,13 @@ export class ConsultationFormComponent implements OnInit {
   appoinmentId : string;
   pacientFirstName: string;
   pacientSecondName: string;
+  consultation: ConsultationDto;
 
   constructor(private consultationService: ConsultationService, private fb: FormBuilder, 
     private router: Router, 
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private toastr: ToastrService) 
+    {
       this.appoinmentId = this.route.snapshot.paramMap.get('appoinmentId');
       this.pacientFirstName = this.route.snapshot.paramMap.get('pacientFirstName');
       this.pacientSecondName = this.route.snapshot.paramMap.get('pacientSecondName');
@@ -27,10 +32,6 @@ export class ConsultationFormComponent implements OnInit {
   ngOnInit(): void 
   {
     this.initializeForm();
-  }
-
-  addConsultation(){
-
   }
 
   initializeForm(){
@@ -47,7 +48,27 @@ export class ConsultationFormComponent implements OnInit {
       numberOfCigarettesPerDay: [''],
       generalFeeling: [''],
       comments: [''],
+      appoinmentId: ['']
     });
+  }
+
+  addConsultation(){
+    this.consultationForm.value.appoinmentId = +this.appoinmentId;
+    this.consultation = this.consultationForm.value;
+    this.consultationService.addConsultation(this.consultation).subscribe(response => {
+      console.log(response);
+      this.toastr.success(
+        '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Consultatia a fost adaugata cu succes!!</span>',
+        "Consultatie",
+        {
+          toastClass: "alert alert-success alert-with-icon",
+        }
+      );
+      this.router.navigateByUrl('/doctor/appoinments');
+    }, error => {
+      this.validationErrors = error;
+    }
+    )
   }
 
   cancel() {

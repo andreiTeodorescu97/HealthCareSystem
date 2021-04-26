@@ -1,7 +1,9 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Entities
 {
+    [Table("Consultations")]
     public class Consultation
     {
         public int Id { get; set; }

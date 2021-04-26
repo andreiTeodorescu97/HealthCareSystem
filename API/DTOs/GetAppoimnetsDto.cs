@@ -18,5 +18,8 @@ namespace API.DTOs
         public int DoctorId { get; set; }
         public string DoctorFirstName { get; set; }
         public string DoctorSecondName { get; set; }
+        public int StatusId { get; set; }
+        public string Status { get; set; }
+        public bool IsConsultationAdded { get; set; }
     }
 }

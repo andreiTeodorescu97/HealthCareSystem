@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { FreeHourDto } from 'app/_models/freehourDto';
 import { GetAppoinmentDto } from 'app/_models/getAppoinmentDto';
 import { MakeAnAppoinmentDto } from 'app/_models/makeAnAppoinmentDto';
+import { UpdateAppoinmentStatusDto } from 'app/_models/updateAppoinmentStatusDto';
 import { environment } from 'environments/environment';
 
 @Injectable({
@@ -28,5 +29,9 @@ export class AppoinmentsService {
 
   getAppoinmentsForPacient() {
     return this.http.get<GetAppoinmentDto[]>(this.baseUrl + 'appoinments/pacientAppoinmets');
+  }
+
+  updateAppoinmentStatus(model: UpdateAppoinmentStatusDto) {
+    return this.http.post(this.baseUrl + 'appoinments/updateStatus', model);
   }
 }

@@ -11,5 +11,6 @@ namespace API.Interfaces
          Task<IEnumerable<GetAppoimnetsDto>> GetPacientAppoinments(int pacientId);
          Task<IEnumerable<GetAppoimnetsDto>> GetDoctorAppoinments(int doctorId);
          Task<bool> AddAppoinmentAsync(MakeAnAppoinmentDto makeAnAppoinmentDto, int pacientId);
+         Task<bool> UpdateAppoinmentStatus(UpdateAppoinmentStatusDto updateAppoinmentStatusDto);
     }
 }

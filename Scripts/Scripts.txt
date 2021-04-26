@@ -287,19 +287,13 @@ insert into public."PacientContact" ("Street", "StreetNumber", "FirstPhone", "Se
 insert into public."PacientContact" ("Street", "StreetNumber", "FirstPhone", "SecondPhone", "PacientId", "CityId") values ('Comanche', '6', '+381 294 539 4595', '+46 181 530 0970', 89, 18);
 insert into public."PacientContact" ("Street", "StreetNumber", "FirstPhone", "SecondPhone", "PacientId", "CityId") values ('Hayes', '557', '+507 199 750 7690', '+63 341 456 8346', 90, 12);
 
-insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth", "UserId") values ('Ludee', 'Bobbe', 'bludee0@delicious.com', '2/2/1980', 91);
-insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth", "UserId") values ('Elkins', 'Marci', 'melkins0@archive.org', '2/12/1982', 92);
-insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth", "UserId") values ('Jaouen', 'Nichol', 'njaouen1@chicagotribune.com', '8/22/1986', 93);
-insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth", "UserId") values ('Dumke', 'Heddi', 'hdumke2@blogs.com', '10/12/1970', 94);
-insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth", "UserId") values ('Driscoll', 'Lela', 'ldriscoll3@unesco.org', '8/24/1961', 95);
-insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth", "UserId") values ('Netherwood', 'Waylin', 'wnetherwood4@si.edu', '4/18/1988', 96);
-insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth", "UserId") values ('Trees', 'Brian', 'btrees5@kickstarter.com', '4/25/1979', 97);
-insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth", "UserId") values ('Grealy', 'Trisha', 'tgrealy6@cam.ac.uk', '3/22/1964', 98);
-insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth", "UserId") values ('Connors', 'Juliann', 'jconnors7@cnet.com', '7/5/1980', 99);
-insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth", "UserId") values ('Cinavas', 'Renaldo', 'rcinavas8@youtu.be', '6/20/1985', 100);
-
-
-	
-
-	
-	
+insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth","HasWorkDays", "UserId") values ('Ludee', 'Bobbe', 'bludee0@delicious.com', '2/2/1980', false, 91);
+insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth","HasWorkDays", "UserId") values ('Elkins', 'Marci', 'melkins0@archive.org', '2/12/1982', false, 92);
+insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth","HasWorkDays", "UserId") values ('Jaouen', 'Nichol', 'njaouen1@chicagotribune.com', '8/22/1986', false, 93);
+insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth","HasWorkDays", "UserId") values ('Dumke', 'Heddi', 'hdumke2@blogs.com', '10/12/1970', false, 94);
+insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth","HasWorkDays", "UserId") values ('Driscoll', 'Lela', 'ldriscoll3@unesco.org', '8/24/1961', false, 95);
+insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth","HasWorkDays", "UserId") values ('Netherwood', 'Waylin', 'wnetherwood4@si.edu', '4/18/1988', false, 96);
+insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth","HasWorkDays", "UserId") values ('Trees', 'Brian', 'btrees5@kickstarter.com', '4/25/1979', false, 97);
+insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth","HasWorkDays", "UserId") values ('Grealy', 'Trisha', 'tgrealy6@cam.ac.uk', '3/22/1964', false, 98);
+insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth","HasWorkDays", "UserId") values ('Connors', 'Juliann', 'jconnors7@cnet.com', '7/5/1980', false, 99);
+insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth","HasWorkDays", "UserId") values ('Cinavas', 'Renaldo', 'rcinavas8@youtu.be', '6/20/1985', false, 100);

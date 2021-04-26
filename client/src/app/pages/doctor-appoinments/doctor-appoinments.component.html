@@ -10,6 +10,7 @@
                             <th>Prenume</th>
                             <th>Data</th>
                             <th>Ora</th>
+                            <th>Status</th>
                             <th>Data adaugarii</th>
                             <th></th>
                         </tr>
@@ -21,23 +22,46 @@
                             <td>{{ appoinment.pacientSecondName }}</td>
                             <td>{{ appoinment.appoinmentDate }}</td>
                             <td>{{ appoinment.appoinmentHour }}</td>
+                            <td>{{ appoinment.status }}</td>
                             <td>{{ appoinment.dateCreated | date : 'dd/MM/yyyy'}}</td>
                             <td>
                                 <div class="btn-group" dropdown>
-                                    <button id="button-basic" dropdownToggle type="button" class="btn btn-info btn-round dropdown-toggle"
-                                            aria-controls="dropdown-basic">
-                                            <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
+                                    <button id="button-basic" dropdownToggle type="button"
+                                        class="btn btn-info btn-round dropdown-toggle" aria-controls="dropdown-basic">
+                                        <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
                                     </button>
-                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
-                                        role="menu" aria-labelledby="button-basic">
-                                      <li role="menuitem"><a class="dropdown-item"><i class="fa fa-check" aria-hidden="true"></i> Aproba</a></li>
-                                      <li role="menuitem"><a class="dropdown-item"><i class="fa fa-address-card" aria-hidden="true"></i> Profil pacient</a></li>
-                                      <li role="menuitem"><a class="dropdown-item"><i class="fa fa-times" aria-hidden="true"></i> Respinge</a></li>
-                                      <li class="divider dropdown-divider"></li>
-                                      <li role="menuitem"><a class="dropdown-item" (click)="redirectToConsultation(appoinment)"><i class="fa fa-heart" aria-hidden="true"></i> Consult</a>
-                                      </li>
+                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
+                                        aria-labelledby="button-basic">
+                                        <li role="menuitem" *ngIf="appoinment.statusId == statuses.Pending"><a
+                                                class="dropdown-item" (click)="updateStatus(statuses.Approved, appoinment.id)">
+                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                Aproba</a>
+                                        </li>
+
+                                        <li role="menuitem" *ngIf="appoinment.statusId == statuses.Approved"><a
+                                                class="dropdown-item"><i class="fa fa-address-card"
+                                                    aria-hidden="true"></i> Profil pacient</a>
+                                        </li>
+
+                                        <li role="menuitem" *ngIf="appoinment.statusId == statuses.Pending">
+                                            <a class="dropdown-item" (click)="updateStatus(statuses.Rejected, appoinment.id)">
+                                                <i class="fa fa-times" aria-hidden="true">
+                                                </i> Respinge</a>
+                                        </li>
+
+                                        <li role="menuitem" *ngIf="appoinment.statusId == statuses.Approved && 
+                                                                   appoinment.isConsultationAdded == false">
+                                            <a class="dropdown-item" (click)="redirectToConsultation(appoinment)">
+                                                <i class="fa fa-heart" aria-hidden="true"></i> Consult</a>
+                                        </li>
+
+                                        <li role="menuitem" *ngIf="appoinment.statusId == statuses.Approved">
+                                            <a class="dropdown-item" (click)="updateStatus(statuses.CanceleByDoctor, appoinment.id)">
+                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                                Anuleaza</a>
+                                        </li>
                                     </ul>
-                                  </div>
+                                </div>
                             </td>
                         </tr>
                     </tbody>

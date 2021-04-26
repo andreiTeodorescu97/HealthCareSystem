@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210425154231_AddedConsultation")]
-    partial class AddedConsultation
+    [Migration("20210426182126_PostgresInitial")]
+    partial class PostgresInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,17 +73,25 @@ namespace API.Data.Migrations
                     b.Property<int>("DoctorId")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("IsConsultationAdded")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("PacientId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Reason")
                         .HasColumnType("text");
 
+                    b.Property<int>("StatusId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DoctorId");
 
                     b.HasIndex("PacientId");
+
+                    b.HasIndex("StatusId");
 
                     b.ToTable("Appoinments");
                 });
@@ -390,6 +398,21 @@ namespace API.Data.Migrations
                     b.ToTable("Regions");
                 });
 
+            modelBuilder.Entity("API.Entities.Status", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Statuses");
+                });
+
             modelBuilder.Entity("API.Entities.StudiesAndExperience", b =>
                 {
                     b.Property<int>("Id")
@@ -465,9 +488,17 @@ namespace API.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("API.Entities.Status", "Status")
+                        .WithMany("Appoinments")
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Doctor");
 
                     b.Navigation("Pacient");
+
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("API.Entities.City", b =>
@@ -625,6 +656,11 @@ namespace API.Data.Migrations
             modelBuilder.Entity("API.Entities.Region", b =>
                 {
                     b.Navigation("Cities");
+                });
+
+            modelBuilder.Entity("API.Entities.Status", b =>
+                {
+                    b.Navigation("Appoinments");
                 });
 #pragma warning restore 612, 618
         }

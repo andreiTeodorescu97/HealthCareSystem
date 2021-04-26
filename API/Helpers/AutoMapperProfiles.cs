@@ -48,7 +48,8 @@ namespace API.Helpers
             .ForMember(dest => dest.DoctorFirstName, options => options.MapFrom(source => source.Doctor.FirstName))
             .ForMember(dest => dest.DoctorSecondName, options => options.MapFrom(source => source.Doctor.SecondName))
             .ForMember(dest => dest.PacientFirstName, options => options.MapFrom(source => source.Pacient.FirstName))
-            .ForMember(dest => dest.PacientSecondName, options => options.MapFrom(source => source.Pacient.SecondName));
+            .ForMember(dest => dest.PacientSecondName, options => options.MapFrom(source => source.Pacient.SecondName))
+            .ForMember(dest => dest.Status, options => options.MapFrom(source => source.Status.Name));
 
             CreateMap<ConsultationDto, Consultation>();
         }
