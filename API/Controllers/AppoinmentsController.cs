@@ -38,15 +38,15 @@ namespace API.Controllers
         [HttpPost("add")]
         public async Task<ActionResult> MakeAnAppoinment(MakeAnAppoinmentDto makeAnAppoinmentDto)
         {
+            var userPacient = await _pacientRepository.GetPacientByUsername(User.GetUserName());
+
             if (makeAnAppoinmentDto == null
             || makeAnAppoinmentDto.DoctorId == 0
             || makeAnAppoinmentDto.DayUnixTime == 0
-            || makeAnAppoinmentDto.FromTimeSpan == 0 || makeAnAppoinmentDto.ToTimeSpan == 0)
+            || makeAnAppoinmentDto.FromTimeSpan == 0 || makeAnAppoinmentDto.ToTimeSpan == 0 || userPacient.Pacient == null)
             {
                 return BadRequest("Parametrii invalizi!");
             }
-
-            var userPacient = await _pacientRepository.GetPacientByUsername(User.GetUserName());
 
             if (await _appoinmentsRepository.AddAppoinmentAsync(makeAnAppoinmentDto, userPacient.Pacient.Id))
             {

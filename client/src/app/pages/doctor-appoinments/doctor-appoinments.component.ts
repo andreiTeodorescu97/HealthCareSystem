@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 import { UpdateAppoinmentStatusDto } from 'app/_models/updateAppoinmentStatusDto';
 import { ToastrService } from 'ngx-toastr';
 import { DataTableDirective } from 'angular-datatables';
+import { PacientService } from 'app/_services/pacient.service';
 
 @Component({
   selector: 'app-doctor-appoinments',
@@ -30,7 +31,7 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private appoinmentService: AppoinmentsService, 
+  constructor(private appoinmentService: AppoinmentsService, private pacientService: PacientService, 
     private router : Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -90,5 +91,10 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
         this.dtTrigger.next();
       });
     });
+  }
+
+  goToPacientProfile(id: string){
+    this.router.navigateByUrl('pacient/pacient_profile/' + id);
+
   }
 }

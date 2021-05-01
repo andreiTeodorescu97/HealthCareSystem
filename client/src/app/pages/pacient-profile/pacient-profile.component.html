@@ -1,0 +1,113 @@
+<div class="row" *ngIf="pacient">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="text-center"><strong>{{pacient.firstName}}
+                        {{pacient.secondName}}</strong></h5>
+                <hr>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4">
+                            <p>Varsta: {{pacient.age}} ani</p>
+                            <p>Data nasterii: {{birthDate | romanianDate}}</p>
+                            <p>E-mail: {{pacient.email}}</p>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <p>Telefon1: {{pacient.pacientContact.firstPhone}}</p>
+                            <p>Telefon2: {{pacient.pacientContact.secondPhone}}</p>
+                            <p>Serie: {{pacient.series}} Nr: {{pacient.identityNumber}}</p>
+                            <p>CNP: {{pacient.cnp}}</p>
+                        </div>
+                        <div class="col-2"></div>
+                        <div class="col-2">
+                            <p>Strada: {{pacient.pacientContact.street}}
+                                {{pacient.pacientContact.streetNumber}}</p>
+                            <p>Oras: {{pacient.pacientContact.city}}</p>
+                            <p>Judet: {{pacient.pacientContact.region}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="pacient">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <tabset class="member-tabset" [justified]="true">
+                    <tab heading="General">
+                        <div class="row justify-content-center">
+                            <h5 class="text-primary">Date medicale generale</h5>
+                        </div>
+                        <form [formGroup]='pacientGeneralDataForm' autocomplete="off">
+                            <div class="row justify-content-center">
+                                <div class="col-3">
+                                    <label>Grupa de sange</label>
+                                    <app-text-input [formControl]='pacientGeneralDataForm.controls["bloodType"]'
+                                        [label]='"Grupa de sange"'>
+                                    </app-text-input>
+
+                                    <label>Greutate la nastere</label>
+                                    <app-text-input [formControl]='pacientGeneralDataForm.controls["weightBirth"]'
+                                        [label]='"Greutate la nastere [kg]"'>
+                                    </app-text-input>
+
+                                    <label>Inaltime la nastere</label>
+                                    <app-text-input [formControl]='pacientGeneralDataForm.controls["heightBirth"]'
+                                        [label]='"Inaltime la nastere [cm]"'>
+                                    </app-text-input>
+                                </div>
+                                <div class="col-3">
+                                    <label>Numar nasteri</label>
+                                    <app-text-input [formControl]='pacientGeneralDataForm.controls["numberOfBirths"]'
+                                        [label]='"Numar nasteri"'>
+                                    </app-text-input>
+
+                                    <label>Numar avorturi</label>
+                                    <app-text-input [formControl]='pacientGeneralDataForm.controls["numberOfAvortions"]'
+                                        [label]='"Numar avorturi"'>
+                                    </app-text-input>
+
+                                    <label></label>
+                                    <div class="form-group">
+                                        <label class="control-label" style="margin-right: 10px;">Fumator: </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" value= "true" formControlName='isSmoker'>
+                                             Da
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" value= "false" class="ml-3" formControlName='isSmoker'>
+                                            Nu
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </tab>
+                    <tab heading="Consultatii">
+                        <div class="row justify-content-center">
+                            <h5 class="text-primary">Consultatii</h5>
+                        </div>
+                    </tab>
+                    <tab heading="Diagnostice">
+                        <div class="row justify-content-center">
+                            <h5 class="text-primary">Diagnostice</h5>
+                        </div>
+                    </tab>
+                    <tab heading="Retete">
+                        <div class="row justify-content-center">
+                            <h5 class="text-primary">Retete</h5>
+                        </div>
+                    </tab>
+                    <tab heading="Documente">
+                        <div class="row justify-content-center">
+                            <h5 class="text-primary">Documente</h5>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+    </div>
+</div>

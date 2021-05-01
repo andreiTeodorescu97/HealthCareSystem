@@ -20,8 +20,6 @@ export const ROUTES: RouteInfo[] = [
     { path: '/doctor/appoinments', title: 'Programari Doctor', icon: 'fa fa-clock-o', class: '', isRegisterRequired: true },
     { path: '/pacient/appoinments', title: 'Programari Pacient', icon: 'fa fa-clock-o', class: '', isRegisterRequired: true },
     { path: '/doctors', title: 'Doctori', icon: 'fa fa-user-md', class: '', isRegisterRequired: true },
-    { path: '/icons', title: 'Icons', icon: 'nc-icon nc-diamond', class: '', isRegisterRequired: true },
-    { path: '/notifications', title: 'Notifications', icon: 'nc-icon nc-bell-55', class: '', isRegisterRequired: true },
     { path: '/upgrade', title: 'Upgrade to PRO', icon: 'nc-icon nc-spaceship', class: 'active-pro', isRegisterRequired: true },
     { path: '/user', title: 'Profil Pacient', icon: 'fa fa-user', class: '', isRegisterRequired: true },
     { path: '/doctor_work_days', title: 'Orar Doctor', icon: 'fa fa-calendar', class: '', isRegisterRequired: true },

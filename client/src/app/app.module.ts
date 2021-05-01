@@ -45,6 +45,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { DoctorAppoinmentsComponent } from './pages/doctor-appoinments/doctor-appoinments.component';
 import { PacientAppoinmentsComponent } from './pages/pacient-appoinments/pacient-appoinments.component';
 import { ConsultationFormComponent } from './pages/consultation-form/consultation-form.component';
+import { PacientProfileComponent } from './pages/pacient-profile/pacient-profile.component';
 
 defineLocale("ro", roLocale);
 
@@ -77,6 +78,7 @@ defineLocale("ro", roLocale);
     DoctorAppoinmentsComponent,
     PacientAppoinmentsComponent,
     ConsultationFormComponent,
+    PacientProfileComponent,
   ],
   imports: [
     BrowserAnimationsModule,

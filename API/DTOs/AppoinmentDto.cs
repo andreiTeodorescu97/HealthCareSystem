@@ -6,5 +6,6 @@ namespace API.DTOs
         public string AppoinmentDate { get; set; }
         public string AppoinmentHour { get; set; }
         public string Reason { get; set; }
+        public int? PacientId { get; set; }
     }
 }

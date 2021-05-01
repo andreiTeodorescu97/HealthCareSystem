@@ -30,11 +30,7 @@ namespace API.Repositories
         }
 
         public async Task<GetPacientDto> GetPacientByCnpUsingDtoAsync(string cnp)
-        {
-            /*             return await _context.Pacients
-                        .ProjectTo<GetPacientDto>(_mapper.ConfigurationProvider)
-                        .SingleOrDefaultAsync(x => x.CNP == cnp); */
-
+        { 
             return await _context.Pacients
             .Include(c => c.PacientContact.City.Region)
             .Select(c => new GetPacientDto()
@@ -57,7 +53,8 @@ namespace API.Repositories
                     CityId = c.PacientContact.City != null ? c.PacientContact.City.Id : null,
                     RegionId = c.PacientContact.City != null ? c.PacientContact.City.Region.Id : null
                 }
-            }).FirstOrDefaultAsync(c => c.CNP == cnp);
+            })
+            .FirstOrDefaultAsync(c => c.CNP == cnp);
         }
 
         public async Task<GetPacientDto> GetPacientByFirstNameAsync(string firstName)
@@ -69,33 +66,46 @@ namespace API.Repositories
 
         public async Task<GetPacientDto> GetPacientByIdUsingDtoAsync(int id)
         {
-            /*             return await _context.Pacients
-                        .ProjectTo<GetPacientDto>(_mapper.ConfigurationProvider)
-                        .SingleOrDefaultAsync(x => x.Id == id); */
-
-            return await _context.Pacients
+            var pacient =   await _context.Pacients
             .Include(c => c.PacientContact.City.Region)
-            .Select(c => new GetPacientDto()
-            {
-                FirstName = c.FirstName,
-                SecondName = c.SecondName,
-                Email = c.Email,
-                IdentityNumber = c.IdentityNumber,
-                Series = c.Series,
-                CNP = c.CNP,
-                DateOfBirth = c.DateOfBirth,
-                Age = c.DateOfBirth.CalculateAge(),
+            .Include(c => c.PacientGeneralMedicalData)
+            .FirstOrDefaultAsync(c => c.Id == id);
 
-                PacientContact = new PacientContactDto()
+            var result = new GetPacientDto
+            {
+                FirstName = pacient.FirstName,
+                SecondName = pacient.SecondName,
+                Email = pacient.Email,
+                IdentityNumber = pacient.IdentityNumber,
+                Series = pacient.Series,
+                CNP = pacient.CNP,
+                DateOfBirth = pacient.DateOfBirth,
+                Age = pacient.DateOfBirth.CalculateAge(),
+
+                PacientContact = new PacientContactDto
                 {
-                    FirstPhone = c.PacientContact.FirstPhone,
-                    SecondPhone = c.PacientContact.SecondPhone,
-                    Street = c.PacientContact.Street,
-                    StreetNumber = c.PacientContact.StreetNumber,
-                    CityId = c.PacientContact.City != null ? c.PacientContact.City.Id : null,
-                    RegionId = c.PacientContact.City != null ? c.PacientContact.City.Region.Id : null
-                }
-            }).FirstOrDefaultAsync(c => c.Id == id);
+                    FirstPhone = pacient.PacientContact.FirstPhone,
+                    SecondPhone = pacient.PacientContact.SecondPhone,
+                    Street = pacient.PacientContact.Street,
+                    StreetNumber = pacient.PacientContact.StreetNumber,
+                    CityId = pacient.PacientContact.City != null ? pacient.PacientContact.City.Id : null,
+                    RegionId = pacient.PacientContact.City != null ? pacient.PacientContact.City.Region.Id : null,
+                    City = pacient.PacientContact.City != null ? pacient.PacientContact.City.Name : null,
+                    Region = pacient.PacientContact.City != null ? pacient.PacientContact.City.Region.Name : null,
+                },
+
+                PacientGeneralMedicalData = new PacientGeneralMedicalDataDto
+                {
+                    BloodType = pacient.PacientGeneralMedicalData.BloodType,
+                    WeightBirth = pacient.PacientGeneralMedicalData.WeightBirth,
+                    HeightBirth = pacient.PacientGeneralMedicalData.HeightBirth,
+                    NumberOfBirths = pacient.PacientGeneralMedicalData.NumberOfBirths,
+                    NumberOfAvortions = pacient.PacientGeneralMedicalData.NumberOfAvortions,
+                    IsSmoker = pacient.PacientGeneralMedicalData.IsSmoker
+                },
+            };
+
+            return result;
         }
 
         public async Task<bool> SaveAllAsync()
@@ -123,6 +133,17 @@ namespace API.Repositories
             return await _context.Users
             .Include(c => c.Pacient.PacientContact.City.Region)
             .SingleOrDefaultAsync(x => x.UserName == userName);
+        }
+
+        public async Task<bool> UpdatePacientGeneralMedicalData(PacientGeneralMedicalDataDto pacientGeneralMedicalDataDto)
+        {
+            var pacient = await _context.Pacients.FindAsync(pacientGeneralMedicalDataDto.PacientId);
+
+            _mapper.Map(pacientGeneralMedicalDataDto, pacient.PacientGeneralMedicalData = new PacientGeneralMedicalData());
+
+            Update(pacient);
+
+            return await SaveAllAsync();
         }
     }
 }

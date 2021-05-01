@@ -23,6 +23,7 @@ import { DoctorDetailComponent } from './pages/doctor-detail/doctor-detail.compo
 import { DoctorAppoinmentsComponent } from './pages/doctor-appoinments/doctor-appoinments.component';
 import { PacientAppoinmentsComponent } from './pages/pacient-appoinments/pacient-appoinments.component';
 import { ConsultationFormComponent } from './pages/consultation-form/consultation-form.component';
+import { PacientProfileComponent } from './pages/pacient-profile/pacient-profile.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent, canActivate: [NoauthGuard]},
@@ -54,6 +55,7 @@ const routes: Routes = [
       {path:'doctor/appoinments', component: DoctorAppoinmentsComponent}, 
       {path:'pacient/appoinments', component: PacientAppoinmentsComponent}, 
       {path:'pacient/consultation/:appoinmentId/:pacientFirstName/:pacientSecondName', component: ConsultationFormComponent}, 
+      {path:'pacient/pacient_profile/:id', component: PacientProfileComponent}, 
     ]
   },
   {path:'**', component: HomeComponent, canActivate: [NoauthGuard]}

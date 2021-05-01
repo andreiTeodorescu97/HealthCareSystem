@@ -79,11 +79,11 @@ namespace API.Repositories
 
         public async Task<DoctorDto> GetDoctorByDoctorId(int doctorId)
         {
-            var x = await _context.Doctors.Where(x => x.Id == doctorId)
+            var doctor = await _context.Doctors.Where(x => x.Id == doctorId)
             .ProjectTo<DoctorDto>(_mapper.ConfigurationProvider)
             .SingleOrDefaultAsync();
 
-            return x;
+            return doctor;
         }
     }
 }

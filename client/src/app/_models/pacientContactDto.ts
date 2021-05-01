@@ -5,4 +5,6 @@ export interface PacientContactDto{
     secondPhone: string;
     cityId: number;
     regionId: number;
+    city: string;
+    region: string;
 }

@@ -52,6 +52,10 @@ namespace API.Helpers
             .ForMember(dest => dest.Status, options => options.MapFrom(source => source.Status.Name));
 
             CreateMap<ConsultationDto, Consultation>();
+            CreateMap<Consultation, ConsultationDto>();
+
+            CreateMap<PacientGeneralMedicalDataDto, PacientGeneralMedicalData>();
+            CreateMap<PacientGeneralMedicalData, PacientGeneralMedicalDataDto>();
         }
     }
 }

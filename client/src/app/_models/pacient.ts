@@ -1,5 +1,5 @@
 import { PacientContactDto } from "./pacientContactDto";
-
+import { PacientGeneralMedicalDataDto } from "./pacientGeneralMedicalDataDto";
 
 export interface Pacient{
     firstName: string;
@@ -10,5 +10,7 @@ export interface Pacient{
     identityNumber: string;
     cnp: string;
     dateOfBirth: string;
+    age: number;
     pacientContact: PacientContactDto;
+    pacientGeneralMedicalData: PacientGeneralMedicalDataDto;
 }

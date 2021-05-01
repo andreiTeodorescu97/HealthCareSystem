@@ -1,5 +1,4 @@
 using System;
-using API.Entities;
 
 namespace API.DTOs
 {
@@ -16,7 +15,7 @@ namespace API.DTOs
         public DateTime DateOfBirth { get; set; }
         public int Age { get; set; }
         public int UserId { get; set; }
-        /* public AppUser User { get; set; } */
         public PacientContactDto PacientContact { get; set; }
+        public PacientGeneralMedicalDataDto PacientGeneralMedicalData { get; set; }
     }
 }

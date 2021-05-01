@@ -39,7 +39,7 @@
                                         </li>
 
                                         <li role="menuitem" *ngIf="appoinment.statusId == statuses.Approved"><a
-                                                class="dropdown-item"><i class="fa fa-address-card"
+                                                class="dropdown-item" (click)="goToPacientProfile(appoinment.pacientId)"><i class="fa fa-address-card"
                                                     aria-hidden="true"></i> Profil pacient</a>
                                         </li>
 
@@ -55,7 +55,8 @@
                                                 <i class="fa fa-heart" aria-hidden="true"></i> Consult</a>
                                         </li>
 
-                                        <li role="menuitem" *ngIf="appoinment.statusId == statuses.Approved">
+                                        <li role="menuitem" *ngIf="appoinment.statusId == statuses.Approved && 
+                                                                    appoinment.isConsultationAdded == false">
                                             <a class="dropdown-item" (click)="updateStatus(statuses.CanceleByDoctor, appoinment.id)">
                                                 <i class="fa fa-times" aria-hidden="true"></i>
                                                 Anuleaza</a>

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Authorize]
+    /* [Authorize] */
     public class PacientsController : BaseApiController
     {
         private readonly IPacientRepository _pacientRepository;

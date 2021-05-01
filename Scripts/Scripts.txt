@@ -297,3 +297,12 @@ insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth",
 insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth","HasWorkDays", "UserId") values ('Grealy', 'Trisha', 'tgrealy6@cam.ac.uk', '3/22/1964', false, 98);
 insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth","HasWorkDays", "UserId") values ('Connors', 'Juliann', 'jconnors7@cnet.com', '7/5/1980', false, 99);
 insert into public."Doctors" ("FirstName", "SecondName", "Email", "DateOfBirth","HasWorkDays", "UserId") values ('Cinavas', 'Renaldo', 'rcinavas8@youtu.be', '6/20/1985', false, 100);
+
+insert into public."Statuses" ("Name") values ('Pending');
+insert into public."Statuses" ("Name") values ('Approved');
+insert into public."Statuses" ("Name") values ('CanceledByPacient');
+insert into public."Statuses" ("Name") values ('CanceledByDoctor');
+insert into public."Statuses" ("Name") values ('Finalized');
+insert into public."Statuses" ("Name") values ('Rejected');
+
+

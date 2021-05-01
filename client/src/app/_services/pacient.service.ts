@@ -20,5 +20,8 @@ export class PacientService {
     return this.http.put(this.baseUrl + 'pacients', pacient);
   }
 
+  getPacientById(id: string) {
+    return this.http.get<Pacient>(this.baseUrl + 'pacients/' + id);
+  }
 
 }

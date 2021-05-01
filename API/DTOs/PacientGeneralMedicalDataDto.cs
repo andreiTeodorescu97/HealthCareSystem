@@ -8,6 +8,6 @@ namespace API.DTOs
         public int NumberOfBirths { get; set; }
         public int NumberOfAvortions { get; set; }
         public bool IsSmoker { get; set; }
-        public string GeneticDiseases { get; set; }
+        public int PacientId { get; set; }
     }
 }

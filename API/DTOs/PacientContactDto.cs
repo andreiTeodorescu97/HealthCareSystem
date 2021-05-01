@@ -8,5 +8,7 @@ namespace API.DTOs
         public string SecondPhone { get; set; }
         public int? CityId { get; set; }
         public int? RegionId { get; set; }
+        public string City { get; set; }
+        public string Region { get; set; }
     }
 }
