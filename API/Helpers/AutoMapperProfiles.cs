@@ -56,6 +56,8 @@ namespace API.Helpers
 
             CreateMap<PacientGeneralMedicalDataDto, PacientGeneralMedicalData>();
             CreateMap<PacientGeneralMedicalData, PacientGeneralMedicalDataDto>();
+
+            CreateMap<Vaccine, VaccineDto>();
         }
     }
 }

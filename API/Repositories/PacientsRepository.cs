@@ -96,12 +96,12 @@ namespace API.Repositories
 
                 PacientGeneralMedicalData = new PacientGeneralMedicalDataDto
                 {
-                    BloodType = pacient.PacientGeneralMedicalData.BloodType,
-                    WeightBirth = pacient.PacientGeneralMedicalData.WeightBirth,
-                    HeightBirth = pacient.PacientGeneralMedicalData.HeightBirth,
-                    NumberOfBirths = pacient.PacientGeneralMedicalData.NumberOfBirths,
-                    NumberOfAvortions = pacient.PacientGeneralMedicalData.NumberOfAvortions,
-                    IsSmoker = pacient.PacientGeneralMedicalData.IsSmoker
+                    BloodType = pacient.PacientGeneralMedicalData?.BloodType,
+                    WeightBirth = pacient.PacientGeneralMedicalData?.WeightBirth,
+                    HeightBirth = pacient.PacientGeneralMedicalData?.HeightBirth,
+                    NumberOfBirths = pacient.PacientGeneralMedicalData?.NumberOfBirths,
+                    NumberOfAvortions = pacient.PacientGeneralMedicalData?.NumberOfAvortions,
+                    IsSmoker = pacient.PacientGeneralMedicalData?.IsSmoker.ToString()
                 },
             };
 
@@ -137,11 +137,12 @@ namespace API.Repositories
 
         public async Task<bool> UpdatePacientGeneralMedicalData(PacientGeneralMedicalDataDto pacientGeneralMedicalDataDto)
         {
-            var pacient = await _context.Pacients.FindAsync(pacientGeneralMedicalDataDto.PacientId);
+            var pacient = await _context.Pacients.Include(c => c.PacientGeneralMedicalData)
+            .SingleOrDefaultAsync(c => c.Id == pacientGeneralMedicalDataDto.PacientId);
 
             _mapper.Map(pacientGeneralMedicalDataDto, pacient.PacientGeneralMedicalData = new PacientGeneralMedicalData());
 
-            Update(pacient);
+            _context.Entry(pacient).State = EntityState.Modified;
 
             return await SaveAllAsync();
         }

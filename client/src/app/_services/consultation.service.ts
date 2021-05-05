@@ -16,5 +16,7 @@ export class ConsultationService {
     return this.http.post(this.baseUrl + 'consultation/add', model);
   }
 
-  
+  getPacientConsultations(id : number) {
+    return this.http.get<ConsultationDto[]>(this.baseUrl + 'consultation/get/' + id);
+  }
 }

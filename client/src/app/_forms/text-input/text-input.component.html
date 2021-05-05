@@ -14,12 +14,12 @@
     <!-- IMPORTANT isMatching!!!!!!! -->
     <div class="invalid-feedback" 
     *ngIf="ngControl.control.errors?.minlength">
-        {{label}} trebuie sa aibe minim {{ngControl.control.errors.minlength['requiredLength']}} caracter!
+        {{label}} trebuie sa fie de minim {{ngControl.control.errors.minlength['requiredLength']}} caracter!
     </div>
 
     <div class="invalid-feedback" 
     *ngIf="ngControl.control.errors?.maxlength">
-    {{label}} trebuie sa aibe maxim {{ngControl.control.errors.maxlength['requiredLength']}} caractere!
+    {{label}} trebuie sa fie de maxim {{ngControl.control.errors.maxlength['requiredLength']}} caractere!
     </div>
 
     <div class="invalid-feedback" 

@@ -23,12 +23,26 @@ namespace API.Data
         public DbSet<Appoinment> Appoinments { get; set; }
         public DbSet<Consultation> Consultations { get; set; }
         public DbSet<Status> Statuses { get; set; }
+        public DbSet<VaccineXPacient> VaccineXPacients { get; set; }
+        public DbSet<Vaccine> Vaccines { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             builder.Entity<Doctor>().HasKey(g => new { g.Id });
             builder.ApplyUtcDateTimeConverter();
+
+            builder.Entity<VaccineXPacient>()
+            .HasOne(s => s.Pacient)
+            .WithMany(l => l.ReceivedVaccines)
+            .HasForeignKey(s => s.PacientId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<VaccineXPacient>()
+            .HasOne(s => s.Vaccine)
+            .WithMany(l => l.Pacients)
+            .HasForeignKey(s => s.VaccineId)
+            .OnDelete(DeleteBehavior.Cascade);
         }
     }
 

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Repositories;
@@ -23,6 +24,19 @@ namespace API.Controllers
             }
 
             return BadRequest("Upps..ceva nu a mers!");
+        }
+
+        [HttpGet("get/{pacientId}")]
+        public async Task<ActionResult<IEnumerable<ConsultationDto>>> GetPacientConsultations(int pacientId)
+        {
+            if(pacientId == 0 || pacientId < 0)
+            {
+                return BadRequest("Upps..ceva nu a mers!");
+            }
+
+            var consultations = await _consultationRepository.GetPacientConsultations(pacientId);
+
+            return Ok(consultations);
         }
 
 

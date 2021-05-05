@@ -306,3 +306,86 @@ insert into public."Statuses" ("Name") values ('Finalized');
 insert into public."Statuses" ("Name") values ('Rejected');
 
 
+
+INSERT INTO public."Vaccines"(
+"RecommendedAge", "Name", "Description", "IsRequired", "IsCustomForUser", "For")
+VALUES ('primele 24 de ore de viata', 'Hep B', 'Vaccinare impotriva hepatitei B', true, false, null);
+
+INSERT INTO public."Vaccines"(
+"RecommendedAge", "Name", "Description", "IsRequired", "IsCustomForUser", "For")
+VALUES ('1-7 zile', 'BCG (in maternitate)', 'Vaccinare impotriva tuberculozei (vaccinarea se face in maternitate)', true, false, null);
+
+INSERT INTO public."Vaccines"(
+"RecommendedAge", "Name", "Description", "IsRequired", "IsCustomForUser", "For")
+VALUES ('2 luni', 'DTPa-VPi - Hib si HEP B', 'DTPa = Vaccinare anti diftero - tetano -pertusis
+VPi = Vaccinare anti polio - injectabil 
+Hib= Vaccinul Hib (vaccinul antihaemophilus influenzae B) 
+Hep B = Vaccinare antihepatica B,', 
+true, false, null);
+
+INSERT INTO public."Vaccines"(
+"RecommendedAge", "Name", "Description", "IsRequired", "IsCustomForUser", "For")
+VALUES ('4 luni', 'DTPa - VPI - Hib', 'DTPa = Vaccinare anti diftero - tetano -pertusis
+VPi = Vaccinare anti polio - injectabil
+Hib= Vaccinul Hib (vaccinul antihaemophilus influenzae B)
+', true, false, null);
+
+INSERT INTO public."Vaccines"(
+"RecommendedAge", "Name", "Description", "IsRequired", "IsCustomForUser", "For")
+VALUES ('6 luni', 'DTPa-VPi - Hib si HEP B', 'DTPa = Vaccinare anti diftero - tetano -pertusis
+VPi = Vaccinare anti polio - injectabil
+Hib= Vaccinul Hib (vaccinul antihaemophilus influenzae B)
+Hep B = Vaccinare antihepatica B', 
+true, false, null);
+
+INSERT INTO public."Vaccines"(
+"RecommendedAge", "Name", "Description", "IsRequired", "IsCustomForUser", "For")
+VALUES ('12 luni', 'DTPa-VPi - Hib si ROR', 'DTPa = Vaccinare anti diftero - tetano -pertusis
+VPi = Vaccinare anti polio - injectabil
+Hib= Vaccinul Hib (vaccinul antihaemophilus influenzae B)
+ROR = vaccin rujeolic, rubeolic, oreion', 
+true, false, null);
+
+INSERT INTO public."Vaccines"(
+"RecommendedAge", "Name", "Description", "IsRequired", "IsCustomForUser", "For")
+VALUES ('4 ani', 'DTPa (rapel 2)', 'Vaccinare antidifterica, antitetanica/antipertusis', true, false, null);
+
+INSERT INTO public."Vaccines"(
+"RecommendedAge", "Name", "Description", "IsRequired", "IsCustomForUser", "For")
+VALUES ('7 ani (in clasa I)', 'ROR (campanii scolare)', 'Vaccinare antirujeolica, antidifterica,
+antitetanica', true, false, null);
+
+INSERT INTO public."Vaccines"(
+"RecommendedAge", "Name", "Description", "IsRequired", "IsCustomForUser", "For")
+VALUES ('9 ani (in clasa IIIa)', 'VPI (oral trivalent) - campanii scolare', 'Vaccinare antipoliomelitica - injectabil', true, false, null);
+
+INSERT INTO public."Vaccines"(
+"RecommendedAge", "Name", "Description", "IsRequired", "IsCustomForUser", "For")
+VALUES ('14 ani (in clasa VIII)', 'DT, Rubeolic (campanii scolare)', 'Vaccinare antituberculoasa si antidifterica/antitetanica', true, false, null);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
