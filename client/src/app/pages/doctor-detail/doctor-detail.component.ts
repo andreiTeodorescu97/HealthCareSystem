@@ -98,7 +98,7 @@ export class DoctorDetailComponent implements OnInit {
 
     this.appoinmentsService.makeAnAppoinment(this.appoinmentDto).subscribe(() => {
       this.toastr.success(
-        '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Programarea a fost realizata cu succes!</span>',
+        '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Programarea a fost inregistrata cu succes! Veti primi prin e-mail mesajul de aprobare!</span>',
         "Programare",
         {
           toastClass: "alert alert-success alert-with-icon",

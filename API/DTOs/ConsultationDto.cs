@@ -9,19 +9,20 @@ namespace API.DTOs
         public int Height { get; set; }
         [Required]
         public int Weight { get; set; }
-        public int? SystolicBp { get; set; }
-        public int? DiastolicBp { get; set; }
+        public float? SystolicBp { get; set; }
+        public float? DiastolicBp { get; set; }
         [Required]
-        public int Temperature { get; set; }
+        public float Temperature { get; set; }
         [Required]
         public int HeartRate { get; set; }
-        public int? BloodSugar { get; set; }
-        public int? BMI { get; set; }
+        public float? BloodSugar { get; set; }
+        public float? BMI { get; set; }
         public int? RespiratoryRate { get; set; }
         public int? NumberOfCigarettesPerDay { get; set; }
         public string GeneralFeeling { get; set; }
         public string Comments { get; set; }
         public int AppoinmentId { get; set; }
+        public DateTime DateAdded { get; set; }
         public int? PacientId { get; set; }
     }
 }

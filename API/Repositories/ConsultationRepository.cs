@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,6 +37,7 @@ namespace API.Repositories
 
             var consultation = new Consultation();
             _mapper.Map(consultationDto, consultation);
+            consultation.DateAdded = DateTime.Now;
             _context.Consultations.Add(consultation);
 
             linkedAppoinment.IsConsultationAdded = true;

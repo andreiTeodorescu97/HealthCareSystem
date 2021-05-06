@@ -46,6 +46,8 @@ import { DoctorAppoinmentsComponent } from './pages/doctor-appoinments/doctor-ap
 import { PacientAppoinmentsComponent } from './pages/pacient-appoinments/pacient-appoinments.component';
 import { ConsultationFormComponent } from './pages/consultation-form/consultation-form.component';
 import { PacientProfileComponent } from './pages/pacient-profile/pacient-profile.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { LoadingInterceptor } from "./interceptors/loading.interceptor";
 
 defineLocale("ro", roLocale);
 
@@ -101,10 +103,12 @@ defineLocale("ro", roLocale);
     TabsModule.forRoot(),
     DataTablesModule,
     ModalModule.forRoot(),
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    NgxSpinnerModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: BsDatepickerConfig, useFactory: NaoDatepickerConfig }
   ],

@@ -24,6 +24,7 @@ import { DoctorAppoinmentsComponent } from './pages/doctor-appoinments/doctor-ap
 import { PacientAppoinmentsComponent } from './pages/pacient-appoinments/pacient-appoinments.component';
 import { ConsultationFormComponent } from './pages/consultation-form/consultation-form.component';
 import { PacientProfileComponent } from './pages/pacient-profile/pacient-profile.component';
+import { PreventUnsavedChangesGuard } from './guards/prevent-unsaved-changes.guard';
 
 const routes: Routes = [
   {path:'', component: HomeComponent, canActivate: [NoauthGuard]},
@@ -54,7 +55,7 @@ const routes: Routes = [
       {path:'doctor/detail/:id', component: DoctorDetailComponent}, 
       {path:'doctor/appoinments', component: DoctorAppoinmentsComponent}, 
       {path:'pacient/appoinments', component: PacientAppoinmentsComponent}, 
-      {path:'pacient/consultation/:appoinmentId/:pacientFirstName/:pacientSecondName', component: ConsultationFormComponent}, 
+      {path:'pacient/consultation/:appoinmentId/:pacientFirstName/:pacientSecondName', component: ConsultationFormComponent, canDeactivate : [PreventUnsavedChangesGuard]}, 
       {path:'pacient/pacient_profile/:id', component: PacientProfileComponent}, 
     ]
   },

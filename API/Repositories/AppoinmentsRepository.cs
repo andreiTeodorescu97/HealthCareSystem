@@ -121,7 +121,7 @@ namespace API.Repositories
         {
             return await _context.Appoinments.Where(c => c.DoctorId == doctorId)
                     .ProjectTo<GetAppoimnetsDto>(_mapper.ConfigurationProvider)
-                    .OrderBy(c => c.DateId)
+                    .OrderByDescending(c => c.DateId)
                     .ToListAsync();
         }
         private string GetEnglishDayName(DateTime date)

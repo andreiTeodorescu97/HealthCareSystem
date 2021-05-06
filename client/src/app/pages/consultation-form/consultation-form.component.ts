@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultationDto } from 'app/_models/consultationDto';
@@ -18,6 +19,11 @@ export class ConsultationFormComponent implements OnInit {
   pacientFirstName: string;
   pacientSecondName: string;
   consultation: ConsultationDto;
+  @HostListener('window:beforeunload', ['$event']) unloadNotification($event : any){
+    if(this.consultationForm.dirty){
+      $event.returnValue = true;
+    }
+  }
 
   constructor(private consultationService: ConsultationService, private fb: FormBuilder, 
     private router: Router, 
@@ -55,6 +61,7 @@ export class ConsultationFormComponent implements OnInit {
   addConsultation(){
     this.consultationForm.value.appoinmentId = +this.appoinmentId;
     this.consultation = this.consultationForm.value;
+    this.consultationForm.markAsPristine();
     this.consultationService.addConsultation(this.consultation).subscribe(response => {
       console.log(response);
       this.toastr.success(

@@ -165,6 +165,71 @@
                         <div class="row justify-content-center">
                             <h5 class="text-primary">Consultatii</h5>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                                            class="row-border hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Inaltime</th>
+                                                    <th>Greutate</th>
+                                                    <th>Indice mc</th>
+                                                    <th>Pres. Sist</th>
+                                                    <th>Pres. Diast</th>
+                                                    <th>Puls</th>
+                                                    <th>Temperatura</th>
+                                                    <th>Indice glicemic</th>
+                                                    <th>Tigari pe zi</th>
+                                                    <th>Data</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let pacientConsultation of pacientConsultations">
+                                                    <td>{{ pacientConsultation.height }} cm</td>
+                                                    <td>{{ pacientConsultation.weight }} kg</td>
+                                                    <td>{{ pacientConsultation.bmi }} kg/m^2</td>
+                                                    <td>{{ pacientConsultation.systolicBp }} mmHg</td>
+                                                    <td>{{ pacientConsultation.diastolicBp }} mmHg</td>
+                                                    <td>{{ pacientConsultation.respiratoryRate }} bat/min</td>
+                                                    <td>{{ pacientConsultation.temperature }} °C</td>
+                                                    <td>{{ pacientConsultation.bloodSugar }} mg/dl</td>
+                                                    <td>{{ pacientConsultation.numberOfCigarettesPerDay}} tig/zi</td>
+                                                    <td>{{ pacientConsultation.dateAdded | date : 'dd/MM/yyyy'}}</td>
+                                                    <td>
+                                                        <div class="btn-group" dropdown>
+                                                            <button id="button-basic" dropdownToggle type="button"
+                                                                class="btn btn-info btn-round dropdown-toggle"
+                                                                aria-controls="dropdown-basic">
+                                                                <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
+                                                            </button>
+                                                            <ul id="dropdown-basic" *dropdownMenu
+                                                                class="dropdown-menu dropdown-menu-right" role="menu"
+                                                                aria-labelledby="button-basic">
+
+                                                                <li role="menuitem"><a class="dropdown-item">
+                                                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                        Adauga Diagnostic</a>
+                                                                </li>
+
+                                                                <li role="menuitem"><a class="dropdown-item">
+                                                                        <i class="fa fa-file-text"
+                                                                            aria-hidden="true"></i>
+                                                                        Adauga Reteta</a>
+                                                                </li>
+
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </tab>
                     <tab heading="Diagnostice">
                         <div class="row justify-content-center">
@@ -204,7 +269,9 @@
         </select>
         <br>
         <label>Descriere vaccin</label>
-        <textarea [(ngModel)]="vaccineDescription" [disabled]='true' class="form-control" rows="7"></textarea>
+        <br>
+        <span style="white-space: pre-line">{{vaccineDescription}}</span>
+
     </div>
     <div class="modal-footer">
         <button (click)="addVaccine()" class="btn btn-success mr-2 btn-round" type="submit">Adauga</button>

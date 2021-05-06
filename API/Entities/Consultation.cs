@@ -9,12 +9,12 @@ namespace API.Entities
         public int Id { get; set; }
         public int Height { get; set; }
         public int Weight { get; set; }
-        public int? SystolicBp { get; set; }
-        public int? DiastolicBp { get; set; }
-        public int Temperature { get; set; }
+        public float? SystolicBp { get; set; }
+        public float? DiastolicBp { get; set; }
+        public float Temperature { get; set; }
         public int HeartRate { get; set; }
-        public int? BloodSugar { get; set; }
-        public int? BMI { get; set; }
+        public float? BloodSugar { get; set; }
+        public float? BMI { get; set; }
         public int? RespiratoryRate { get; set; }
         public int? NumberOfCigarettesPerDay { get; set; }
         public string GeneralFeeling { get; set; }

@@ -1,22 +1,28 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ConsultationDto } from 'app/_models/consultationDto';
 import { Pacient } from 'app/_models/pacient';
 import { PacientGeneralMedicalDataDto } from 'app/_models/pacientGeneralMedicalDataDto';
 import { UpdatePacientVaccinesDto } from 'app/_models/updatePacientVaccinesDto';
 import { VaccineDto } from 'app/_models/vaccineDto';
+import { ConsultationService } from 'app/_services/consultation.service';
 import { PacientGeneralDataService } from 'app/_services/pacient-general-data.service';
 import { PacientService } from 'app/_services/pacient.service';
 import { VaccinesService } from 'app/_services/vaccines.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
+import { ConsultationFormComponent } from '../consultation-form/consultation-form.component';
+import { gridSettings } from 'app/_models/grid';
 
 @Component({
   selector: 'app-pacient-profile',
   templateUrl: './pacient-profile.component.html',
   styleUrls: ['./pacient-profile.component.css']
 })
-export class PacientProfileComponent implements OnInit {
+
+export class PacientProfileComponent implements OnDestroy, OnInit {
 
   pacientId: string;
   pacient: Pacient;
@@ -34,6 +40,10 @@ export class PacientProfileComponent implements OnInit {
 
   pacientUpdateDto = {} as UpdatePacientVaccinesDto;
 
+  pacientConsultations: ConsultationDto[] = [];
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+
   bloodTypes = [{ name: 'A Rh pozitiv (A+)' },
   { name: 'A Rh negativ (A-)' },
   { name: 'B Rh pozitiv (B+)' },
@@ -47,7 +57,9 @@ export class PacientProfileComponent implements OnInit {
     private pacientGeneralDataService: PacientGeneralDataService,
     private toastr: ToastrService,
     private fb: FormBuilder,
+    private consultationService: ConsultationService,
     private vaccinesService: VaccinesService,
+    private router: Router,
     private modalService: BsModalService) {
     this.pacientId = this.route.snapshot.paramMap.get('id');
   }
@@ -57,6 +69,11 @@ export class PacientProfileComponent implements OnInit {
     this.initializeGeneralDataForm();
     this.getMadeVaccines();
     this.getRequiredVaccines();
+    this.initializeGrid();
+  }
+
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
   }
 
   getPacientPersonalData() {
@@ -88,7 +105,7 @@ export class PacientProfileComponent implements OnInit {
       this.pacientUpdateDto.pacientId = +this.pacientId;
 
       this.vaccinesService.updatePacientVaccines(this.pacientUpdateDto).subscribe();
-      
+
       this.toastr.success(
         '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Modificarile au fost salvate cu succes!!</span>',
         "General",
@@ -151,9 +168,42 @@ export class PacientProfileComponent implements OnInit {
     });
   }
 
-  clearVaccineModalInputs(){
+  clearVaccineModalInputs() {
     this.selectedVaccine = null;
     this.vaccineDescription = null;
+  }
+
+  getPacientConsultations() {
+    this.consultationService.getPacientConsultations(+this.pacientId).subscribe(response => {
+      this.pacientConsultations = response;
+    })
+  }
+
+
+  initializeGrid() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      searching: false,
+      columnDefs: [
+        { orderable: false, targets: 5 },
+        { className : "dt-center", targets: "_all"},
+      ],
+      language: gridSettings,
+
+    };
+    this.consultationService.getPacientConsultations(+this.pacientId)
+      .subscribe(data => {
+        this.pacientConsultations = data;
+/*         this.doctors.forEach(doctor => {
+          doctor.dateOfBirth = new Date(doctor.dateOfBirth);
+        }); */
+        this.dtTrigger.next();
+      });
+  }
+
+  someClickHandler(info: any): void {
+    this.router.navigateByUrl('' + info[900]);
   }
 
 

@@ -14,5 +14,6 @@ export interface ConsultationDto {
     comments: string;
     appoinmentId: number;
     pacientId: number;
+    dateAdded: Date;
     
 }
