@@ -98,7 +98,7 @@
                             </div>
                             <div class="form-group pull-right">
                                 <button class="btn btn-info" type="button"
-                                    (click)="openVaccineModal()">Adauga vaccin</button>
+                                    (click)="openVaccineModal(vaccineModal)">Adauga vaccin</button>
                             </div>
 
                             <div class="table-responsive" style="overflow-x: hidden; overflow-y:hidden;">
@@ -122,21 +122,26 @@
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let madeVaccine of madeVaccines; let i = index">
-                                            <td>
+                                            <td style="width: 15%">
                                                 {{madeVaccine.recommendedAge}}
                                             </td>
-                                            <td>
+                                            <td style="width: 20%">
                                                 {{madeVaccine.name}}
                                             </td>
-                                            <td>
+                                            <td style="width: 45%" class="text-justify">
                                                 {{madeVaccine.description}}
                                             </td>
-                                            <td>
-                                                {{madeVaccine.isRequired}}
+                                            <td style="width: 10%">
+                                                <h5><span *ngIf="madeVaccine.isRequired"
+                                                        class="badge badge-pill badge-success">
+                                                        <i class="fa fa-check" aria-hidden="true"></i></span></h5>
+                                                <h5><span *ngIf="!madeVaccine.isRequired"
+                                                        class="badge badge-pill badge-danger">
+                                                        <i class="fa fa-ban" aria-hidden="true"></i></span></h5>
                                             </td>
-                                            <td>
+                                            <td style="width: 10%">
                                                 <button class="btn btn-danger" type="button"
-                                                    (click)="deleteVaccine(madeVaccine.id)">-</button>
+                                                    (click)="deleteVaccine(madeVaccine)">-</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -181,3 +186,28 @@
         </div>
     </div>
 </div>
+
+<ng-template #vaccineModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left text-primary">Adauga vaccin</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="vaccineModalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <label>Vaccin</label>
+        <select class="form-control" [(ngModel)]="selectedVaccine" placeholder="Vaccin"
+            (change)="onVaccineChange($event)">
+            <option *ngFor="let requiredVaccine of requiredVaccines" [value]="requiredVaccine.id">
+                {{requiredVaccine.name}} --- Varsta recomandata: {{requiredVaccine.recommendedAge}}
+            </option>
+        </select>
+        <br>
+        <label>Descriere vaccin</label>
+        <textarea [(ngModel)]="vaccineDescription" [disabled]='true' class="form-control" rows="7"></textarea>
+    </div>
+    <div class="modal-footer">
+        <button (click)="addVaccine()" class="btn btn-success mr-2 btn-round" type="submit">Adauga</button>
+        <button class="btn btn-danger btn-round" (click)="vaccineModalRef.hide()" type="button">Renunta</button>
+    </div>
+</ng-template>

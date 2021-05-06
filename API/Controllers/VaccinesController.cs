@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
+using API.Entities;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,7 @@ namespace API.Controllers
         [HttpGet("required")]
         public async Task<ActionResult<IEnumerable<VaccineDto>>> GetAvailableVaccines()
         {
-            var vaccines = await _context.Vaccines.Where(c => c.IsRequired == true)
+            var vaccines = await _context.Vaccines
             .ProjectTo<VaccineDto>(_mapper.ConfigurationProvider)
             .ToListAsync();
 
@@ -36,6 +37,7 @@ namespace API.Controllers
         {
             var vaccinesXPacient = await _context.VaccineXPacients.Include(c => c.Vaccine)
             .Where(c => c.PacientId == pacientId)
+            .OrderByDescending(c => c.DateAdded)
             .Select(c => new VaccineDto{
                 Id = c.Vaccine.Id,
                 RecommendedAge = c.Vaccine.RecommendedAge,
@@ -49,6 +51,32 @@ namespace API.Controllers
 
         
             return Ok(vaccinesXPacient);
+        }
+
+        [HttpPost("add")]
+        public async Task<ActionResult> UpdatePacientVaccines(UpdatePacientVaccinesDto updatePacientVaccinesDto)
+        {
+            var pacient = await _context.Pacients
+                .Include(c => c.ReceivedVaccines)
+                .SingleOrDefaultAsync(c => c.Id == updatePacientVaccinesDto.PacientId);
+
+            pacient.ReceivedVaccines.Clear();
+
+            foreach (var vaccineDto in updatePacientVaccinesDto.Vaccines)
+            {
+                var vaccine = new VaccineXPacient();
+                vaccine.PacientId = updatePacientVaccinesDto.PacientId;
+                vaccine.VaccineId = vaccineDto.Id;
+                _context.VaccineXPacients.Add(vaccine);
+            }
+
+            if(await _context.SaveChangesAsync() > 0)
+            {
+                return Ok();
+            }
+
+            return BadRequest("Ups..ceva nu a mers!");
+
         }
     }
 }
