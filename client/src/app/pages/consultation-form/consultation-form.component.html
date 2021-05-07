@@ -11,23 +11,29 @@
     <div class="row">
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="card card-stats">
-                <div class="card-body text-center">
+                <div class="card-body">
 
-                    <app-text-input [formControl]='consultationForm.controls["height"]' [label]='"Inaltime [cm]"'>
+                    <label>Inaltime (cm)*</label>
+                    <app-text-input [formControl]='consultationForm.controls["height"]' [label]='"Inaltime"'>
                     </app-text-input>
 
-                    <app-text-input [formControl]='consultationForm.controls["weight"]' [label]='"Greutate [kg]"'>
+                    <label>Greutate (kg)*</label>
+                    <app-text-input [formControl]='consultationForm.controls["weight"]' [label]='"Greutate"'>
                     </app-text-input>
 
+                    <label>Presiune Sistolica (mmHg)</label>
                     <app-text-input [formControl]='consultationForm.controls["systolicBp"]'
-                        [label]='"Presiune Sistolica [mmHg]"'>
+                        [label]='"Presiune Sistolica"'>
                     </app-text-input>
 
+                    <label>Presiune Diastolica (mmHg)</label>
                     <app-text-input [formControl]='consultationForm.controls["diastolicBp"]'
-                        [label]='"Presiune Diastolica [mmHg]"'>
-                    </app-text-input>
+                        [label]='"Presiune Diastolica"'>
+                    </app-text-input> 
 
-                    <app-text-input [formControl]='consultationForm.controls["temperature"]' [label]='"Temperatura [°C]"'>
+                    <label>Temperatura (°C)*</label>
+                    <app-text-input [formControl]='consultationForm.controls["temperature"]'
+                        [label]='"Temperatura"'>
                     </app-text-input>
 
                 </div>
@@ -35,21 +41,28 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="card card-stats">
-                <div class="card-body text-center">
+                <div class="card-body">
 
+                    <label>Puls (batai/minut)*</label>
                     <app-text-input [formControl]='consultationForm.controls["heartRate"]' [label]='"Puls"'>
                     </app-text-input>
 
-                    <app-text-input [formControl]='consultationForm.controls["bloodSugar"]' [label]='"Glicemie [mg/dl]"'>
+                    <label>Indice glicemic (mg/dl)</label>
+                    <app-text-input [formControl]='consultationForm.controls["bloodSugar"]'
+                        [label]='"Indice glicemic"'>
                     </app-text-input>
 
-                    <app-text-input [formControl]='consultationForm.controls["bmi"]' [label]='"Indice masa corporala [kg/m^2] "'>
+                    <label>Indice masa corporala (kg/m^2)</label>
+                    <app-text-input [formControl]='consultationForm.controls["bmi"]'
+                        [label]='"Indice masa corporala"'>
                     </app-text-input>
 
+                    <label>Ritm respirator (respiratii/minut)</label>
                     <app-text-input [formControl]='consultationForm.controls["respiratoryRate"]'
-                        [label]='"Respiratii pe minut"'>
+                        [label]='"Ritm respirator"'>
                     </app-text-input>
 
+                    <label>Numar de tigari pe zi</label>
                     <app-text-input [formControl]='consultationForm.controls["numberOfCigarettesPerDay"]'
                         [label]='"Numar de tigari pe zi"'>
                     </app-text-input>
@@ -60,12 +73,16 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="card card-stats">
-                <div class="card-body text-center">
+                <div class="card-body">
+
+                    <label>Stare generala</label>
                     <app-text-input [formControl]='consultationForm.controls["generalFeeling"]'
                         [label]='"Stare generala"'>
                     </app-text-input>
 
-                    <app-text-input [formControl]='consultationForm.controls["comments"]' [label]='"Comentarii"'>
+                    <label>Comentarii</label>
+                    <app-text-input [formControl]='consultationForm.controls["comments"]' 
+                        [label]='"Comentarii"'>
                     </app-text-input>
                 </div>
             </div>
@@ -75,7 +92,8 @@
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="card card-stats">
                 <div class="card-body text-center">
-                    <button [disabled]='!consultationForm.valid' class="btn btn-success mr-2" type="submit">Salveaza</button>
+                    <button [disabled]='!consultationForm.valid' class="btn btn-success mr-2"
+                        type="submit">Salveaza</button>
                     <button class="btn btn-danger mr-2" (click)="cancel()" type="button">Renunta</button>
                 </div>
             </div>

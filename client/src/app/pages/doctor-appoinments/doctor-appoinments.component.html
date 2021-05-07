@@ -22,7 +22,20 @@
                             <td>{{ appoinment.pacientSecondName }}</td>
                             <td>{{ appoinment.appoinmentDate }}</td>
                             <td>{{ appoinment.appoinmentHour }}</td>
-                            <td>{{ appoinment.status }}</td>
+                            <td [ngSwitch]="appoinment.statusId">
+                                <h6><span *ngSwitchCase="statuses.Approved"
+                                        class="badge badge-pill badge-primary">{{appoinment.status}}</span></h6>
+                                <h6><span *ngSwitchCase="statuses.Pending"
+                                        class="badge badge-pill badge-warning">{{appoinment.status}}</span></h6>
+                                <h6><span *ngSwitchCase="statuses.CanceleByDoctor"
+                                        class="badge badge-pill badge-danger">{{appoinment.status}}</span></h6>
+                                <h6><span *ngSwitchCase="statuses.CanceleByPacient"
+                                        class="badge badge-pill badge-danger">{{appoinment.status}}</span></h6>
+                                <h6><span *ngSwitchCase="statuses.Rejected"
+                                        class="badge badge-pill badge-danger">{{appoinment.status}}</span></h6>
+                                <h6><span *ngSwitchCase="statuses.Finalized"
+                                        class="badge badge-pill badge-success">{{appoinment.status}}</span></h6>
+                            </td>
                             <td>{{ appoinment.dateCreated | date : 'dd/MM/yyyy'}}</td>
                             <td>
                                 <div class="btn-group" dropdown>
@@ -33,18 +46,22 @@
                                     <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
                                         aria-labelledby="button-basic">
                                         <li role="menuitem" *ngIf="appoinment.statusId == statuses.Pending"><a
-                                                class="dropdown-item" (click)="updateStatus(statuses.Approved, appoinment.id)">
+                                                class="dropdown-item"
+                                                (click)="updateStatus(statuses.Approved, appoinment.id)">
                                                 <i class="fa fa-check" aria-hidden="true"></i>
                                                 Aproba</a>
                                         </li>
 
                                         <li role="menuitem" *ngIf="appoinment.statusId == statuses.Approved"><a
-                                                class="dropdown-item" (click)="goToPacientProfile(appoinment.pacientId)"><i class="fa fa-address-card"
-                                                    aria-hidden="true"></i> Profil pacient</a>
+                                                class="dropdown-item"
+                                                (click)="goToPacientProfile(appoinment.pacientId)"><i
+                                                    class="fa fa-address-card" aria-hidden="true"></i> Profil
+                                                pacient</a>
                                         </li>
 
                                         <li role="menuitem" *ngIf="appoinment.statusId == statuses.Pending">
-                                            <a class="dropdown-item" (click)="updateStatus(statuses.Rejected, appoinment.id)">
+                                            <a class="dropdown-item"
+                                                (click)="updateStatus(statuses.Rejected, appoinment.id)">
                                                 <i class="fa fa-times" aria-hidden="true">
                                                 </i> Respinge</a>
                                         </li>
@@ -57,7 +74,8 @@
 
                                         <li role="menuitem" *ngIf="appoinment.statusId == statuses.Approved && 
                                                                     appoinment.isConsultationAdded == false">
-                                            <a class="dropdown-item" (click)="updateStatus(statuses.CanceleByDoctor, appoinment.id)">
+                                            <a class="dropdown-item"
+                                                (click)="updateStatus(statuses.CanceleByDoctor, appoinment.id)">
                                                 <i class="fa fa-times" aria-hidden="true"></i>
                                                 Anuleaza</a>
                                         </li>

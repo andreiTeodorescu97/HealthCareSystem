@@ -364,6 +364,11 @@ INSERT INTO public."Vaccines"(
 VALUES ('14 ani (in clasa VIII)', 'DT, Rubeolic (campanii scolare)', 'Vaccinare antituberculoasa si antidifterica/antitetanica', true, false, null);
 
 
+INSERT INTO public."Vaccines"(
+"RecommendedAge", "Name", "Description", "IsRequired", "IsCustomForUser", "For")
+VALUES ('La orice varsta', 'Pfizer Anti-Covid 19', 'Vaccinare impotriva Coronavirus', false, false, null);
+
+
 
 
 

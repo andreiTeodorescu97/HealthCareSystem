@@ -31,7 +31,6 @@ const routes: Routes = [
   {path:'home', component: HomeComponent, canActivate: [NoauthGuard]},
   {path:'register', component: RegisterComponent, canActivate: [NoauthGuard]},
   {path:'docregister', component: RegisterDoctorComponent, canActivate: [NoauthGuard]},
-  {path:'dashboard', component: DashboardComponent},
   {path:'errors', component: TestErrorsComponent},
   {path:'server-error', component: ServerErrorComponent},
   {path:'not-found', component: NotFoundComponent},
@@ -42,6 +41,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children:
     [
+      {path:'dashboard', component: DashboardComponent},
       {path:'table', component: TableComponent},
       {path:'user', component: UserComponent},
       {path:'typography', component: TypographyComponent},

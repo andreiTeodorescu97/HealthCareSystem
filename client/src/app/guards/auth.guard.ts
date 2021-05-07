@@ -12,7 +12,8 @@ export class AuthGuard implements CanActivate {
   constructor(private accountService: AccountService, private toastr: ToastrService, private router: Router){
 
   }
-  canActivate(): Observable<boolean> {
+  canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
+    console.log(route);
     return this.accountService.currentUser$.pipe(
       map(user => {
         if(user) return true;

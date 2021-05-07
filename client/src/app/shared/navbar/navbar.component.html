@@ -8,7 +8,7 @@
           <span class="navbar-toggler-bar bar3"></span>
         </button>
       </div>
-      <a class="navbar-brand" href="javascript:void(0)">{{getTitle()}}</a>
+      <p class="navbar-brand" href="javascript:void(0)">{{getTitle()}}</p>
     </div>
     <button class="navbar-toggler" type="button" (click)="collapse()" [attr.aria-expanded]="!isCollapsed"
       aria-controls="collapseExample">
@@ -29,8 +29,8 @@
       </form>-->
 
       <form #loginForm="ngForm" class="form-inline mt-2 mt-md-0" autocomplete="off" (ngSubmit)="login()" *ngIf="!(accountService.currentUser$ | async)">
-        <input name="username" [(ngModel)]="model.username" class="form-control mr-sm-2" type="text" placeholder="Username">
-        <input name="password" [(ngModel)]="model.password" class="form-control mr-sm-2" type="password" placeholder="Password">
+        <input name="username" [(ngModel)]="model.username" class="form-control mr-sm-2" type="text" placeholder="Nume utilizator">
+        <input name="password" [(ngModel)]="model.password" class="form-control mr-sm-2" type="password" placeholder="Parola">
         <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
       </form>
 
@@ -43,7 +43,8 @@
             </p>
           </a>
           <div ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
-            <a ngbDropdownItem href="javascript:void(0)">Editeaza profil</a>
+            <a ngbDropdownItem *ngIf="user.isPacientAccount"  href="user">Editeaza profil</a>
+            <a ngbDropdownItem *ngIf="!user.isPacientAccount"  href="doctor_profile">Editeaza profil</a>
             <a ngbDropdownItem (click)="logout()">Logout</a>
           </div>
         </li>

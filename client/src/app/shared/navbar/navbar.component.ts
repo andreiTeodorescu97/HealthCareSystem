@@ -46,10 +46,10 @@ export class NavbarComponent implements OnInit{
 
     login(){
       this.accountService.login(this.model).subscribe(response => {
+        this.router.navigateByUrl('/dashboard');
       }, error => {
         console.log(error);
       })
-      this.router.navigateByUrl('/dashboard');
     }
 
     logout(){
