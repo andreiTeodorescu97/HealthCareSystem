@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.Constants;
 using API.Data;
 using API.DTOs;
+using API.Email;
 using API.Entities;
 using API.Interfaces;
 using AutoMapper;
@@ -17,8 +18,10 @@ namespace API.Repositories
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
-        public AppoinmentsRepository(DataContext context, IMapper mapper)
+        private readonly IMailService _mailService;
+        public AppoinmentsRepository(DataContext context, IMapper mapper, IMailService mailService)
         {
+            _mailService = mailService;
             _mapper = mapper;
             _context = context;
         }
@@ -69,12 +72,17 @@ namespace API.Repositories
         public async Task<bool> AddAppoinmentAsync(MakeAnAppoinmentDto makeAnAppoinmentDto, int pacientId)
         {
             var time = TimeSpan.FromMinutes((int)makeAnAppoinmentDto.FromTimeSpan).ToString().
-                Substring(0,TimeSpan.FromMinutes((int)makeAnAppoinmentDto.FromTimeSpan).ToString().Length - 3) + "-" +
+                Substring(0, TimeSpan.FromMinutes((int)makeAnAppoinmentDto.FromTimeSpan).ToString().Length - 3) + "-" +
                         TimeSpan.FromMinutes((int)makeAnAppoinmentDto.ToTimeSpan).ToString().
-                Substring(0,TimeSpan.FromMinutes((int)makeAnAppoinmentDto.ToTimeSpan).ToString().Length - 3);
+                Substring(0, TimeSpan.FromMinutes((int)makeAnAppoinmentDto.ToTimeSpan).ToString().Length - 3);
 
-            var dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            var dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Local);
             dtDateTime = dtDateTime.AddSeconds(makeAnAppoinmentDto.DayUnixTime);
+
+            if(dtDateTime.Hour >= 21)
+            {
+                dtDateTime = dtDateTime.AddHours(3);
+            }
 
             var dateId = (dtDateTime.Year * 100 + dtDateTime.Month) * 100 + dtDateTime.Day;
 
@@ -100,13 +108,34 @@ namespace API.Repositories
 
         public async Task<bool> UpdateAppoinmentStatus(UpdateAppoinmentStatusDto updateAppoinmentStatusDto)
         {
-            var apppoinment = await _context.Appoinments.FindAsync(updateAppoinmentStatusDto.AppoinmentId);
+            var apppoinment = await _context.Appoinments.Include(c => c.Doctor)
+            .Include(c => c.Pacient)
+            .SingleOrDefaultAsync(c => c.Id == updateAppoinmentStatusDto.AppoinmentId);
 
             apppoinment.StatusId = updateAppoinmentStatusDto.NewStatusId;
 
             _context.Entry(apppoinment).State = EntityState.Modified;
 
-            return await _context.SaveChangesAsync() > 0; 
+            if (await _context.SaveChangesAsync() > 0)
+            {
+                if (updateAppoinmentStatusDto.NewStatusId == (int)AppoinmentStatuses.Approved)
+                {
+                    var appoimentApprovalMail = new AppoinmentApprovalMail
+                    {
+                        DoctorFirstName = apppoinment.Doctor.FirstName,
+                        DoctorSecondName = apppoinment.Doctor.SecondName,
+                        AppoinmentDate = apppoinment.AppoinmentDate,
+                        AppoinmentId = apppoinment.Id,
+                        ToEmail = apppoinment.Pacient.Email
+                    };
+
+                    await _mailService.SendAppoinmentApproval(appoimentApprovalMail);
+                }
+
+                return true;
+            }
+
+            return false;
         }
 
         public async Task<IEnumerable<GetAppoimnetsDto>> GetPacientAppoinments(int pacientId)

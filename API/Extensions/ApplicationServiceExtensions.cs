@@ -1,4 +1,5 @@
 using API.Data;
+using API.Email;
 using API.Helpers;
 using API.Interfaces;
 using API.Repositories;
@@ -23,6 +24,8 @@ namespace API.Extensions
             {
                 options.UseNpgsql(config.GetConnectionString("DefaultConnection"));
             });
+            services.Configure<MailSettings>(config.GetSection("MailSettings"));
+            services.AddTransient<IMailService, MailService>();
 
             return services;
         }
