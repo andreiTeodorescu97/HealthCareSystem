@@ -76,13 +76,9 @@ namespace API.Repositories
                         TimeSpan.FromMinutes((int)makeAnAppoinmentDto.ToTimeSpan).ToString().
                 Substring(0, TimeSpan.FromMinutes((int)makeAnAppoinmentDto.ToTimeSpan).ToString().Length - 3);
 
-            var dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Local);
-            dtDateTime = dtDateTime.AddSeconds(makeAnAppoinmentDto.DayUnixTime);
-
-            if(dtDateTime.Hour >= 21)
-            {
-                dtDateTime = dtDateTime.AddHours(3);
-            }
+            var dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            //Add 3 hours in seconds to complete the diference between utc0 and utc3 (Romania time)
+            dtDateTime = dtDateTime.AddSeconds(makeAnAppoinmentDto.DayUnixTime + 10800);
 
             var dateId = (dtDateTime.Year * 100 + dtDateTime.Month) * 100 + dtDateTime.Day;
 

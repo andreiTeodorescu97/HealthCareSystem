@@ -30,11 +30,8 @@ namespace API.Controllers
                 return BadRequest("Parametrii invalizi!");
             }
             var dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
-            dtDateTime = dtDateTime.AddSeconds(unixTime);
-            if (dtDateTime.Hour >= 21)
-            {
-                dtDateTime = dtDateTime.AddHours(3);
-            }
+            dtDateTime = dtDateTime.AddSeconds(unixTime + 10800);
+
             var availableSlots = await _appoinmentsRepository.GetAvailableHours(doctorId, dtDateTime);
             return Ok(availableSlots);
         }
