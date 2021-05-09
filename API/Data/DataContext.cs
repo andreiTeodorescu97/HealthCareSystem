@@ -25,6 +25,7 @@ namespace API.Data
         public DbSet<Status> Statuses { get; set; }
         public DbSet<VaccineXPacient> VaccineXPacients { get; set; }
         public DbSet<Vaccine> Vaccines { get; set; }
+        public DbSet<Medicine> Medicines { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -20,7 +20,7 @@ namespace API.Email
         {
             try
             {
-                string FilePath = Directory.GetCurrentDirectory() + "\\Templates\\AppointmentTemplatae.html";
+                string FilePath = Directory.GetCurrentDirectory() + "\\Templates\\AppointmentTemplate.html";
                 StreamReader str = new StreamReader(FilePath);
                 string MailText = str.ReadToEnd();
                 str.Close();
