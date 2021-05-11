@@ -24,5 +24,7 @@ namespace API.Entities
         public Appoinment Appoinment { get; set; }
         public int PacientId { get; set; }
         public Pacient Pacient { get; set; }
+        public bool? HasRecipe { get; set; }
+        public Recipe Recipe { get; set; }
     }
 }

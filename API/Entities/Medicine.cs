@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace API.Entities
 {
     public class Medicine
@@ -11,5 +13,6 @@ namespace API.Entities
         public string Producer { get; set; }
         public string TerapeuticalAction { get; set; }
         public string Valability { get; set; }
+        public ICollection<Prescription> Prescriptions { get; set; }
     }
 }
