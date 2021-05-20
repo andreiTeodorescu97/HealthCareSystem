@@ -55,9 +55,9 @@ namespace API.Controllers
         public async Task<ActionResult> ReadMedicinesAsync()
         {
             string filePath = Directory.GetCurrentDirectory() + "\\Files\\nomenclator.xlsx";
-            var medicines = new ExcelMapper(filePath).Fetch<MedicineDto>();
-            List<MedicineDto> listOfMeds = medicines.ToList();
-            List<MedicineDto> listOfMedsToInsert = new List<MedicineDto>();
+            var medicines = new ExcelMapper(filePath).Fetch<MedicineMapperDto>();
+            List<MedicineMapperDto> listOfMeds = medicines.ToList();
+            List<MedicineMapperDto> listOfMedsToInsert = new List<MedicineMapperDto>();
 
             //1400
 

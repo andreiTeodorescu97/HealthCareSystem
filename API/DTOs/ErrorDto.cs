@@ -1,8 +1,8 @@
 using System;
 
-namespace API.Entities
+namespace API.DTOs
 {
-    public class Error
+    public class ErrorDto
     {
         public int Id { get; set; }
         public int StatusCode { get; set; }

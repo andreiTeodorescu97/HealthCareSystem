@@ -62,6 +62,18 @@ namespace API.Helpers
 
             CreateMap<Vaccine, VaccineDto>();
             CreateMap<Photo, PhotoDto>();
+
+            CreateMap<Medicine, MedicineDto>();
+            CreateMap<MedicineDto, Medicine>();
+
+            CreateMap<Recipe, RecipeDto>();
+            CreateMap<RecipeDto, Recipe>();
+
+            CreateMap<Prescription, PrescriptionDto>();
+            CreateMap<PrescriptionDto, Prescription>();
+
+            CreateMap<ErrorDto, Error>();
+
         }
     }
 }

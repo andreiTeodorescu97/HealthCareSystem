@@ -3,13 +3,13 @@ namespace API.DTOs
     public class MedicineDto
     {
         public int Id { get; set; }
-        public string CodCIM { get; set; }
-        public string DenumireComerciala { get; set; }
-        public string DCI { get; set; }
-        public string FormaFarmaceutica { get; set; }
-        public string Concentratie { get; set; }
-        public string FirmaProducatoare { get; set; }
-        public string ActiuneTerapeutica { get; set; }
-        public string Valabilitate { get; set; }
+        public string CimCode { get; set; }
+        public string CommercialName { get; set; }
+        public string Name { get; set; }
+        public string PharmaceuticalForm { get; set; }
+        public string Concentration { get; set; }
+        public string Producer { get; set; }
+        public string TerapeuticalAction { get; set; }
+        public string Valability { get; set; }
     }
 }
