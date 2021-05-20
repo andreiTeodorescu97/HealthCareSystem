@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
@@ -14,7 +15,9 @@ namespace API.Helpers
             CreateMap<Doctor, DoctorDto>()
             .ForMember(
             destination => destination.Age,
-            options => options.MapFrom(source => source.DateOfBirth.CalculateAge()));
+            options => options.MapFrom(source => source.DateOfBirth.CalculateAge()))
+            .ForMember(destination => destination.MainPhotoUrl,
+            options => options.MapFrom(source => source.Photos.FirstOrDefault(c => c.IsMain == true).Url));
 
             CreateMap<Pacient, GetPacientDto>()
             .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
@@ -58,6 +61,7 @@ namespace API.Helpers
             CreateMap<PacientGeneralMedicalData, PacientGeneralMedicalDataDto>();
 
             CreateMap<Vaccine, VaccineDto>();
+            CreateMap<Photo, PhotoDto>();
         }
     }
 }

@@ -18,7 +18,7 @@
             <tr *ngFor="let doctor of doctors">
               <td>
                 <div>
-                  <img src="assets/img/faces/ayo-ogunseinde-2.jpg" alt="Circle Image"
+                  <img src="{{doctor.mainPhotoUrl || 'assets/img/doctor.png'}}" alt="{{ doctor.firstName }} {{ doctor.secondName }}"
                     class="img-circle img-no-padding img-responsive" width="80" height="80">
                 </div>
               </td>

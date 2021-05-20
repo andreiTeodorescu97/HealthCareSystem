@@ -9,5 +9,6 @@ namespace API.DTOs
         public string Title { get; set; }
         public bool IsPacientAccount { get; set; }
         public string Token { get; set; }
+        public string MainPhotoUrl { get; set; }
     }
 }

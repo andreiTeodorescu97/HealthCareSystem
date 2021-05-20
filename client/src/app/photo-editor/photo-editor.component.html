@@ -1,0 +1,81 @@
+<div class="row">
+  <div class="col-2" *ngFor="let photo of doctor.photos">
+    <img src="{{photo.url}}" alt="{{photo.url}}" class="img-thumbnail p-1">
+    <div class="text-center">
+      <button [disabled]="photo.isMain" (click)="setMainPhoto(photo)"
+        [ngClass]='photo.isMain ? "btn-success active" : "btn-outline-success"' class="btn btn-sm"> Profil
+      </button>
+      <button [disabled]="photo.isMain" (click)="deletePhoto(photo.id)" class="btn btn-sm btn-danger">
+        <i class="fa fa-trash"></i></button>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<div class="row">
+  <div class="col-md-12">
+    <div class="row justify-content-center">
+      <h5 class="text-primary">Adauga fotografii</h5>
+    </div>
+
+    <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropzoneOver}" (fileOver)="fileOverBase($event)"
+      [uploader]="uploader" class="card bg-faded p-3 text-center mb-3 my-drop-zone">
+      <i class="fa fa-upload fa-3x"></i>
+      Incarca fotografiile aici
+    </div>
+
+  </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <label>Single file </label> 
+      <input type="file" ng2FileSelect [uploader]="uploader" />
+      <label>Multiple files </label> 
+      <input type="file" ng2FileSelect [uploader]="uploader" multiple />
+    </div>
+  </div>
+<br>
+  <div class="col-md-12" *ngIf="uploader?.queue?.length" style="margin-bottom: 40px">
+
+    <h3 class="text-primary">Coada</h3>
+    <p class="text-muted">Lungime coada: {{ uploader?.queue?.length }}</p>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th width="50%">Denumire</th>
+          <th>Marime</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of uploader.queue">
+          <td><strong>{{ item?.file?.name }}</strong></td>
+          <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div>
+      <div>
+        Progres:
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()"
+          [disabled]="!uploader.getNotUploadedItems().length">
+          <span class="fa fa-uploade"></span> Salveaza
+        </button>
+        <button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()"
+          [disabled]="!uploader.isUploading">
+          <span class="fa fa-ban"></span> Renunta
+        </button>
+        <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()"
+          [disabled]="!uploader.queue.length">
+          <span class="fa fa-trash"></span> Sterge
+        </button>
+      </div>
+    </div>
+  </div>

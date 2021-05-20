@@ -5,4 +5,5 @@ export interface DoctorGriDto {
     email: string;
     dateOfBirth: Date;
     age: number;
+    mainPhotoUrl: string;
   }

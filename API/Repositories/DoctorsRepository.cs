@@ -63,8 +63,8 @@ namespace API.Repositories
 
         public async Task<IEnumerable<DoctorGridDto>> GetDoctors()
         {
-            return await _context.Doctors
-            /*             .Where(d => d.HasWorkDays == true) */
+            return await _context.Doctors.Include(c => c.Photos)
+            .OrderBy(c => c.Id)
             .Select(c => new DoctorGridDto()
             {
                 Id = c.Id,
@@ -73,6 +73,7 @@ namespace API.Repositories
                 Email = c.Email,
                 DateOfBirth = c.DateOfBirth.ToString(),
                 Age = c.DateOfBirth.CalculateAge(),
+                MainPhotoUrl = c.Photos.FirstOrDefault(c => c.IsMain == true).Url
             })
             .ToListAsync();
         }

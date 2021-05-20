@@ -21,7 +21,20 @@
                             <td>{{ appoinment.appoinmentDate }}</td>
                             <td>{{ appoinment.appoinmentHour }}</td>
                             <td>{{ appoinment.dateCreated | date : 'dd/MM/yyyy'}}</td>
-                            <td>-</td>
+                            <td [ngSwitch]="appoinment.statusId">
+                                <h6><span *ngSwitchCase="statuses.Approved"
+                                        class="badge badge-pill badge-primary">{{appoinment.status}}</span></h6>
+                                <h6><span *ngSwitchCase="statuses.Pending"
+                                        class="badge badge-pill badge-warning">{{appoinment.status}}</span></h6>
+                                <h6><span *ngSwitchCase="statuses.CanceledByDoctor"
+                                        class="badge badge-pill badge-danger">{{appoinment.status}}</span></h6>
+                                <h6><span *ngSwitchCase="statuses.CanceledByPacient"
+                                        class="badge badge-pill badge-danger">{{appoinment.status}}</span></h6>
+                                <h6><span *ngSwitchCase="statuses.Rejected"
+                                        class="badge badge-pill badge-danger">{{appoinment.status}}</span></h6>
+                                <h6><span *ngSwitchCase="statuses.Finalized"
+                                        class="badge badge-pill badge-success">{{appoinment.status}}</span></h6>
+                            </td>
                             <td>
                                 <div class="btn-group" dropdown>
                                     <button id="button-basic" dropdownToggle type="button" class="btn btn-info btn-round dropdown-toggle"
@@ -30,7 +43,10 @@
                                     </button>
                                     <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
                                         role="menu" aria-labelledby="button-basic">
-                                      <li role="menuitem"><a class="dropdown-item"><i class="fa fa-times" aria-hidden="true"></i> Anuleaza</a></li>
+                                      <li role="menuitem"><a class="dropdown-item"
+                                                (click)="updateStatus(statuses.CanceledByPacient, appoinment.id)">
+                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                                Anuleaza</a></li>
                                     </ul>
                                   </div>
                             </td>

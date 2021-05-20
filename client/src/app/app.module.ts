@@ -48,6 +48,8 @@ import { ConsultationFormComponent } from './pages/consultation-form/consultatio
 import { PacientProfileComponent } from './pages/pacient-profile/pacient-profile.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { LoadingInterceptor } from "./interceptors/loading.interceptor";
+import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
+import { FileUploadModule } from "ng2-file-upload";
 
 defineLocale("ro", roLocale);
 
@@ -81,6 +83,7 @@ defineLocale("ro", roLocale);
     PacientAppoinmentsComponent,
     ConsultationFormComponent,
     PacientProfileComponent,
+    PhotoEditorComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -104,7 +107,8 @@ defineLocale("ro", roLocale);
     DataTablesModule,
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    FileUploadModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

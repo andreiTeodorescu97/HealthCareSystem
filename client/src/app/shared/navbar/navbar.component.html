@@ -40,7 +40,9 @@
           <a class="nav-link" ngbDropdownToggle id="navbarDropdownMenuLink">
             <p>
               <strong> Bine ai venit, {{user.title}} {{user.firstName}} {{user.secondName}}</strong>
+              <!-- <img class="avatar img-no-padding img-responsive" src="{{user.mainPhotoUrl || 'assets/img/doctor.png'}}" alt="{{user.username}}"> -->
             </p>
+            <img class="avatar border-gray img-responsive"  src="{{user.mainPhotoUrl || 'assets/img/doctor.png'}}" alt="{{user.username}}">
           </a>
           <div ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
             <a ngbDropdownItem *ngIf="user.isPacientAccount"  href="user">Editeaza profil</a>

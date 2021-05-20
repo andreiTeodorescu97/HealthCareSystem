@@ -27,9 +27,9 @@
                                         class="badge badge-pill badge-primary">{{appoinment.status}}</span></h6>
                                 <h6><span *ngSwitchCase="statuses.Pending"
                                         class="badge badge-pill badge-warning">{{appoinment.status}}</span></h6>
-                                <h6><span *ngSwitchCase="statuses.CanceleByDoctor"
+                                <h6><span *ngSwitchCase="statuses.CanceledByDoctor"
                                         class="badge badge-pill badge-danger">{{appoinment.status}}</span></h6>
-                                <h6><span *ngSwitchCase="statuses.CanceleByPacient"
+                                <h6><span *ngSwitchCase="statuses.CanceledByPacient"
                                         class="badge badge-pill badge-danger">{{appoinment.status}}</span></h6>
                                 <h6><span *ngSwitchCase="statuses.Rejected"
                                         class="badge badge-pill badge-danger">{{appoinment.status}}</span></h6>
@@ -75,7 +75,7 @@
                                         <li role="menuitem" *ngIf="appoinment.statusId == statuses.Approved && 
                                                                     appoinment.isConsultationAdded == false">
                                             <a class="dropdown-item"
-                                                (click)="updateStatus(statuses.CanceleByDoctor, appoinment.id)">
+                                                (click)="updateStatus(statuses.CanceledByDoctor, appoinment.id)">
                                                 <i class="fa fa-times" aria-hidden="true"></i>
                                                 Anuleaza</a>
                                         </li>

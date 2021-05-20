@@ -67,7 +67,11 @@ export class DoctorProfileComponent implements OnInit {
             toastClass: "alert alert-success alert-with-icon",
           }
         );
-        /* this.accountService.logout(); */
+        this.user.firstName = user.doctor.firstName;
+        this.user.secondName = user.doctor.secondName;
+        this.doctor.doctor.firstName = user.doctor.firstName;
+        this.doctor.doctor.secondName = user.doctor.secondName;
+        this.accountService.setCurrentUser(this.user);
       })
     }
   }

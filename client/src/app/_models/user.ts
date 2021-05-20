@@ -6,4 +6,5 @@ export interface User{
     secondName: string;
     isPacientAccount: boolean;
     cnp: string;
+    mainPhotoUrl: string;
 }

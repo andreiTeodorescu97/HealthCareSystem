@@ -9,8 +9,6 @@ namespace API.Entities
         public string Url { get; set; }
         public bool IsMain { get; set; }
         public string PublicId { get; set; }
-
-        //fully defining the relathionship between aDoctor and his Photos
         public int DoctorId { get; set; }
         public Doctor Doctor { get; set; }
     }

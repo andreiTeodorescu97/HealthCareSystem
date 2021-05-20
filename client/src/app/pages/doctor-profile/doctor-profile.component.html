@@ -4,13 +4,13 @@
       <div class="image">
         <img src="assets/img/cover19.jpg" alt="...">
       </div>
-<!--       <div class="card-header">
+      <!--       <div class="card-header">
         <h5 class="card-title">Editeaza Profilul</h5>
       </div> -->
       <div class="card-body">
         <div class="author">
           <a href="#">
-            <img class="avatar border-gray" src="assets/img/doctor.png" alt="...">
+            <img class="avatar border-gray" src="{{user.mainPhotoUrl || 'assets/img/doctor.png'}}" alt="{{doctor.doctor.firstName}} {{doctor.doctor.secondName}}">
             <h5 class="title">Dr. {{doctor.doctor.firstName}} {{doctor.doctor.secondName}}</h5>
           </a>
         </div>
@@ -61,62 +61,87 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Data nasterii</label>
-                  <input type="text" class="form-control" formControlName="dateOfBirth" placeholder="Data nasterii" bsDatepicker [bsConfig]='bsConfig'>
+                  <input type="text" class="form-control" formControlName="dateOfBirth" placeholder="Data nasterii"
+                    bsDatepicker [bsConfig]='bsConfig'>
                 </div>
               </div>
             </div>
           </div>
         </form>
-        <div class="table-responsive" style="overflow-x: hidden; overflow-y:hidden;">
-          <table class="table">
-            <thead class=" text-primary">
-              <tr>
-                <th>Denumire</th>
-                <th>Locatie</th>
-                <th>Data inceput</th>
-                <th>Data finalizare</th>
-                <th><button class="btn btn-success btn-fill" (click)="addFieldValue()">+</button></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let field of studiesArray; let i = index">
-                <td style="width: 30%">
-                  <input [(ngModel)]="field.name" class="form-control" type="text" name="{{field.name}}" required/>
-                </td>
-                <td style="width: 40%">
-                  <input [(ngModel)]="field.location" class="form-control" type="text" name="{{field.location}}" required/>
-                </td>
-                <td style="width: 15%">
-                  <input [(ngModel)]="field.startDate" class="form-control" type="text" name="{{field.startDate}}" bsDatepicker [bsConfig]='bsConfig'/>
-                </td>
-                <td style="width: 15%">
-                  <input [(ngModel)]="field.endDate" class="form-control" type="text" name="{{field.endDate}}" bsDatepicker [bsConfig]='bsConfig'/>
-                </td>
-                <td>
-                  <button class="btn btn-danger" type="button" (click)="deleteFieldValue(i)">-</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="row">
-          <div class="update ml-auto mr-auto">
-            <button type="submit" [disabled]='!editForm.valid' (click)="updateDoctor()" class="btn btn-primary btn-round">Editeaza
-              profilul</button>
-          </div>
-        </div>
-      </div>
-      <div class="row justify-content-center">
-        <p>*Veti fi delogat dupa salvare!</p>
-        <p>
-          Form value: {{editForm.value | json}}
-          Form value: {{editForm.status | json}}
-        </p>
       </div>
     </div>
   </div>
+  <div class="card col-md-12">
+    <div class="card-body">
+      <div class="row justify-content-center">
+        <h5 class="text-primary">Studii si Experienta</h5>
+      </div>
+      <div class="table-responsive" style="overflow-x: hidden; overflow-y:hidden;">
+        <table class="table">
+          <thead class=" text-primary">
+            <tr>
+              <th>Denumire</th>
+              <th>Locatie</th>
+              <th>Data inceput</th>
+              <th>Data finalizare</th>
+              <th><button class="btn btn-success btn-fill" (click)="addFieldValue()">+</button></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let field of studiesArray; let i = index">
+              <td style="width: 30%">
+                <input [(ngModel)]="field.name" class="form-control" type="text" name="{{field.name}}" required />
+              </td>
+              <td style="width: 40%">
+                <input [(ngModel)]="field.location" class="form-control" type="text" name="{{field.location}}"
+                  required />
+              </td>
+              <td style="width: 15%">
+                <input [(ngModel)]="field.startDate" class="form-control" type="text" name="{{field.startDate}}"
+                  bsDatepicker [bsConfig]='bsConfig' />
+              </td>
+              <td style="width: 15%">
+                <input [(ngModel)]="field.endDate" class="form-control" type="text" name="{{field.endDate}}"
+                  bsDatepicker [bsConfig]='bsConfig' />
+              </td>
+              <td>
+                <button class="btn btn-danger" type="button" (click)="deleteFieldValue(i)">-</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card col-md-12">
+    <div class="card-body">
+      <div class="row justify-content-center">
+        <h5 class="text-primary">Galerie foto</h5>
+      </div>
+      <div>
+        <app-photo-editor [doctor]='doctor.doctor'></app-photo-editor>
+      </div>
+    </div>
+  </div>
+  <div class="card col-md-12">
+    <div class="card-body">
+      <div class="row">
+        <div class="update ml-auto mr-auto">
+          <button type="submit" [disabled]='!editForm.valid' (click)="updateDoctor()"
+            class="btn btn-primary btn-round">Editeaza
+            profilul</button>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <p>
+        Form value: {{editForm.value | json}}
+        Form value: {{editForm.status | json}}
+      </p>
+    </div>
+  </div>
   <div class="col-md-12">
-<!--     <div class="card card-user">
+    <!--     <div class="card card-user">
       <div class="image">
         <img src="assets/img/cover2.jpeg" alt="...">
       </div>

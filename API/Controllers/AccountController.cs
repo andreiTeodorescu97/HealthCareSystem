@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,9 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            var user = await _context.Users.Include("Doctor").Include("Pacient").SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
+            var user = await _context.Users.Include(c => c.Doctor.Photos)
+            .Include(p => p.Pacient)
+            .SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
 
             if (user == null) return Unauthorized("Credentiale invalide!");
 
@@ -41,7 +44,7 @@ namespace API.Controllers
                 }
             }
 
-            return new UserDto
+            var userDto = new UserDto
             {
                 UserName = user.UserName,
                 Token = _tokenService.CreateToken(user),
@@ -49,8 +52,16 @@ namespace API.Controllers
                 SecondName = user.Doctor != null ? user.Doctor.SecondName : user.Pacient.SecondName,
                 Title = user.Doctor != null ? "Dr." : null,
                 CNP = user.Doctor != null ? null : user.Pacient.CNP,
-                IsPacientAccount = user.Doctor == null ? true : false
+                IsPacientAccount = user.Doctor == null ? true : false,
             };
+
+            if(user.Doctor != null)
+            {
+                var mainPhoto = user.Doctor.Photos.Where(c => c.IsMain == true).FirstOrDefault();
+                userDto.MainPhotoUrl = mainPhoto?.Url;
+            }
+
+            return userDto;
         }
 
         [HttpPost("register")]

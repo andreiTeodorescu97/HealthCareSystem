@@ -9,7 +9,8 @@ import { Observable } from 'rxjs';
 @Component({
     moduleId: module.id,
     selector: 'navbar-cmp',
-    templateUrl: 'navbar.component.html'
+    templateUrl: 'navbar.component.html',
+    styleUrls: ['navbar.component.css']
 })
 
 export class NavbarComponent implements OnInit{

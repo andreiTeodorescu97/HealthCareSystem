@@ -1,0 +1,17 @@
+img.img-thumbnail{
+    height: 100px,
+    min-widthL 100px !important;
+    margin-bottom: 2px;
+}
+
+.nv-file-over{
+    border: dotted 3px red;
+}
+
+.my-drop-zone{
+    background-color: #BFE2E3;
+}
+
+input[type=file]{
+    color: transparent;
+}

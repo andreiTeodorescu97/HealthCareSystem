@@ -39,4 +39,12 @@ export class DoctorService {
     return this.http.get<DoctorDto>(this.baseUrl + 'doctors/getdoctor/?doctorId=' + id);
   }
 
+  setMainPhoto(photoId: number) {
+    return this.http.put(this.baseUrl + 'doctors/set-main-photo/' + photoId, {});
+  }
+
+  deletePhoto(photoId: number) {
+    return this.http.delete(this.baseUrl + 'doctors/delete-photo/' + photoId);
+  }
+
 }

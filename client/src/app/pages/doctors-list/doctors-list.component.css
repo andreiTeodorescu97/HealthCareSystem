@@ -1,0 +1,7 @@
+.card .avatar {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}

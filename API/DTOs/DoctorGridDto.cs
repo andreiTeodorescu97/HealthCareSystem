@@ -8,5 +8,6 @@ namespace API.DTOs
         public string Email { get; set; }
         public string DateOfBirth { get; set; }
         public int Age { get; set; }
+        public string MainPhotoUrl { get; set; }
     }
 }
