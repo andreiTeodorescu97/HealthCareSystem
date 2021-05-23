@@ -51,7 +51,7 @@ import { LoadingInterceptor } from "./interceptors/loading.interceptor";
 import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
 import { FileUploadModule } from "ng2-file-upload";
 import { RecipeFormComponent } from './pages/recipe-form/recipe-form.component';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 defineLocale("ro", roLocale);
 
 
@@ -110,7 +110,8 @@ defineLocale("ro", roLocale);
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
     NgxSpinnerModule,
-    FileUploadModule
+    FileUploadModule,
+    NgSelectModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

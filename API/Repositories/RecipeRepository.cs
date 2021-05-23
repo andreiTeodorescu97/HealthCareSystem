@@ -32,6 +32,7 @@ namespace API.Repositories
         public async Task<IEnumerable<MedicineDto>> GetMedicines()
         {
             var result = await _context.Medicines
+                .OrderBy(c => c.Id)
                 .ProjectTo<MedicineDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
@@ -49,13 +50,19 @@ namespace API.Repositories
 
         public async Task<bool> AddRecipe(RecipeDto recipeDto)
         {
+            var consultation = await _context.Consultations.FindAsync(recipeDto.ConsultationId);
+            consultation.HasRecipe = true;
+
             recipeDto.UniqueId = Guid.NewGuid();
             try
             {
                 var recipe = new Recipe();
                 _mapper.Map(recipeDto, recipe);
                 recipe.DateAdded = DateTime.Now;
+
                 _context.Recipes.Add(recipe);
+                _context.Entry(consultation).State = EntityState.Modified;
+
                 return await _context.SaveChangesAsync() > 0;
             }
             catch (System.Exception ex)

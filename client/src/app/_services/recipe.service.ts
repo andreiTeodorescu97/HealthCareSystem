@@ -14,7 +14,7 @@ export class RecipeService {
   constructor(private http: HttpClient) { }
 
   addRecipe(model: RecipeDto) {
-    return this.http.post(this.baseUrl + 'recipe/add', model);
+    return this.http.post(this.baseUrl + 'recipe/add-recipe', model);
   }
 
   getPacientConsultations(id : number) {

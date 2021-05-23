@@ -58,7 +58,7 @@ const routes: Routes = [
       {path:'pacient/appoinments', component: PacientAppoinmentsComponent}, 
       {path:'pacient/consultation/:appoinmentId/:pacientFirstName/:pacientSecondName', component: ConsultationFormComponent, canDeactivate : [PreventUnsavedChangesGuard]}, 
       {path:'pacient/pacient_profile/:id', component: PacientProfileComponent}, 
-      {path:'pacient/recipe/:consultationId', component: RecipeFormComponent}, 
+      {path:'pacient/recipe/:consultationId/:pacientId/:pacientFirstName/:pacientSecondName', component: RecipeFormComponent}, 
     ]
   },
   {path:'**', component: HomeComponent, canActivate: [NoauthGuard]}

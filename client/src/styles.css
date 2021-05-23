@@ -43,4 +43,9 @@
     border-top: 1px solid #eee;
     padding: 15px 0;
   }
-  
+
+  .btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}

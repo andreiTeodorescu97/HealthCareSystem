@@ -1,1 +1,164 @@
-<p>recipe-form works!</p>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card card-stats">
+            <div class="card-body text-center">
+                <h5 class="text-primary">Reteta {{pacientFirstName}} {{pacientSecondName}}</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="text-primary">Adauga prescriptie</h5>
+        <label>Medicament*</label>
+        <ng-select [(ngModel)]="newPrescription.medicine" (change)="onChangeMedicine($event)">
+            <ng-option *ngFor="let med of medicines" [value]="med">{{med.commercialName}}</ng-option>
+        </ng-select>
+        <div class="row">
+            <div class="col-md-3">
+                <label>Producator</label>
+                <input [(ngModel)]="newPrescription?.medicine.producer" [readonly]="true" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label>Forma farmaceutica</label>
+                <input [(ngModel)]="newPrescription?.medicine.pharmaceuticalForm" [readonly]="true"
+                    class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label>Concentratie</label>
+                <input [(ngModel)]="newPrescription?.medicine.concentration" [readonly]="true" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label>Valabilitate</label>
+                <input [(ngModel)]="newPrescription?.medicine.valability" [readonly]="true" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12"> <label>Actiune Terapeutica</label>
+                <textarea [(ngModel)]="newPrescription?.medicine.terapeuticalAction" [readonly]="true"
+                    class="form-control" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>Numar doze pe zi*</label>
+                <input [(ngModel)]="newPrescription.dosageNumberPerDay" type="number" class="form-control" required/>
+            </div>
+            <div class="col-md-3">
+                <label>Tip dozaj*</label>
+                <ng-select [(ngModel)]="newPrescription.dosageType">
+                    <ng-option *ngFor="let dosage of dosageTypes" [value]="dosage.name">{{dosage.name}}</ng-option>
+                </ng-select>
+            </div>
+            <div class="col-md-3">
+                <label>Frecventa pe zi*</label>
+                <input [(ngModel)]="newPrescription.frequency" type="number" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>Numar zile de administrare*</label>
+                <input [(ngModel)]="newPrescription.numberOfDays" type="number" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label>Calea de administrare*</label>
+                <ng-select [(ngModel)]="newPrescription.route">
+                    <ng-option *ngFor="let route of routeTypes" [value]="route.name">{{route.name}}</ng-option>
+                </ng-select>
+            </div>
+            <div class="col-md-3">
+                <label>Relatia cu mancarea</label>
+                <input [(ngModel)]="newPrescription.foodRelation" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12"> <label>Instructiuni administrare</label>
+                <textarea [(ngModel)]="newPrescription.instructions" class="form-control" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button (click)="resetPrescriptionForm()" class="btn btn-danger btn-round float-right ml-2"
+                    type="button"><i class="fa fa-recycle" aria-hidden="true"></i> Reseteaza</button>
+                <button (click)="addPrescriptionToList(newPrescription)" class="btn btn-primary btn-round float-right"
+                    type="submit"><i class="fa fa-plus" aria-hidden="true"></i> Adauga</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="text-primary">Reteta</h5>
+        <div class="table-responsive" style="overflow-x: hidden; overflow-y:hidden;">
+            <table class="table">
+                <thead class=" text-primary">
+                    <th>
+                        Denumire medicament
+                    </th>
+                    <th>
+                        Dozaj
+                    </th>
+                    <th>
+                        Frecventa
+                    </th>
+                    <th>
+                        Numar zile
+                    </th>
+                    <th>
+                        Calea
+                    </th>
+                    <th>
+                        Relatie mancare
+                    </th>
+                    <th>
+                        Instructiuni
+                    </th>
+                    <th>
+
+                    </th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let prescription of prescriptionsList; let i = index">
+                        <td>
+                            {{prescription.medicine. commercialName}}
+                        </td>
+                        <td>
+                            {{prescription.dosageNumberPerDay}} {{prescription.dosageType}}
+                        </td>
+                        <td>
+                            {{prescription.frequency}} pe zi
+                        </td>
+                        <td class="text-justify">
+                            {{prescription.numberOfDays}}
+                        </td>
+                        <td>
+                            {{prescription.route}}
+                        </td>
+                        <td>
+                            {{prescription.foodRelation}}
+                        </td>
+                        <td class="text-justify">
+                            {{prescription.instructions}}
+                        </td>
+                        <td style="width: 10%">
+                            <button class="btn btn-danger" type="button"
+                                (click)="deletePrescription(prescription)">-</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-md-12">
+                <button (click)="resetRecipe()" class="btn btn-danger btn-round float-right ml-2"
+                    type="button"><i class="fa fa-trash" aria-hidden="true"></i> Reseteaza reteta</button>
+                <button (click)="saveRecipe()" class="btn btn-success btn-round float-right"
+                    type="submit"><i class="fa fa-check" aria-hidden="true"></i> Finalizeaza reteta</button>
+            </div>
+        </div>
+    </div>
+</div>

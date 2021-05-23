@@ -70,7 +70,9 @@ namespace API.Helpers
             CreateMap<RecipeDto, Recipe>();
 
             CreateMap<Prescription, PrescriptionDto>();
-            CreateMap<PrescriptionDto, Prescription>();
+            
+            CreateMap<PrescriptionDto, Prescription>()
+            .ForMember(dest => dest.Medicine, options => options.Ignore());
 
             CreateMap<ErrorDto, Error>();
 
