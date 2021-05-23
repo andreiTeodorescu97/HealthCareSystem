@@ -38,6 +38,7 @@ namespace API.Repositories
             var consultation = new Consultation();
             _mapper.Map(consultationDto, consultation);
             consultation.DateAdded = DateTime.Now;
+            consultation.HasRecipe = false;
             _context.Consultations.Add(consultation);
 
             linkedAppoinment.IsConsultationAdded = true;

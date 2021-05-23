@@ -50,6 +50,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { LoadingInterceptor } from "./interceptors/loading.interceptor";
 import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
 import { FileUploadModule } from "ng2-file-upload";
+import { RecipeFormComponent } from './pages/recipe-form/recipe-form.component';
 
 defineLocale("ro", roLocale);
 
@@ -84,6 +85,7 @@ defineLocale("ro", roLocale);
     ConsultationFormComponent,
     PacientProfileComponent,
     PhotoEditorComponent,
+    RecipeFormComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -5,6 +5,7 @@ namespace API.DTOs
 {
     public class ConsultationDto
     {
+        public int Id { get; set; }
         [Required]
         public int Height { get; set; }
         [Required]

@@ -95,6 +95,5 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
 
   goToPacientProfile(id: string){
     this.router.navigateByUrl('pacient/pacient_profile/' + id);
-
   }
 }

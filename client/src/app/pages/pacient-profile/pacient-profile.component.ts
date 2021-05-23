@@ -206,5 +206,9 @@ export class PacientProfileComponent implements OnDestroy, OnInit {
     this.router.navigateByUrl('' + info[900]);
   }
 
+  redirectToRecipeForm(consultationId: string){
+    this.router.navigateByUrl('pacient/recipe/' + consultationId);
+  }
+
 
 }

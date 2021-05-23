@@ -1,5 +1,6 @@
 export interface ConsultationDto {
 
+    id: number;
     height: number;
     weight: number;
     systolicBp: number;
