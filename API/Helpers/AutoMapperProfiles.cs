@@ -76,6 +76,12 @@ namespace API.Helpers
 
             CreateMap<ErrorDto, Error>();
 
+            CreateMap<Doctor, DoctorRecipeDto>()
+            .ForMember(destination => destination.MainPhotoUrl,
+            options => options.MapFrom(source => source.Photos.FirstOrDefault(c => c.IsMain == true).Url));
+
+            CreateMap<Pacient, PacientRecipeDto>();
+
         }
     }
 }

@@ -16,5 +16,5 @@ export interface ConsultationDto {
     appoinmentId: number;
     pacientId: number;
     dateAdded: Date;
-    
+    hasRecipe: boolean;
 }

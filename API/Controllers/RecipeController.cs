@@ -25,9 +25,9 @@ namespace API.Controllers
         }
 
         [HttpGet("get-recipe")]
-        public async Task<ActionResult<RecipeDto>> GetRecipe(int recipeId)
+        public async Task<ActionResult<FullRecipeInfoDto>> GetRecipe(int consultationId)
         {
-            return Ok(await _recipeRepository.GetRecipe(recipeId));
+            return Ok(await _recipeRepository.GetRecipe(consultationId));
         }
 
         [HttpPost("add-recipe")]

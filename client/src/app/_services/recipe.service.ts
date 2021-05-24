@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FullRecipeDto } from 'app/_models/_recipe/fullRecipeDto';
 import { MedicineDto } from 'app/_models/_recipe/medicineDto';
 import { RecipeDto } from 'app/_models/_recipe/recipeDto';
 import { environment } from 'environments/environment';
@@ -17,12 +18,12 @@ export class RecipeService {
     return this.http.post(this.baseUrl + 'recipe/add-recipe', model);
   }
 
-  getPacientConsultations(id : number) {
-    return this.http.get<RecipeDto>(this.baseUrl + 'recipe/get-recipe?recipeId=' + id);
-  }
-
   getMedicines(){
     return this.http.get<MedicineDto[]>(this.baseUrl + 'recipe/get-medicines');
+  }
+
+  getRecipe(consultationId : number) {
+    return this.http.get<FullRecipeDto>(this.baseUrl + 'recipe/get-recipe?consultationId=' + consultationId);
   }
   
 }

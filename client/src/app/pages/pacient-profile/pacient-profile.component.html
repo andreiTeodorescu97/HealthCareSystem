@@ -214,13 +214,18 @@
                                                                         Adauga Diagnostic</a>
                                                                 </li>
 
-                                                                <li role="menuitem"><a class="dropdown-item" 
+                                                                <li role="menuitem"><a class="dropdown-item" *ngIf="!pacientConsultation.hasRecipe" 
                                                                     (click)="redirectToRecipeForm(pacientConsultation.id)">
                                                                         <i class="fa fa-file-text"
                                                                             aria-hidden="true"></i>
                                                                         Adauga Reteta</a>
                                                                 </li>
-
+                                                                <li role="menuitem"><a class="dropdown-item" *ngIf="pacientConsultation.hasRecipe" 
+                                                                    (click)="redirectToRecipePage(pacientConsultation.id)">
+                                                                        <i class="fa fa-file-text"
+                                                                            aria-hidden="true"></i>
+                                                                        Vezi Reteta</a>
+                                                                </li>
                                                             </ul>
                                                         </div>
                                                     </td>

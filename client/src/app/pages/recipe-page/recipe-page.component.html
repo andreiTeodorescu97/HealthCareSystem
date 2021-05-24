@@ -1,0 +1,92 @@
+<div class="card" *ngIf="fullRecipeInfo">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <p><strong>Eliberat pentru:</strong></p>
+                <p style="font-size: 18px;">{{fullRecipeInfo.pacient.firstName}} {{fullRecipeInfo.pacient.secondName}}</p>
+                <p>Email: {{fullRecipeInfo.pacient.email}}</p>
+                <p>Data nastere: {{fullRecipeInfo.pacient.dateOfBirth | date : 'dd/MM/yyyy'}}</p>
+                <p>Serie: {{fullRecipeInfo.pacient.series}} Numar: {{fullRecipeInfo.pacient.identityNumber}}</p>
+                <p>CNP: {{fullRecipeInfo.pacient.cnp}}</p>
+            </div>
+            <div class="col-md-1">
+
+            </div>
+            <div class="col-md-4">
+                <p><strong>Eliberat de catre:</strong></p>
+                <p style="font-size: 18px;">Dr. {{fullRecipeInfo.doctor.firstName}} {{fullRecipeInfo.doctor.secondName}}</p>
+                <p>Email: {{fullRecipeInfo.doctor.email}}</p>
+                <p>Data nastere: {{fullRecipeInfo.doctor.dateOfBirth | date : 'dd/MM/yyyy'}}</p>
+            </div>
+            <div class="col-md-3">
+                <ul style="list-style-type: none;">
+                    <li>
+                        <button class="btn btn-primary" type="button"><i class="fa fa-file-text" aria-hidden="true"></i>
+                            Genereaza PDF</button>
+                    </li>
+                    <li>
+                        <button class="btn btn-success" type="button"><i class="fa fa-envelope" aria-hidden="true"></i>
+                            Solicita E-mail</button>
+                    </li>
+                    <li>
+                        <button class="btn btn-danger" type="button"><i class="fa fa-trash" aria-hidden="true"></i>
+                            Sterge reteta</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <br>
+        <div class="table-responsive" style="overflow-x: hidden; overflow-y:hidden;">
+            <table class="table">
+                <thead class=" text-primary">
+                    <th>
+                        Denumire medicament
+                    </th>
+                    <th>
+                        Dozaj
+                    </th>
+                    <th>
+                        Frecventa
+                    </th>
+                    <th>
+                        Numar zile
+                    </th>
+                    <th>
+                        Calea
+                    </th>
+                    <th>
+                        Relatie mancare
+                    </th>
+                    <th>
+                        Instructiuni
+                    </th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let prescription of fullRecipeInfo.recipe.prescriptions; let i = index">
+                        <td>
+                            {{prescription.medicine. commercialName}}
+                        </td>
+                        <td>
+                            {{prescription.dosageNumberPerDay}} {{prescription.dosageType}}
+                        </td>
+                        <td>
+                            {{prescription.frequency}} pe zi
+                        </td>
+                        <td class="text-justify">
+                            {{prescription.numberOfDays}}
+                        </td>
+                        <td>
+                            {{prescription.route}}
+                        </td>
+                        <td>
+                            {{prescription.foodRelation}}
+                        </td>
+                        <td class="text-justify">
+                            {{prescription.instructions}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

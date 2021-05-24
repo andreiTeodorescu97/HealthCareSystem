@@ -39,13 +39,30 @@ namespace API.Repositories
             return result;
         }
 
-        public async Task<RecipeDto> GetRecipe(int recipeId)
+        public async Task<FullRecipeInfoDto> GetRecipe(int consultationId)
         {
-            var recipe = await _context.Recipes.Where(c => c.Id == recipeId)
+            var recipe = await _context.Recipes.Where(c => c.ConsultationId == consultationId)
             .ProjectTo<RecipeDto>(_mapper.ConfigurationProvider)
             .SingleOrDefaultAsync();
 
-            return recipe;
+            var pacient = await _context.Pacients.Where(c => c.Id == recipe.PacientId)
+            .ProjectTo<PacientRecipeDto>(_mapper.ConfigurationProvider)
+            .SingleOrDefaultAsync();
+
+            var doctor = await _context.Consultations
+            .Include(c => c.Appoinment.Doctor)
+            .Where(c => c.Id == consultationId)
+            .Select(c => c.Appoinment.Doctor)
+            .ProjectTo<DoctorRecipeDto>(_mapper.ConfigurationProvider)
+            .SingleOrDefaultAsync();
+
+            var result = new FullRecipeInfoDto{
+                Doctor = doctor,
+                Pacient = pacient,
+                Recipe = recipe
+            };
+
+            return result;
         }
 
         public async Task<bool> AddRecipe(RecipeDto recipeDto)
@@ -68,7 +85,7 @@ namespace API.Repositories
             catch (System.Exception ex)
             {
                 await _loggerService.LogError(ex);
-                
+
             }
             return false;
         }

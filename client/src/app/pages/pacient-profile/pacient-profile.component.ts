@@ -173,13 +173,6 @@ export class PacientProfileComponent implements OnDestroy, OnInit {
     this.vaccineDescription = null;
   }
 
-  getPacientConsultations() {
-    this.consultationService.getPacientConsultations(+this.pacientId).subscribe(response => {
-      this.pacientConsultations = response;
-    })
-  }
-
-
   initializeGrid() {
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -187,7 +180,7 @@ export class PacientProfileComponent implements OnDestroy, OnInit {
       searching: false,
       columnDefs: [
         { orderable: false, targets: 5 },
-        { className : "dt-center", targets: "_all"},
+        { className : "dt-center", targets: "_all"}
       ],
       language: gridSettings,
 
@@ -195,9 +188,6 @@ export class PacientProfileComponent implements OnDestroy, OnInit {
     this.consultationService.getPacientConsultations(+this.pacientId)
       .subscribe(data => {
         this.pacientConsultations = data;
-/*         this.doctors.forEach(doctor => {
-          doctor.dateOfBirth = new Date(doctor.dateOfBirth);
-        }); */
         this.dtTrigger.next();
       });
   }
@@ -210,5 +200,8 @@ export class PacientProfileComponent implements OnDestroy, OnInit {
     this.router.navigateByUrl('pacient/recipe/' + consultationId + "/" + this.pacientId + "/" + this.pacient.firstName + "/" + this.pacient.secondName);
   }
 
+  redirectToRecipePage(consultationId: string){
+    this.router.navigateByUrl('pacient/recipe_page/'+ consultationId);
+  }
 
 }

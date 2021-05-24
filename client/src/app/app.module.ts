@@ -52,6 +52,7 @@ import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
 import { FileUploadModule } from "ng2-file-upload";
 import { RecipeFormComponent } from './pages/recipe-form/recipe-form.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { RecipePageComponent } from './pages/recipe-page/recipe-page.component';
 defineLocale("ro", roLocale);
 
 
@@ -86,6 +87,7 @@ defineLocale("ro", roLocale);
     PacientProfileComponent,
     PhotoEditorComponent,
     RecipeFormComponent,
+    RecipePageComponent,
   ],
   imports: [
     BrowserAnimationsModule,

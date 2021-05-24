@@ -7,7 +7,7 @@ namespace API.Interfaces
     public interface IRecipeRepository
     {
         Task<IEnumerable<MedicineDto>> GetMedicines();
-        Task<RecipeDto> GetRecipe(int recipeId);
+        Task<FullRecipeInfoDto> GetRecipe(int consultationId);
         Task<bool> AddRecipe(RecipeDto recipeDto);
         Task<bool> DeleteRecipe(int recipeId);
     }

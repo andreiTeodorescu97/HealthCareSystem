@@ -25,5 +25,6 @@ namespace API.DTOs
         public int AppoinmentId { get; set; }
         public DateTime DateAdded { get; set; }
         public int? PacientId { get; set; }
+        public bool? HasRecipe { get; set; }
     }
 }
