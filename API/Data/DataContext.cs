@@ -28,6 +28,7 @@ namespace API.Data
         public DbSet<Medicine> Medicines { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -46,6 +47,16 @@ namespace API.Data
             .WithMany(l => l.Pacients)
             .HasForeignKey(s => s.VaccineId)
             .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Message>()
+            .HasOne(u => u.Recipient)
+            .WithMany(m => m.MessagesReceived)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Message>()
+            .HasOne(u => u.Sender)
+            .WithMany(m => m.MessagesSent)
+            .OnDelete(DeleteBehavior.Restrict);
         }
     }
 

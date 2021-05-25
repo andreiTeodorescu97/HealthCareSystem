@@ -1,5 +1,5 @@
 using System.Text;
-using API.DTOs;
+using API.DTOs.Recipes;
 
 namespace API.RecipePDF
 {

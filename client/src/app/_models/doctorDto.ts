@@ -8,6 +8,7 @@ export interface DoctorDto {
     email: string;
     dateOfBirth: Date;
     age: number;
+    motto: string;
     mainPhotoUrl: string;
     studiesAndExperience: StudiesAndExperience[];
     workDays: WorkDayDto[];

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using API.Data;
-using API.DTOs;
+using API.DTOs.Recipes;
 using API.Interfaces;
 using API.RecipePDF;
 using DinkToPdf;

@@ -1,6 +1,9 @@
 using System;
 using System.Linq;
 using API.DTOs;
+using API.DTOs.Messages;
+using API.DTOs.Recipes;
+using API.DTOs.Vaccines;
 using API.Entities;
 using API.Extensions;
 using AutoMapper;
@@ -81,6 +84,17 @@ namespace API.Helpers
             options => options.MapFrom(source => source.Photos.FirstOrDefault(c => c.IsMain == true).Url));
 
             CreateMap<Pacient, PacientRecipeDto>();
+
+            CreateMap<Message, MessageDto>()
+            .ForMember(
+                dest => dest.SenderPhotoUrl,
+                options => options.MapFrom(source => source.Sender.Doctor.Photos
+                .FirstOrDefault(x => x.IsMain == true).Url)
+            )
+            .ForMember(
+                dest => dest.RecipientPhotoUrl,
+                options => options.MapFrom(source => source.Recipient.Doctor.Photos
+                .FirstOrDefault(x => x.IsMain == true).Url));
 
         }
     }

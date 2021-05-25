@@ -1,4 +1,4 @@
-namespace API.DTOs
+namespace API.DTOs.Recipes
 {
     public class FullRecipeInfoDto
     {

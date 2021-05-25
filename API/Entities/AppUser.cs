@@ -1,6 +1,5 @@
 using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace API.Entities
 {
@@ -13,5 +12,7 @@ namespace API.Entities
         public Pacient Pacient { get; set; }
         public Doctor Doctor { get; set; }
         public DateTime DateCreated { get; set; }
+        public ICollection<Message> MessagesSent { get; set; }
+        public ICollection<Message> MessagesReceived { get; set; }
     }
 }

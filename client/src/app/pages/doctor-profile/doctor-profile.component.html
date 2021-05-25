@@ -66,6 +66,25 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Motto</label>
+                  <input type="text"
+                  [class.is-invalid]='editForm.get("doctor.motto").errors && editForm.get("doctor.motto").touched'
+                  class="form-control" formControlName="motto" placeholder="Motto">
+                  <div *ngIf="editForm.get('doctor.motto').hasError('required')" class="invalid-feedback">
+                    Motto-ul este obligatoriu
+                  </div>
+                <div *ngIf="editForm.get('doctor.motto').hasError('minlength')" class="invalid-feedback">
+                  Motto-ul trebuie sa aibe minim 10 caractere!
+                </div>
+                <div *ngIf="editForm.get('doctor.motto').hasError('maxlength')" class="invalid-feedback">
+                  Motto-ul trebuie sa aibe maxim 10 caractere!
+                </div>
+                </div>
+              </div>
+            </div>
           </div>
         </form>
       </div>

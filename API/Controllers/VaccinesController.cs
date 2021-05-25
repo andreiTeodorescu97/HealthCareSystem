@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
+using API.DTOs.Vaccines;
 using API.Entities;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;

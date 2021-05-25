@@ -48,6 +48,7 @@ export class DoctorProfileComponent implements OnInit {
         firstName: new FormControl('', Validators.required),
         secondName: new FormControl('', Validators.required),
         email: new FormControl('', [Validators.required, Validators.pattern('^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$')]),
+        motto: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(50)]),
         dateOfBirth: new FormControl(),
       })
     })

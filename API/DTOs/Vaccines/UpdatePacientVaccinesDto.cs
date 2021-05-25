@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace API.DTOs
+namespace API.DTOs.Vaccines
 {
     public class UpdatePacientVaccinesDto
     {

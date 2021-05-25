@@ -9,6 +9,7 @@ namespace API.Entities
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string Email { get; set; }
+        public string Motto { get; set; }
         public DateTime DateOfBirth { get; set; }
         public bool HasWorkDays { get; set; }
         public int UserId { get; set; }
