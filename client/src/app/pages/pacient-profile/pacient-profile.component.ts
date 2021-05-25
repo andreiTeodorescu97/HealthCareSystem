@@ -180,6 +180,8 @@ export class PacientProfileComponent implements OnDestroy, OnInit {
       searching: false,
       columnDefs: [
         { orderable: false, targets: 5 },
+        { orderable: false, targets: 10 },
+        { orderable: false, targets: 10 },
         { className : "dt-center", targets: "_all"}
       ],
       language: gridSettings,

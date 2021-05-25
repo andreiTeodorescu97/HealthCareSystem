@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'app/_models/user';
 import { AccountService } from 'app/_services/account.service';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 
 export interface RouteInfo {
@@ -20,6 +20,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/doctor/appoinments', title: 'Programari Doctor', icon: 'fa fa-clock-o', class: '', isRegisterRequired: true },
     { path: '/pacient/appoinments', title: 'Programari Pacient', icon: 'fa fa-clock-o', class: '', isRegisterRequired: true },
     { path: '/doctors', title: 'Doctori', icon: 'fa fa-user-md', class: '', isRegisterRequired: true },
+    { path: '/pacient/pacient_medical_data', title: 'Fisa Medicala', icon: 'fa fa-book', class: '', isRegisterRequired: true },
     { path: '/upgrade', title: 'Newsletter', icon: 'fa fa-envelope', class: 'active-pro', isRegisterRequired: true },
     { path: '/user', title: 'Profil Pacient', icon: 'fa fa-user', class: '', isRegisterRequired: true },
     { path: '/doctor_work_days', title: 'Orar Doctor', icon: 'fa fa-calendar', class: '', isRegisterRequired: true },
@@ -34,13 +35,14 @@ export const ROUTES: RouteInfo[] = [
 
 export class SidebarComponent implements OnInit {
     public menuItems: any[];
-    currentUser$: Observable<User>;
+    user: User;
 
     constructor(private accountService: AccountService) { }
 
     ngOnInit() {
         this.accountService.currentUser$.subscribe((user: User) => {
             if (user) {
+                this.user = user;
                 this.menuItems = ROUTES.filter(menuItem => menuItem.isRegisterRequired == true);
             } else {
                 this.menuItems = ROUTES.filter(menuItem => menuItem.isRegisterRequired == false);

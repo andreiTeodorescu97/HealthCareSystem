@@ -1,8 +1,12 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
 using API.Interfaces;
+using API.RecipePDF;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,8 +16,10 @@ namespace API.Controllers
     public class RecipeController : BaseApiController
     {
         private readonly IRecipeRepository _recipeRepository;
-        public RecipeController(IRecipeRepository recipeRepository, DataContext context)
+        private readonly IConverter _converter;
+        public RecipeController(IRecipeRepository recipeRepository, DataContext context, IConverter converter)
         {
+            _converter = converter;
             _recipeRepository = recipeRepository;
 
         }
@@ -60,6 +66,66 @@ namespace API.Controllers
             }
 
             return BadRequest("Upps..ceva nu a mers!");
+        }
+
+        [HttpGet("generateRecipePdf")]
+        public async Task<IActionResult> CreateRecipePDFAsync(int consultationId)
+        {
+            var fullRecipeInfoDto = await _recipeRepository.GetRecipe(consultationId);
+
+            var globalSettings = new GlobalSettings
+            {
+                ColorMode = ColorMode.Color,
+                Orientation = Orientation.Portrait,
+                PaperSize = PaperKind.A4,
+                Margins = new MarginSettings { Top = 10 },
+                DocumentTitle = "Reteta"
+            };
+            var objectSettings = new ObjectSettings
+            {
+                PagesCount = true,
+                HtmlContent = TemplateGenerator.GetRecipeHTMLString(fullRecipeInfoDto),
+                WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "wassets", "styles.css") },
+                HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
+                FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
+            };
+            var pdf = new HtmlToPdfDocument()
+            {
+                GlobalSettings = globalSettings,
+                Objects = { objectSettings }
+            };
+            var file = _converter.Convert(pdf);
+            return File(file, "application/pdf", "Reteta");
+        }
+
+
+        [HttpGet("generateTestPdf")]
+        public IActionResult CreatePDF(int consultationId)
+        {
+
+            var globalSettings = new GlobalSettings
+            {
+                ColorMode = ColorMode.Color,
+                Orientation = Orientation.Portrait,
+                PaperSize = PaperKind.A4,
+                Margins = new MarginSettings { Top = 10 },
+                DocumentTitle = "PDF Report"
+            };
+            var objectSettings = new ObjectSettings
+            {
+                PagesCount = true,
+                HtmlContent = TemplateGenerator.GetHTMLString(),
+                WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "wassets", "styles.css") },
+                HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
+                FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
+            };
+            var pdf = new HtmlToPdfDocument()
+            {
+                GlobalSettings = globalSettings,
+                Objects = { objectSettings }
+            };
+            var file = _converter.Convert(pdf);
+            return File(file, "application/pdf");
         }
     }
 }

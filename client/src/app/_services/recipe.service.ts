@@ -25,5 +25,9 @@ export class RecipeService {
   getRecipe(consultationId : number) {
     return this.http.get<FullRecipeDto>(this.baseUrl + 'recipe/get-recipe?consultationId=' + consultationId);
   }
+
+  generatePDF(consultationId : number) {
+    return this.http.get(this.baseUrl + 'recipe/generateRecipePdf?consultationId=' + consultationId, {responseType: 'arraybuffer'});
+  }
   
 }

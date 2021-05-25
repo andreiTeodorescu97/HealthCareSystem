@@ -48,6 +48,7 @@ namespace API.Controllers
             {
                 UserName = user.UserName,
                 Token = _tokenService.CreateToken(user),
+                Id = user.Doctor != null ? user.Doctor.Id : user.Pacient.Id,
                 FirstName = user.Doctor != null ? user.Doctor.FirstName : user.Pacient.FirstName,
                 SecondName = user.Doctor != null ? user.Doctor.SecondName : user.Pacient.SecondName,
                 Title = user.Doctor != null ? "Dr." : null,

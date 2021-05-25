@@ -4,6 +4,8 @@ using API.Helpers;
 using API.Interfaces;
 using API.Repositories;
 using API.Services;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +32,7 @@ namespace API.Extensions
             });
             services.Configure<MailSettings>(config.GetSection("MailSettings"));
             services.AddTransient<IMailService, MailService>();
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
             return services;
         }

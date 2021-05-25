@@ -31,4 +31,21 @@ export class RecipePageComponent implements OnInit {
     })
   }
 
+  generatePDF() {
+    this.recipeService.generatePDF(+this.consultationId).subscribe(respData => {
+        this.downLoadFile(respData, 'application/pdf');
+    }, error => {
+
+    });
+}
+
+downLoadFile(data: any, type: string) {
+    var blob = new Blob([data], { type: type.toString() });
+    var url = window.URL.createObjectURL(blob);
+    var pwa = window.open(url);
+    if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
+        alert('Please disable your Pop-up blocker and try again.');
+    }
+}
+
 }
