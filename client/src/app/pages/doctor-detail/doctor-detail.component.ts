@@ -32,6 +32,19 @@ export class DoctorDetailComponent implements OnInit {
   unixTime: number;
 
   staticModalFdReference: BsModalRef;
+
+  reasonTypes = [
+    { id: 1, name: 'Control rutina' },
+    { id: 2, name: 'Dureri acute' },
+    { id: 3, name: 'Raceala' },
+    { id: 4, name: 'Concediu' },
+    { id: 5, name: 'Trimitere' },
+    { id: 6, name: 'Reteta' },
+    { id: 7, name: 'Adeverinte' },
+    { id: 8, name: 'Vaccin' },
+    { id: 9, name: 'Altul' },
+  ];
+
   constructor(private doctorService: DoctorService, private route: ActivatedRoute, private fb: FormBuilder,
     private modalService: BsModalService,
     private appoinmentsService: AppoinmentsService,

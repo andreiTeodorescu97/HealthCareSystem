@@ -125,7 +125,9 @@
         </select>
         <br>
         <label class="text-primary">Motiv(optional): </label>
-        <textarea [(ngModel)]="reason" name="reason" class="form-control" rows="3"></textarea>
+        <ng-select [(ngModel)]="reason" name="reason">
+            <ng-option *ngFor="let reason of reasonTypes" [value]="reason.name">{{reason.name}}</ng-option>
+        </ng-select>
     </div>
     <div class="modal-footer">
         <button (click)="makeAppoinment()" class="btn btn-success mr-2 btn-round" type="submit">Programeaza-te</button>

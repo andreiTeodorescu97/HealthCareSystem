@@ -29,11 +29,10 @@
                     <label>Presiune Diastolica (mmHg)</label>
                     <app-text-input [formControl]='consultationForm.controls["diastolicBp"]'
                         [label]='"Presiune Diastolica"'>
-                    </app-text-input> 
+                    </app-text-input>
 
                     <label>Temperatura (°C)*</label>
-                    <app-text-input [formControl]='consultationForm.controls["temperature"]'
-                        [label]='"Temperatura"'>
+                    <app-text-input [formControl]='consultationForm.controls["temperature"]' [label]='"Temperatura"'>
                     </app-text-input>
 
                 </div>
@@ -48,13 +47,11 @@
                     </app-text-input>
 
                     <label>Indice glicemic (mg/dl)</label>
-                    <app-text-input [formControl]='consultationForm.controls["bloodSugar"]'
-                        [label]='"Indice glicemic"'>
+                    <app-text-input [formControl]='consultationForm.controls["bloodSugar"]' [label]='"Indice glicemic"'>
                     </app-text-input>
 
                     <label>Indice masa corporala (kg/m^2)</label>
-                    <app-text-input [formControl]='consultationForm.controls["bmi"]'
-                        [label]='"Indice masa corporala"'>
+                    <app-text-input [formControl]='consultationForm.controls["bmi"]' [label]='"Indice masa corporala"'>
                     </app-text-input>
 
                     <label>Ritm respirator (respiratii/minut)</label>
@@ -76,14 +73,14 @@
                 <div class="card-body">
 
                     <label>Stare generala</label>
-                    <app-text-input [formControl]='consultationForm.controls["generalFeeling"]'
-                        [label]='"Stare generala"'>
-                    </app-text-input>
+                    <ng-select formControlName="generalFeeling">
+                        <ng-option *ngFor="let generalFeeling of generalFeelingTypes" [value]="generalFeeling.name">{{generalFeeling.name}}</ng-option>
+                    </ng-select>
 
                     <label>Comentarii</label>
-                    <app-text-input [formControl]='consultationForm.controls["comments"]' 
-                        [label]='"Comentarii"'>
-                    </app-text-input>
+                    <textarea type="text" class="form-control" formControlName="comments" rows=3
+                        placeholder="Comentarii" value=""></textarea>
+                    <br>
                 </div>
             </div>
         </div>

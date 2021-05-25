@@ -10,6 +10,7 @@
                             <th>Prenume</th>
                             <th>Data</th>
                             <th>Ora</th>
+                            <th>Motiv</th>
                             <th>Status</th>
                             <th>Data adaugarii</th>
                             <th></th>
@@ -22,6 +23,7 @@
                             <td>{{ appoinment.pacientSecondName }}</td>
                             <td>{{ appoinment.appoinmentDate }}</td>
                             <td>{{ appoinment.appoinmentHour }}</td>
+                            <td>{{ appoinment.reason }}</td>
                             <td [ngSwitch]="appoinment.statusId">
                                 <h6><span *ngSwitchCase="statuses.Approved"
                                         class="badge badge-pill badge-primary">{{appoinment.status}}</span></h6>

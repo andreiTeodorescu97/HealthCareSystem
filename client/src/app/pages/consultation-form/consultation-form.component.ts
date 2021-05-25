@@ -19,11 +19,24 @@ export class ConsultationFormComponent implements OnInit {
   pacientFirstName: string;
   pacientSecondName: string;
   consultation: ConsultationDto;
+
   @HostListener('window:beforeunload', ['$event']) unloadNotification($event : any){
     if(this.consultationForm.dirty){
       $event.returnValue = true;
     }
   }
+
+  generalFeelingTypes = [
+    { id: 1, name: 'Foarte buna' },
+    { id: 2, name: 'Buna' },
+    { id: 3, name: 'Extenuat' },
+    { id: 4, name: 'Obosit' },
+    { id: 5, name: 'Suparat' },
+    { id: 6, name: 'Plictisit' },
+    { id: 7, name: 'Depresiv' },
+    { id: 8, name: 'Anxios' },
+    { id: 9, name: 'Febril' },
+  ];
 
   constructor(private consultationService: ConsultationService, private fb: FormBuilder, 
     private router: Router, 
