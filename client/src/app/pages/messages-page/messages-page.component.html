@@ -1,0 +1,82 @@
+<div class="card">
+    <div class="card-body">
+        <div *ngIf="inboxMessages">
+            <div>
+                <div class="inbox_people">
+                    <div class="headind_srch">
+                        <div class="recent_heading">
+                            <h4>Mesaje Recente</h4>
+                        </div>
+                    </div>
+                    <div class="inbox_chat">
+                        <div *ngFor="let inboxMessage of inboxMessages; let i = index">
+                            <div class="chat_list">
+                                <div class="chat_people">
+                                    <div class="chat_img">
+                                        <img *ngIf="!user.isPacientAccount"
+                                            src="https://ptetutorials.com/images/user-profile.png" alt="pacient">
+                                        <img *ngIf="user.isPacientAccount"
+                                            src="{{inboxMessage.message.recipientPhotoUrl || inboxMessage.message.senderPhotoUrl}}"
+                                            alt="doctor">
+                                    </div>
+                                    <div class="chat_ib">
+                                        <h5>{{inboxMessage.firstName}} {{inboxMessage.secondName}}
+                                            <span class="chat_date">{{inboxMessage.message.messageSent | date :
+                                                'dd/MM/yyyy'}}</span>
+                                        </h5>
+                                        <p>{{inboxMessage.message.content}}
+                                            <button type="button" (click)="getThreadForUser(inboxMessage)"
+                                                class="btn btn-primary btn-sm"><i class="fa fa-commenting"
+                                                    aria-hidden="true"></i> Mesaj</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mesgs">
+            <div *ngIf="selectedUser">
+                <h2 class="text-primary">{{selectedUser.firstName}} {{selectedUser.secondName}}</h2>
+            </div>
+            <div class="msg_history" *ngIf="thread.length > 0" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+                <div *ngFor="let item of thread">
+                    <ul class="chat">
+                        <li>
+                            <div [ngClass]="item.recipientUsername == user.userName ? 'incoming_msg' : 'outgoing_msg'">
+                                <div *ngIf="item.recipientUsername == user.userName" class="incoming_msg_img">
+                                    <img *ngIf="!user.isPacientAccount"
+                                        src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
+                                    <img *ngIf="user.isPacientAccount" src="{{selectedUser.mainPhotoUrl}}" alt="sunil">
+                                </div>
+                                <div [ngClass]="item.recipientUsername == user.userName ? 'received_msg' : 'sent_msg'">
+                                    <div [ngClass]="{'received_withd_msg': item.recipientUsername == user.userName}">
+                                        <p>{{item.content}}</p>
+                                        <span class="time_date"> {{item.messageSent | timeago }} </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <form #messageForm="ngForm" (ngSubmit)="sendMessage()" autocomplete="off">
+                        <div class="input-group">
+                            <input name="messageContent" required [(ngModel)]="messageContent" type="text"
+                                class="form-control input-sm" placeholder="Trimite un mesaj privat">
+                            <div class="input-group-append">
+                                <button [disabled]="!messageForm.valid || loading" class="btn btn-success"
+                                    type="submit">
+                                    <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
+                                    <i *ngIf="!loading" class="fa fa-paper-plane"></i>
+                                    Trimite
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>

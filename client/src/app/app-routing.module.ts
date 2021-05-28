@@ -28,6 +28,7 @@ import { PreventUnsavedChangesGuard } from './guards/prevent-unsaved-changes.gua
 import { RecipeFormComponent } from './pages/recipe-form/recipe-form.component';
 import { RecipePageComponent } from './pages/recipe-page/recipe-page.component';
 import { PacientMedicalDataComponent } from './pages/pacient-medical-data/pacient-medical-data.component';
+import { MessagesPageComponent } from './pages/messages-page/messages-page.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent, canActivate: [NoauthGuard]},
@@ -63,6 +64,7 @@ const routes: Routes = [
       {path:'pacient/recipe/:consultationId/:pacientId/:pacientFirstName/:pacientSecondName', component: RecipeFormComponent}, 
       {path:'pacient/recipe_page/:consultationId', component: RecipePageComponent}, 
       {path:'pacient/pacient_medical_data', component: PacientMedicalDataComponent}, 
+      {path:'messages', component: MessagesPageComponent}, 
     ]
   },
   {path:'**', component: HomeComponent, canActivate: [NoauthGuard]}

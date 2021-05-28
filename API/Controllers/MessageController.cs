@@ -76,6 +76,20 @@ namespace API.Controllers
             return Ok(await _messageRepository.GetMessageThread(currentUsername, username));
         }
 
+        [HttpGet("last-messages")]
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetAllLastMessages()
+        {
+            var currentUsername = User.GetUserName();
+
+            return Ok(await _messageRepository.GetAllLastMessages(currentUsername));
+        }
+
+        [HttpGet("users")]
+        public async Task<ActionResult<List<SimpleUserDto>>> GetAllUsers()
+        {
+            return Ok(await _messageRepository.GetUsers());
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteMessage(int id)
         {

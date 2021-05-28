@@ -54,6 +54,8 @@ import { RecipeFormComponent } from './pages/recipe-form/recipe-form.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { RecipePageComponent } from './pages/recipe-page/recipe-page.component';
 import { PacientMedicalDataComponent } from './pages/pacient-medical-data/pacient-medical-data.component';
+import { MessagesPageComponent } from './pages/messages-page/messages-page.component';
+import { TimeagoModule } from "ngx-timeago";
 defineLocale("ro", roLocale);
 
 
@@ -90,6 +92,7 @@ defineLocale("ro", roLocale);
     RecipeFormComponent,
     RecipePageComponent,
     PacientMedicalDataComponent,
+    MessagesPageComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -115,7 +118,8 @@ defineLocale("ro", roLocale);
     BsDropdownModule.forRoot(),
     NgxSpinnerModule,
     FileUploadModule,
-    NgSelectModule
+    NgSelectModule,
+    TimeagoModule.forRoot(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
