@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Data;
@@ -6,11 +7,13 @@ using API.Entities;
 using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
+    [Authorize]
     public class MessageController : BaseApiController
     {
         private readonly IMessageRepository _messageRepository;
@@ -33,7 +36,7 @@ namespace API.Controllers
                 return BadRequest("You cannot send messages to yourself!");
 
             var sender = await _context.Users.FirstOrDefaultAsync(c => c.UserName == username);
-            var recipient = await _context.Users.FirstOrDefaultAsync(c => c.UserName == createMessageDto.RecipientUsername);;
+            var recipient = await _context.Users.FirstOrDefaultAsync(c => c.UserName == createMessageDto.RecipientUsername);
 
             if (recipient == null) return NotFound();
 
@@ -43,7 +46,8 @@ namespace API.Controllers
                 Recipient = recipient,
                 SenderUsername = sender.UserName,
                 RecipientUsername = recipient.UserName,
-                Content = createMessageDto.Content
+                Content = createMessageDto.Content,
+                MessageSent = DateTime.Now
             };
 
             _messageRepository.AddMessage(message);
@@ -55,8 +59,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IList<MessageDto>>> GetMessagesForUser([FromQuery]
-            MessageParams messageParams)
+        public async Task<ActionResult<IList<MessageDto>>> GetMessagesForUser([FromQuery] MessageParams messageParams)
         {
             messageParams.Username = User.GetUserName();
 
