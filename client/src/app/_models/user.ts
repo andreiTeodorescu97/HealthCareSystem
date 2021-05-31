@@ -8,4 +8,5 @@ export interface User{
     isPacientAccount: boolean;
     cnp: string;
     mainPhotoUrl: string;
+    roles: string[];
 }

@@ -10,8 +10,8 @@
       EASY-MED
     </a>
   </div>
-    <ul class="nav">
-        <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}" >
+    <ul class="nav" *ngFor="let menuItem of menuItems">
+        <li *appHasRole="[menuItem.roles]" routerLinkActive="active" class="{{menuItem.class}}">
             <a [routerLink]="[menuItem.path]">
                 <i class="{{menuItem.icon}}"></i>
                 <p>{{menuItem.title}}</p>

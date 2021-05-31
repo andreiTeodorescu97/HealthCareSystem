@@ -20,7 +20,7 @@ export class AccountService {
       map((response: User) => {
         const user = response;
         if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
+          this.setCurrentUser(user);
           this.currentUserSource.next(user);
         }
       })
@@ -31,14 +31,21 @@ export class AccountService {
     return this.http.post(this.baseUrl + 'account/register', model).pipe(
       map((user: User) => {
         if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
+          this.setCurrentUser(user);
           this.currentUserSource.next(user);
           }
         })
       )
   }
 
-  setCurrentUser(user: User) {
+  setCurrentUser(user: User){
+    if(user != null){
+      user.roles = [];
+      const roles = this.getDecodedToken(user.token).role;
+      /* we have only one role for one member */
+      Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
+    }
+    localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
 
@@ -46,6 +53,11 @@ export class AccountService {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
     this.router.navigateByUrl('');
+  }
+
+  getDecodedToken(token)
+  {
+    return JSON.parse(atob(token.split('.')[1]));
   }
 
 }

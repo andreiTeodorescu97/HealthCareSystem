@@ -88,7 +88,7 @@ insert into public."Pacients" ("FirstName", "SecondName", "Email", "Gender", "Id
 insert into public."Pacients" ("FirstName", "SecondName", "Email", "Gender", "IdentityNumber", "Series", "CNP", "DateOfBirth", "UserId") values ('Blinny', 'Trett', 'btrett2f@ameblo.jp', 'Agender', 296358, 'VN', '40-403-8795', '11/22/2002', 88);
 insert into public."Pacients" ("FirstName", "SecondName", "Email", "Gender", "IdentityNumber", "Series", "CNP", "DateOfBirth", "UserId") values ('Dania', 'Jerzykiewicz', 'djerzykiewicz2g@forbes.com', 'Non-binary', 108054, 'MX', '25-981-3943', '12/20/2014', 89);
 insert into public."Pacients" ("FirstName", "SecondName", "Email", "Gender", "IdentityNumber", "Series", "CNP", "DateOfBirth", "UserId") values ('Alix', 'Albro', 'aalbro2h@technorati.com', 'Agender', 559967, 'PX', '43-535-2407', '10/15/1978', 90);
-
+insert into public."Pacients" ("FirstName", "SecondName", "Email", "Gender", "IdentityNumber", "Series", "CNP", "DateOfBirth", "UserId") values ('Administrator', 'Easy-Med', 'admin.easy.med@gmail.com', 'Agender', 559967, 'PX', '11-111-1111', '10/15/2021', 101);
 
 INSERT INTO public."Regions"("Name")
 VALUES 

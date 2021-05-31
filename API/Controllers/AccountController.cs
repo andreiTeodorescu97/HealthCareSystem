@@ -7,6 +7,7 @@ using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,11 +17,14 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
-        public AccountController(DataContext context, ITokenService tokenService)
+        private readonly UserManager<AppUser> _userManager;
+        public SignInManager<AppUser> _signInManager;
+        public AccountController(DataContext context, ITokenService tokenService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
+            _signInManager = signInManager;
+            _userManager = userManager;
             _tokenService = tokenService;
             _context = context;
-
         }
 
         [HttpPost("login")]
@@ -30,24 +34,20 @@ namespace API.Controllers
             .Include(p => p.Pacient)
             .SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
 
-            if (user == null) return Unauthorized("Credentiale invalide!");
-
-            using var hmac = new HMACSHA512(user.PasswordSalt);
-
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
-
-            for (int i = 0; i < computedHash.Length; i++)
+            if (user == null)
             {
-                if (computedHash[i] != user.PasswordHash[i])
-                {
-                    return Unauthorized("Parola incorecta!");
-                }
+                return Unauthorized("Credentiale invalide!");
             }
+
+            var result = await _signInManager
+            .CheckPasswordSignInAsync(user, loginDto.Password, false);
+
+            if (!result.Succeeded) return Unauthorized();
 
             var userDto = new UserDto
             {
                 UserName = user.UserName,
-                Token = _tokenService.CreateToken(user),
+                Token = await _tokenService.CreateToken(user),
                 Id = user.Doctor != null ? user.Doctor.Id : user.Pacient.Id,
                 FirstName = user.Doctor != null ? user.Doctor.FirstName : user.Pacient.FirstName,
                 SecondName = user.Doctor != null ? user.Doctor.SecondName : user.Pacient.SecondName,
@@ -56,7 +56,7 @@ namespace API.Controllers
                 IsPacientAccount = user.Doctor == null ? true : false,
             };
 
-            if(user.Doctor != null)
+            if (user.Doctor != null)
             {
                 var mainPhoto = user.Doctor.Photos.Where(c => c.IsMain == true).FirstOrDefault();
                 userDto.MainPhotoUrl = mainPhoto?.Url;
@@ -74,19 +74,31 @@ namespace API.Controllers
                 return BadRequest("Acest username exista deja!");
             }
 
-            using var hmac = new HMACSHA512();
+            if (registerDto.IsPacientAccount)
+            {
+                if (await EmailExists(registerDto.pacientDto.Email, true))
+                {
+                    return BadRequest("Acest email exista deja!");
+                }
+                else if (await CnpExists(registerDto.pacientDto.IdentityNumber))
+                {
+                    return BadRequest("Acest CNP exista deja!");
+                }
+            }
+            else if (await EmailExists(registerDto.doctorDto.Email, false))
+            {
+                return BadRequest("Acest email exista deja!");
+            }
 
             var user = new AppUser
             {
                 UserName = registerDto.Username.ToLower(),
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key,
                 DateCreated = DateTime.UtcNow,
                 Pacient = registerDto.IsPacientAccount ? new Pacient
                 {
                     FirstName = registerDto.pacientDto.FirstName,
                     SecondName = registerDto.pacientDto.SecondName,
-                    Email = registerDto.pacientDto.FirstName,
+                    Email = registerDto.pacientDto.Email,
                     Gender = registerDto.pacientDto.Gender,
                     IdentityNumber = registerDto.pacientDto.IdentityNumber,
                     Series = registerDto.pacientDto.Series,
@@ -105,9 +117,13 @@ namespace API.Controllers
 
             try
             {
-                _context.Users.Add(user);
+                var result = await _userManager.CreateAsync(user, registerDto.Password);
 
-                await _context.SaveChangesAsync();
+                if (!result.Succeeded) return BadRequest(result.Errors);
+
+                var roleResult = await _userManager.AddToRoleAsync(user, registerDto.IsPacientAccount ? "Pacient" : "Doctor");
+
+                if (!roleResult.Succeeded) return BadRequest(roleResult.Errors);
             }
             catch (Exception ex)
             {
@@ -121,7 +137,7 @@ namespace API.Controllers
                 Title = registerDto.IsPacientAccount == true ? null : "Dr.",
                 FirstName = registerDto.IsPacientAccount ? user.Pacient.FirstName : user.Doctor.FirstName,
                 SecondName = registerDto.IsPacientAccount ? user.Pacient.SecondName : user.Doctor.SecondName,
-                Token = _tokenService.CreateToken(user),
+                Token = await _tokenService.CreateToken(user),
                 CNP = registerDto.IsPacientAccount == true ? user.Pacient.CNP : null,
                 IsPacientAccount = registerDto.IsPacientAccount
             };
@@ -129,7 +145,22 @@ namespace API.Controllers
 
         private async Task<bool> UserExists(string username)
         {
-            return await _context.Users.AnyAsync(c => c.UserName == username.ToLower());
+            return await _userManager.Users.AnyAsync(c => c.UserName == username.ToLower());
+        }
+
+        private async Task<bool> EmailExists(string email, bool IsPacientAccount)
+        {
+            if (IsPacientAccount)
+            {
+                return await _context.Pacients.AnyAsync(c => c.Email == email);
+            }
+
+            return await _context.Doctors.AnyAsync(c => c.Email == email);
+        }
+
+        private async Task<bool> CnpExists(string cnp)
+        {
+            return await _context.Pacients.AnyAsync(c => c.IdentityNumber == cnp);
         }
     }
 }

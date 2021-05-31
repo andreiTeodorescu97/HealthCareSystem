@@ -15,6 +15,9 @@ import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { ConsultationFormComponent } from '../consultation-form/consultation-form.component';
 import { gridSettings } from 'app/_models/grid';
+import { AccountService } from 'app/_services/account.service';
+import { take } from 'rxjs/operators';
+import { User } from 'app/_models/user';
 
 @Component({
   selector: 'app-pacient-profile',
@@ -52,6 +55,8 @@ export class PacientProfileComponent implements OnDestroy, OnInit {
   { name: '0 Rh pozitiv (0+)', },
   { name: '0 Rh negativ (0-)', }];
 
+  user: User;
+
   constructor(private route: ActivatedRoute,
     private pacientService: PacientService,
     private pacientGeneralDataService: PacientGeneralDataService,
@@ -60,8 +65,10 @@ export class PacientProfileComponent implements OnDestroy, OnInit {
     private consultationService: ConsultationService,
     private vaccinesService: VaccinesService,
     private router: Router,
+    private accountService: AccountService,
     private modalService: BsModalService) {
     this.pacientId = this.route.snapshot.paramMap.get('id');
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
   ngOnInit(): void {

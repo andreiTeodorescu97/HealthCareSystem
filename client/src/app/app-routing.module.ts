@@ -29,6 +29,8 @@ import { RecipeFormComponent } from './pages/recipe-form/recipe-form.component';
 import { RecipePageComponent } from './pages/recipe-page/recipe-page.component';
 import { PacientMedicalDataComponent } from './pages/pacient-medical-data/pacient-medical-data.component';
 import { MessagesPageComponent } from './pages/messages-page/messages-page.component';
+import { AdminComponent } from './pages/admin/admin/admin.component';
+import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   {path:'', component: HomeComponent, canActivate: [NoauthGuard]},
@@ -65,6 +67,7 @@ const routes: Routes = [
       {path:'pacient/recipe_page/:consultationId', component: RecipePageComponent}, 
       {path:'pacient/pacient_medical_data', component: PacientMedicalDataComponent}, 
       {path:'messages', component: MessagesPageComponent}, 
+      {path:'admin', component: AdminComponent, canActivate: [AdminGuard]}, 
     ]
   },
   {path:'**', component: HomeComponent, canActivate: [NoauthGuard]}
