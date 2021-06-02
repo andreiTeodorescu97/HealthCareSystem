@@ -11,6 +11,7 @@ export class TextInputComponent implements ControlValueAccessor {
   @Input() label: string;
   @Input() type = "text";
   @Input() disabled = false;
+  @Input() pattern = "";
 
   constructor(@Self() public ngControl: NgControl) { 
     this.ngControl.valueAccessor = this;

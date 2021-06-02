@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from
 import { Router } from '@angular/router';
 import { RegisterDto } from 'app/_models/registerDto';
 import { AccountService } from 'app/_services/account.service';
+import { environment } from 'environments/environment';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -16,23 +17,26 @@ export class RegisterDoctorComponent implements OnInit {
   maxDate: Date;
   registerDto = { doctorDto: {} } as RegisterDto;
   validationErrors: string[] = [];
+  siteKey: string;
 
   constructor(private accountService: AccountService, private toastr: ToastrService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.initializeForm();
     this.maxDate = new Date();
+    this.siteKey = environment.googleCaptchaSiteKey;
   }
 
   initializeForm() {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]],
-      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(15), Validators.pattern(/^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{6,}$/)]],
       confirmPassword: ['', [Validators.required, this.matchValues('password')]],
       firstName: ['', [Validators.required]],
       secondName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.pattern('^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$')]],
       dateOfBirth: ['', [Validators.required]],
+      recaptcha: ['', Validators.required]
     })
 
     this.registerForm.controls.password.valueChanges.subscribe(() => {

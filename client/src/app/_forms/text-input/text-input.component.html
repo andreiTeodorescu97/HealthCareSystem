@@ -25,14 +25,9 @@
 
     <div class="invalid-feedback" 
     *ngIf="ngControl.control.errors?.pattern">
-    Email-ul nu are formatul corect!
+    {{label}} nu are formatul corect {{pattern}}!
     </div>
-
-<!-- <div class="invalid-feedback" 
-    *ngIf="ngControl.control.errors?.pattern">
-    Password must contain at least: one lower case, one upper case, one digit and one special character!
-    </div> -->
-
+    
     <div class="invalid-feedback" 
     *ngIf="ngControl.control.errors?.isMatching">
         Parolele nu sunt identice!

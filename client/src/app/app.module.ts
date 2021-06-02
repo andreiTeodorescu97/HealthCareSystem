@@ -58,6 +58,7 @@ import { MessagesPageComponent } from './pages/messages-page/messages-page.compo
 import { TimeagoModule } from "ngx-timeago";
 import { AdminComponent } from './pages/admin/admin/admin.component';
 import { HasRoleDirective } from "./_directives/has-role.directive";
+import { NgxCaptchaModule } from 'ngx-captcha';
 defineLocale("ro", roLocale);
 
 
@@ -122,7 +123,8 @@ defineLocale("ro", roLocale);
     NgxSpinnerModule,
     FileUploadModule,
     NgSelectModule,
-    TimeagoModule.forRoot()
+    TimeagoModule.forRoot(),
+    NgxCaptchaModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

@@ -7,4 +7,5 @@ export const environment = {
   production: false,
   apiUrl: 'https://localhost:5001/api/',  
   hubUrl: 'https://localhost:5001/hubs/', 
+  googleCaptchaSiteKey: '6LeMKQkbAAAAANzp7P2Oc6J0jH9dwmDDntaRgxIQ'
 };

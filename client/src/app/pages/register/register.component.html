@@ -4,7 +4,7 @@
             <div class="card card-stats">
                 <div class="card-body text-center">
                     <h6 class="text-primary">Date personale</h6>
-                    
+
                     <div class="form-group">
                         <label class="control-label" style="margin-right: 10px;">Sex</label>
                         <label class="radio-inline">
@@ -21,13 +21,14 @@
                     <app-text-input [formControl]='registerForm.controls["secondName"]' [label]='"Prenume"'>
                     </app-text-input>
 
-                    
-                    <app-date-input [formControl]='registerForm.controls["dateOfBirth"]' [label]='"Data nasterii"' [maxDate]='maxDate'>
+
+                    <app-date-input [formControl]='registerForm.controls["dateOfBirth"]' [label]='"Data nasterii"'
+                        [maxDate]='maxDate'>
                     </app-date-input>
 
                     <app-text-input [formControl]='registerForm.controls["email"]' [label]='"Adresa e-mail"'>
                     </app-text-input>
-                    
+
                     <app-text-input [formControl]='registerForm.controls["identityNumber"]' [label]='"Numar CI"'>
                     </app-text-input>
 
@@ -36,6 +37,8 @@
 
                     <app-text-input [formControl]='registerForm.controls["cnp"]' [label]='"CNP"'>
                     </app-text-input>
+
+
                 </div>
             </div>
         </div>
@@ -53,8 +56,14 @@
                     </app-text-input>
 
                     <app-text-input [formControl]='registerForm.controls["confirmPassword"]' [label]='"Confirma parola"'
+                        [pattern]='"Trebuie sa contina cel putin o litera mica, o litera mare si o cifra!"'
                         [type]='"password"'>
                     </app-text-input>
+                    <div class="row justify-content-center">
+                        <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" formControlName="recaptcha">
+                        </ngx-recaptcha2>
+                    </div>
+                    <br>
                 </div>
             </div>
         </div>
@@ -67,8 +76,8 @@
         </ul>
     </div>
     <div class="form-group text-center">
-        <button [disabled]='!registerForm.valid' class="btn btn-success mr-2" type="submit">Inregistrare</button>
-        <button class="btn btn-danger mr-2" (click)="cancel()" type="button">Cancel</button>
+        <button [disabled]='!registerForm.valid' class="btn btn-success mr-2" type="submit"><i class="fa fa-check"></i> Inregistrare</button>
+        <button class="btn btn-danger mr-2" (click)="cancel()" type="button"><i class="fa fa-recycle"></i> Resetare</button>
     </div>
 </form>
 
