@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
+using API.Email;
 using API.Entities;
 using API.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -19,9 +20,12 @@ namespace API.Controllers
         private readonly ITokenService _tokenService;
         private readonly UserManager<AppUser> _userManager;
         public SignInManager<AppUser> _signInManager;
-        public AccountController(DataContext context, ITokenService tokenService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        private readonly IMailService _mailService;
+
+        public AccountController(DataContext context, ITokenService tokenService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IMailService mailService)
         {
             _signInManager = signInManager;
+            _mailService = mailService;
             _userManager = userManager;
             _tokenService = tokenService;
             _context = context;
@@ -37,6 +41,10 @@ namespace API.Controllers
             if (user == null)
             {
                 return Unauthorized("Credentiale invalide!");
+            }
+            if (!user.EmailConfirmed)
+            {
+                return Unauthorized("Te rugam sa validezi email-ul!");
             }
 
             var result = await _signInManager
@@ -94,6 +102,7 @@ namespace API.Controllers
             {
                 UserName = registerDto.Username.ToLower(),
                 DateCreated = DateTime.UtcNow,
+                Email = registerDto.IsPacientAccount ? registerDto.pacientDto.Email : registerDto.doctorDto.Email,
                 Pacient = registerDto.IsPacientAccount ? new Pacient
                 {
                     FirstName = registerDto.pacientDto.FirstName,
@@ -124,6 +133,17 @@ namespace API.Controllers
                 var roleResult = await _userManager.AddToRoleAsync(user, registerDto.IsPacientAccount ? "Pacient" : "Doctor");
 
                 if (!roleResult.Succeeded) return BadRequest(roleResult.Errors);
+
+                if (result.Succeeded && roleResult.Succeeded)
+                {
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var confirmationLink = Url.Action("ConfirmEmail", "Account", new { token, email = user.Email }, Request.Scheme);
+
+                    if (!await _mailService.SendConfirmationMail(user.Email, confirmationLink))
+                    {
+                        return BadRequest("Email-ul introdus nu este valid!");
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -141,6 +161,23 @@ namespace API.Controllers
                 CNP = registerDto.IsPacientAccount == true ? user.Pacient.CNP : null,
                 IsPacientAccount = registerDto.IsPacientAccount
             };
+        }
+
+        public async Task<IActionResult> ConfirmEmail(string token, string email)
+        {
+            try{
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return BadRequest("Nu exista acest utilizator!");
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            
+            return Ok("Email-ul a fost confirmat! Va multumim!");
+
+            }catch(Exception ex)
+            {
+                return BadRequest("Upss..ceva nu a mers!");
+            }
         }
 
         private async Task<bool> UserExists(string username)

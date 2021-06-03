@@ -42,6 +42,7 @@ namespace API.Data
             {
                 user.UserName = user.UserName.ToLower();
                 user.DateCreated = DateTime.Now;
+                user.EmailConfirmed = true;
                 await userManager.CreateAsync(user, "1234!Asd");
                 await userManager.AddToRoleAsync(user, "Pacient");
             }
@@ -50,13 +51,15 @@ namespace API.Data
             {
                 doctor.UserName = doctor.UserName.ToLower();
                 doctor.DateCreated = DateTime.Now;
+                doctor.EmailConfirmed = true;
                 await userManager.CreateAsync(doctor, "1234!Asd");
                 await userManager.AddToRoleAsync(doctor, "Doctor");
             }
 
             var admin = new AppUser
             {
-                UserName = "admin"
+                UserName = "admin",
+                EmailConfirmed = true
             };
 
             await userManager.CreateAsync(admin, "1234!Asd");

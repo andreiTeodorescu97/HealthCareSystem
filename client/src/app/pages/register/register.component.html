@@ -52,11 +52,11 @@
                     </app-text-input>
 
                     <app-text-input [formControl]='registerForm.controls["password"]' [label]='"Parola"'
+                        [pattern]='"Trebuie sa contina cel putin o litera mica, o litera mare, o cifra si un caracter special"'
                         [type]='"password"'>
                     </app-text-input>
 
                     <app-text-input [formControl]='registerForm.controls["confirmPassword"]' [label]='"Confirma parola"'
-                        [pattern]='"Trebuie sa contina cel putin o litera mica, o litera mare si o cifra!"'
                         [type]='"password"'>
                     </app-text-input>
                     <div class="row justify-content-center">
@@ -76,8 +76,10 @@
         </ul>
     </div>
     <div class="form-group text-center">
-        <button [disabled]='!registerForm.valid' class="btn btn-success mr-2" type="submit"><i class="fa fa-check"></i> Inregistrare</button>
-        <button class="btn btn-danger mr-2" (click)="cancel()" type="button"><i class="fa fa-recycle"></i> Resetare</button>
+        <button [disabled]='!registerForm.valid' class="btn btn-success mr-2" type="submit"><i class="fa fa-check"></i>
+            Inregistrare</button>
+        <button class="btn btn-danger mr-2" (click)="cancel()" type="button"><i class="fa fa-recycle"></i>
+            Resetare</button>
     </div>
 </form>
 

@@ -11,10 +11,11 @@ export class TextInputComponent implements ControlValueAccessor {
   @Input() label: string;
   @Input() type = "text";
   @Input() disabled = false;
-  @Input() pattern = "";
+  @Input() pattern : string;
 
   constructor(@Self() public ngControl: NgControl) { 
     this.ngControl.valueAccessor = this;
+    console.log(this.ngControl.control?.errors);
   }
 
   writeValue(obj: any): void {

@@ -11,6 +11,7 @@ namespace API.DTOs
         [Required]
         [StringLength(15, MinimumLength = 6,
         ErrorMessage = "Password should be minimum 6 characters and a maximum of 15 characters")]
+        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$", ErrorMessage = "Parola are formatul invalid!")]
         public string Password { get; set; }
         public bool IsPacientAccount { get; set; }
         public RegisterPacientDto pacientDto { get; set; }

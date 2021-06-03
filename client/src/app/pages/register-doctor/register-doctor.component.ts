@@ -30,7 +30,7 @@ export class RegisterDoctorComponent implements OnInit {
   initializeForm() {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]],
-      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(15), Validators.pattern(/^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{6,}$/)]],
+      password: [  '', [Validators.required]],
       confirmPassword: ['', [Validators.required, this.matchValues('password')]],
       firstName: ['', [Validators.required]],
       secondName: ['', [Validators.required]],
@@ -63,7 +63,7 @@ export class RegisterDoctorComponent implements OnInit {
     this.accountService.register(this.registerDto).subscribe(response => {
       console.log(response);
       this.toastr.success(
-        '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Contul a fost creat cu succes!</span>',
+        '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Contul a fost creat cu succes! Un email a fost trimis la adresa introdusa!</span>',
         "Register",
         {
           toastClass: "alert alert-success alert-with-icon",
