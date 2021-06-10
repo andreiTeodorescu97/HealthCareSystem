@@ -37,18 +37,24 @@
                             </td>
                             <td>
                                 <div class="btn-group" dropdown>
-                                    <button id="button-basic" dropdownToggle type="button" class="btn btn-info btn-round dropdown-toggle"
-                                            aria-controls="dropdown-basic">
-                                            <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
+                                    <button id="button-basic" dropdownToggle type="button"
+                                        class="btn btn-info btn-round dropdown-toggle" aria-controls="dropdown-basic">
+                                        <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
                                     </button>
-                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
-                                        role="menu" aria-labelledby="button-basic">
-                                      <li role="menuitem"><a class="dropdown-item"
+                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
+                                        aria-labelledby="button-basic">
+                                        <li role="menuitem">
+                                            <a class="dropdown-item"
+                                                (click)="openMessageModal(messageModal, appoinment.doctorUserName, 
+                                                'Dr. ' + appoinment.doctorFirstName + ' ' + appoinment.doctorSecondName, appoinment.doctorProfilePhotoUrl)">
+                                                <i class="fa fa-commenting" aria-hidden="true"></i> Trimite mesaj</a>
+                                        </li>
+                                        <li role="menuitem"><a class="dropdown-item"
                                                 (click)="updateStatus(statuses.CanceledByPacient, appoinment.id)">
                                                 <i class="fa fa-times" aria-hidden="true"></i>
                                                 Anuleaza</a></li>
                                     </ul>
-                                  </div>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -56,3 +62,29 @@
             </div>
         </div>
     </div>
+    <ng-template #messageModal>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left text-primary">Trimite mesaj</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="messageModalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <label>Catre</label>
+            <div class="row">
+                <img src="{{receiverProfileImg || 'assets/img/doctor.png'}}" class="avatar" alt="doctor">
+                <p class="plm text-primary">{{receiverName}}</p>
+            </div>
+            <br>
+            <label>Mesaj</label>
+            <br>
+            <textarea type="text" [(ngModel)]="content" class="form-control" rows=3 placeholder="Mesaj"
+                value=""></textarea>
+        </div>
+        <div class="modal-footer">
+            <button (click)="sendMessage()" class="btn btn-success mr-2 btn-round" type="submit"><i
+                    class="fa fa-paper-plane" aria-hidden="true"></i> Trimite</button>
+            <button class="btn btn-danger btn-round" (click)="messageModalRef.hide()" type="button"><i
+                    class="fa fa-times" aria-hidden="true"></i> Renunta</button>
+        </div>
+    </ng-template>

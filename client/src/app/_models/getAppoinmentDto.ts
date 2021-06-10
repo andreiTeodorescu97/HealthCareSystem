@@ -8,11 +8,14 @@ export interface GetAppoinmentDto {
     dateId: number;
     dateCreated: Date;
     pacientId: number;
+    pacientUserName: string;
     pacientFirstName: string;
     pacientSecondName: string;
     doctorId: number;
+    doctorUserName: string;
     doctorFirstName: string;
     doctorSecondName: string;
+    doctorProfilePhotoUrl: string;
     statusId: number;
     status: string;
     isConsultationAdded: boolean;

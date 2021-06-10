@@ -38,3 +38,17 @@
 }
 
 h6 {text-transform: capitalize;}
+
+.avatar {
+    width: 65px;
+    height: 65px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.plm{
+    padding-top: 17px;
+    margin-left: 5px;
+    font-size: 20px;
+}

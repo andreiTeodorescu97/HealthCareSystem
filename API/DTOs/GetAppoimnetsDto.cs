@@ -13,11 +13,14 @@ namespace API.DTOs
         public int DateId { get; set; }
         public DateTime DateCreated { get; set; }
         public int PacientId { get; set; }
+        public string PacientUserName { get; set; }
         public string PacientFirstName { get; set; }
         public string PacientSecondName { get; set; }
         public int DoctorId { get; set; }
+        public string DoctorUserName { get; set; }
         public string DoctorFirstName { get; set; }
         public string DoctorSecondName { get; set; }
+        public string DoctorProfilePhotoUrl { get; set; }
         public int StatusId { get; set; }
         public string Status { get; set; }
         public bool IsConsultationAdded { get; set; }

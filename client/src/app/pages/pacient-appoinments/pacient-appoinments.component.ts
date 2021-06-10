@@ -1,10 +1,12 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { GetAppoinmentDto } from 'app/_models/getAppoinmentDto';
 import { gridSettings } from 'app/_models/grid';
 import { UpdateAppoinmentStatusDto } from 'app/_models/updateAppoinmentStatusDto';
 import { AppoinmentsService } from 'app/_services/appoinments.service';
+import { MessageService } from 'app/_services/message.service';
 import { AppoinmentsStatuses } from 'Constants';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 
@@ -25,7 +27,17 @@ export class PacientAppoinmentsComponent implements OnDestroy, OnInit {
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private appoinmentService: AppoinmentsService, private toastr: ToastrService) { }
+    //send message modal
+    messageModalRef: BsModalRef;
+    receiverUserName: string;
+    receiverName: string;
+    receiverProfileImg: string;
+    content: string;
+
+  constructor(private appoinmentService: AppoinmentsService, 
+    private messageService: MessageService,
+    private modalService: BsModalService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.initializeGrid();
@@ -80,5 +92,31 @@ export class PacientAppoinmentsComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
+  }
+
+  openMessageModal(template: TemplateRef<any>, receiverUserName: string, receiverName: string, 
+    receiverProfileImg: string) {
+    this.receiverUserName = receiverUserName;
+    this.receiverName = receiverName;
+    this.receiverProfileImg = receiverProfileImg;
+    this.messageModalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray modal-lg' })
+    );
+  }
+
+  sendMessage() {
+    this.messageService.sendMessage(this.receiverUserName, this.content)
+      .subscribe(() => {
+        this.toastr.success(
+          '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Mesajul a fost trimis cu succes!!</span>',
+          "Mesaj",
+          {
+            toastClass: "alert alert-success alert-with-icon",
+          }
+        );
+        this.content = "";
+        this.messageModalRef.hide();
+      })
   }
 }

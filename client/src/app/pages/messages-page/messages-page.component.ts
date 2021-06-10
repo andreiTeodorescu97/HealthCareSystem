@@ -8,7 +8,7 @@ import { AccountService } from 'app/_services/account.service';
 import { MessageService } from 'app/_services/message.service';
 import { take } from 'rxjs/operators';
 import { isTemplateExpression } from 'typescript';
-import { ChangeDetectorRef, AfterContentChecked} from '@angular/core';
+import { ChangeDetectorRef, AfterContentChecked } from '@angular/core';
 
 @Component({
   selector: 'app-messages-page',
@@ -19,16 +19,16 @@ export class MessagesPageComponent implements OnInit {
 
   user: User;
   allSimpleUsersDto: SimpleUserDto[];
-  inboxMessages : LastMessagesDto[];
-  thread =  [] as MessageDto[];
+  inboxMessages: LastMessagesDto[];
+  thread = [] as MessageDto[];
   selectedUser = {} as SimpleUserDto;
-  @ViewChild('messageForm') messageForm : NgForm;
-  messageContent : string;
+  @ViewChild('messageForm') messageForm: NgForm;
+  messageContent: string;
   loading = false;
-  @ViewChild('scrollMe') scrollMe : ElementRef ;  
-  scrollTop:number=null;
+  @ViewChild('scrollMe') scrollMe: ElementRef;
+  scrollTop: number = null;
 
-  constructor(private messageService: MessageService, private accountService: AccountService, private cdref: ChangeDetectorRef) { 
+  constructor(private messageService: MessageService, private accountService: AccountService, private cdref: ChangeDetectorRef) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
@@ -37,24 +37,25 @@ export class MessagesPageComponent implements OnInit {
     this.getLastMessages();
   }
 
-  getLastMessages(){
+  getLastMessages() {
     this.messageService.getLastMessages().subscribe(data => {
       this.inboxMessages = data;
       this.inboxMessages.forEach(element => {
-        element.firstName = this.allSimpleUsersDto.filter(item => item.userName == element.username)[0].firstName;
+        element.firstName = this.user.isPacientAccount ? "Dr. " + this.allSimpleUsersDto.filter(item => item.userName == element.username)[0].firstName :
+          this.allSimpleUsersDto.filter(item => item.userName == element.username)[0].firstName;
         element.secondName = this.allSimpleUsersDto.filter(item => item.userName == element.username)[0].secondName;
-        element.message.content = element.message.content.substring(0,20) + "...";
+        element.message.content = element.message.content.substring(0, 20) + "...";
       });
     })
   };
 
-  getUsers(){
+  getUsers() {
     this.messageService.getUsers().subscribe(data => {
       this.allSimpleUsersDto = data;
     })
   }
 
-  getThreadForUser(inboxMessage: LastMessagesDto){
+  getThreadForUser(inboxMessage: LastMessagesDto) {
     this.selectedUser.firstName = inboxMessage.firstName;
     this.selectedUser.secondName = inboxMessage.secondName;
     this.selectedUser.userName = inboxMessage.username;
@@ -62,13 +63,13 @@ export class MessagesPageComponent implements OnInit {
     this.getAllThread(inboxMessage.username);
   }
 
-  getAllThread(username: string){
+  getAllThread(username: string) {
     this.messageService.getAllThread(username).subscribe(data => {
-        this.thread = data;
+      this.thread = data;
     })
   }
 
-  sendMessage(){
+  sendMessage() {
     this.loading = true;
     this.messageService.sendMessage(this.selectedUser.userName, this.messageContent)
       .subscribe(message => {

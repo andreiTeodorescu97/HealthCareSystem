@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { GetAppoinmentDto } from 'app/_models/getAppoinmentDto';
 import { gridSettings } from 'app/_models/grid';
@@ -9,6 +9,8 @@ import { UpdateAppoinmentStatusDto } from 'app/_models/updateAppoinmentStatusDto
 import { ToastrService } from 'ngx-toastr';
 import { DataTableDirective } from 'angular-datatables';
 import { PacientService } from 'app/_services/pacient.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { MessageService } from 'app/_services/message.service';
 
 @Component({
   selector: 'app-doctor-appoinments',
@@ -31,8 +33,15 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
+  //send message modal
+  messageModalRef: BsModalRef;
+  receiverUserName: string;
+  receiverName: string;
+  content: string;
+
   constructor(private appoinmentService: AppoinmentsService, private pacientService: PacientService, 
-    private router : Router, private toastr: ToastrService) { }
+    private router : Router, private toastr: ToastrService, private messageService: MessageService,
+    private modalService: BsModalService) { }
 
   ngOnInit(): void {
     this.initializeGrid();
@@ -95,5 +104,29 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
 
   goToPacientProfile(id: string){
     this.router.navigateByUrl('pacient/pacient_profile/' + id);
+  }
+
+  openMessageModal(template: TemplateRef<any>, receiverUserName: string, receiverName: string) {
+    this.receiverUserName = receiverUserName;
+    this.receiverName = receiverName;
+    this.messageModalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray modal-lg' })
+    );
+  }
+
+  sendMessage() {
+    this.messageService.sendMessage(this.receiverUserName, this.content)
+      .subscribe(() => {
+        this.toastr.success(
+          '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Mesajul a fost trimis cu succes!!</span>',
+          "Mesaj",
+          {
+            toastClass: "alert alert-success alert-with-icon",
+          }
+        );
+        this.content = "";
+        this.messageModalRef.hide();
+      })
   }
 }

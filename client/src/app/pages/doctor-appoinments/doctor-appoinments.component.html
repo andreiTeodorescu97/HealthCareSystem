@@ -53,27 +53,29 @@
                                                 <i class="fa fa-check" aria-hidden="true"></i>
                                                 Aproba</a>
                                         </li>
-
                                         <li role="menuitem" *ngIf="appoinment.statusId == statuses.Approved"><a
                                                 class="dropdown-item"
                                                 (click)="goToPacientProfile(appoinment.pacientId)"><i
                                                     class="fa fa-address-card" aria-hidden="true"></i> Profil
                                                 pacient</a>
                                         </li>
-
+                                        <li role="menuitem">
+                                            <a class="dropdown-item"
+                                                (click)="openMessageModal(messageModal, appoinment.pacientUserName, 
+                                                appoinment.pacientFirstName + ' ' + appoinment.pacientSecondName)">
+                                                <i class="fa fa-commenting" aria-hidden="true"></i> Trimite mesaj</a>
+                                        </li>
                                         <li role="menuitem" *ngIf="appoinment.statusId == statuses.Pending">
                                             <a class="dropdown-item"
                                                 (click)="updateStatus(statuses.Rejected, appoinment.id)">
                                                 <i class="fa fa-times" aria-hidden="true">
                                                 </i> Respinge</a>
                                         </li>
-
                                         <li role="menuitem" *ngIf="appoinment.statusId == statuses.Approved && 
                                                                    appoinment.isConsultationAdded == false">
                                             <a class="dropdown-item" (click)="redirectToConsultation(appoinment)">
                                                 <i class="fa fa-stethoscope" aria-hidden="true"></i> Consult</a>
                                         </li>
-
                                         <li role="menuitem" *ngIf="appoinment.statusId == statuses.Approved && 
                                                                     appoinment.isConsultationAdded == false">
                                             <a class="dropdown-item"
@@ -90,3 +92,30 @@
             </div>
         </div>
     </div>
+    <ng-template #messageModal>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left text-primary">Trimite mesaj</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="messageModalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <label>Catre</label>
+            <div class="row">
+                <img src="https://ptetutorials.com/images/user-profile.png" class="avatar rounded float-left"
+                    alt="pacient">
+                <p class="plm text-primary">{{receiverName}}</p>
+            </div>
+            <br>
+            <label>Mesaj</label>
+            <br>
+            <textarea type="text" [(ngModel)]="content" class="form-control" rows=3 placeholder="Mesaj"
+                value=""></textarea>
+        </div>
+        <div class="modal-footer">
+            <button (click)="sendMessage()" class="btn btn-success mr-2 btn-round" type="submit"><i
+                    class="fa fa-paper-plane" aria-hidden="true"></i> Trimite</button>
+            <button class="btn btn-danger btn-round" (click)="messageModalRef.hide()" type="button"><i
+                    class="fa fa-times" aria-hidden="true"></i> Renunta</button>
+        </div>
+    </ng-template>
