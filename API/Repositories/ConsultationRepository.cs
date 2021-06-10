@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Constants;
 using API.Data;
 using API.DTOs;
 using API.Entities;
@@ -28,7 +29,8 @@ namespace API.Repositories
 
         public async Task<bool> AddConsultationAsync(ConsultationDto consultationDto)
         {
-            var linkedAppoinment = await _context.Appoinments.FindAsync(consultationDto.AppoinmentId);
+            var linkedAppoinment = await _context.Appoinments.Include(c => c.Pacient.PacientContact)
+            .SingleOrDefaultAsync(c => c.Id == consultationDto.AppoinmentId);
 
             if (consultationDto.PacientId == null)
             {
@@ -42,7 +44,35 @@ namespace API.Repositories
             _context.Consultations.Add(consultation);
 
             linkedAppoinment.IsConsultationAdded = true;
+            linkedAppoinment.StatusId = (int)AppoinmentStatuses.Finalized;
             _context.Entry(linkedAppoinment).State = EntityState.Modified;
+
+            var pacientHistory = await _context.PacientHistories.FirstOrDefaultAsync(c => c.PacientId == linkedAppoinment.PacientId);
+
+            if (pacientHistory == null)
+            {
+                var newPacientHistory = new PacientHistory
+                {
+                    PacientId = linkedAppoinment.PacientId,
+                    FirstName = linkedAppoinment.Pacient.FirstName,
+                    SecondName = linkedAppoinment.Pacient.SecondName,
+                    Email = linkedAppoinment.Pacient.Email,
+                    Gender = linkedAppoinment.Pacient.Gender,
+                    IdentityNumber = linkedAppoinment.Pacient.IdentityNumber,
+                    CNP = linkedAppoinment.Pacient.CNP,
+                    Series = linkedAppoinment.Pacient.Series,
+                    DateOfBirth = linkedAppoinment.Pacient.DateOfBirth,
+                    TotalNumberOfVisits = 0,
+                    LastVisitDate = linkedAppoinment.DateCreated
+                };
+                _context.PacientHistories.Add(newPacientHistory);
+            }
+            else
+            {
+                pacientHistory.TotalNumberOfVisits = pacientHistory.TotalNumberOfVisits + 1;
+                pacientHistory.LastVisitDate = linkedAppoinment.DateCreated;
+                _context.Entry(pacientHistory).State = EntityState.Modified;
+            }
 
             return await _context.SaveChangesAsync() > 0;
         }

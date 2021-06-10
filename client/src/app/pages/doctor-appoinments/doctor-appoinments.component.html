@@ -26,17 +26,17 @@
                             <td>{{ appoinment.reason }}</td>
                             <td [ngSwitch]="appoinment.statusId">
                                 <h6><span *ngSwitchCase="statuses.Approved"
-                                        class="badge badge-pill badge-primary">{{appoinment.status}}</span></h6>
+                                        class="badge badge-pill badge-primary">Aprobat</span></h6>
                                 <h6><span *ngSwitchCase="statuses.Pending"
-                                        class="badge badge-pill badge-warning">{{appoinment.status}}</span></h6>
+                                        class="badge badge-pill badge-warning">In asteptare</span></h6>
                                 <h6><span *ngSwitchCase="statuses.CanceledByDoctor"
-                                        class="badge badge-pill badge-danger">{{appoinment.status}}</span></h6>
+                                        class="badge badge-pill badge-danger">Anulat de doctor</span></h6>
                                 <h6><span *ngSwitchCase="statuses.CanceledByPacient"
-                                        class="badge badge-pill badge-danger">{{appoinment.status}}</span></h6>
+                                        class="badge badge-pill badge-danger">Anulat de pacient</span></h6>
                                 <h6><span *ngSwitchCase="statuses.Rejected"
-                                        class="badge badge-pill badge-danger">{{appoinment.status}}</span></h6>
+                                        class="badge badge-pill badge-danger">Respins</span></h6>
                                 <h6><span *ngSwitchCase="statuses.Finalized"
-                                        class="badge badge-pill badge-success">{{appoinment.status}}</span></h6>
+                                        class="badge badge-pill badge-success">Finalizat</span></h6>
                             </td>
                             <td>{{ appoinment.dateCreated | date : 'dd/MM/yyyy'}}</td>
                             <td>

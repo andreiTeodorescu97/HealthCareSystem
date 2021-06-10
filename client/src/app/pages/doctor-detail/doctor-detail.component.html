@@ -6,7 +6,8 @@
             </div>
             <div class="card-body">
                 <div class="author">
-                    <img class="avatar border-gray" src="{{doctor.mainPhotoUrl || 'assets/img/doctor.png'}}" alt="{{doctor.firstName}} {{doctor.secondName}}">
+                    <img class="avatar border-gray" src="{{doctor.mainPhotoUrl || 'assets/img/doctor.png'}}"
+                        alt="{{doctor.firstName}} {{doctor.secondName}}">
                     <h5 class="title">Dr. {{doctor.firstName}} {{doctor.secondName}}</h5>
                 </div>
                 <p class="description text-center">
@@ -63,7 +64,8 @@
                             <div class="row">
                                 <div class="update ml-auto mr-auto">
                                     <button type="submit" (click)="staticModal.show()"
-                                        class="btn btn-success btn-round">Fa o programare!</button>
+                                        class="btn btn-success btn-round"><i class="fa fa-calendar"
+                                            aria-hidden="true"></i> Programeaza-te!</button>
                                 </div>
                             </div>
                             <div class="row justify-content-center">
@@ -88,7 +90,7 @@
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 id="dialog-static-name" class="modal-title pull-left">Alege ziua</h4>
+                <h4 id="dialog-static-name" class="modal-title pull-left">Pas 1</h4>
                 <button type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -96,28 +98,32 @@
             <div class="modal-body">
                 <form [formGroup]='chooseDateForm' (ngSubmit)="chooseDateForm.valid && getFreeHours()"
                     #documentEditForm="ngForm">
-                    <app-date-input [formControl]='chooseDateForm.controls["dateOfAppoinment"]'
-                        [label]='"Data programarii"' [minDate]='minDate'>
+                    <label class="text-primary">Data: </label>
+                    <app-date-input [formControl]='chooseDateForm.controls["dateOfAppoinment"]' [label]='"Data"'
+                        [minDate]='minDate'>
                     </app-date-input>
                 </form>
             </div>
             <div class="modal-footer">
                 <button [disabled]='!chooseDateForm.valid' (click)="documentEditForm.ngSubmit.emit()"
-                    form="chooseDateForm" class="btn btn-success mr-2 btn-round" type="submit">Alege
+                    form="chooseDateForm" class="btn btn-success mr-2 btn-round" type="submit"><i class="fa fa-check"
+                        aria-hidden="true"></i> Alege
                     ziua</button>
-                <button class="btn btn-danger btn-round" (click)="staticModal.hide()" type="button">Renunta</button>
+                <button class="btn btn-danger btn-round" (click)="staticModal.hide()" type="button"><i
+                        class="fa fa-times"></i> Renunta</button>
             </div>
         </div>
     </div>
 </div>
 <ng-template #template>
     <div class="modal-header">
-        <h4 id="dialog-static-name" class="modal-title pull-left">Alege Ora</h4>
+        <h4 id="dialog-static-name" class="modal-title pull-left">Pas 2</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
+        <label class="text-primary">Ora: </label>
         <select [(ngModel)]="hour" name="{{hour}}" class="form-control" placeholder="Zi">
             <option *ngFor="let day of availableHours" [value]="day.id">
                 {{day.fromHour}} - {{day.toHour}}
@@ -130,7 +136,9 @@
         </ng-select>
     </div>
     <div class="modal-footer">
-        <button (click)="makeAppoinment()" class="btn btn-success mr-2 btn-round" type="submit">Programeaza-te</button>
-        <button class="btn btn-danger btn-round" (click)="modalRef.hide()" type="button">Schimba ziua</button>
+        <button (click)="makeAppoinment()" class="btn btn-success mr-2 btn-round" type="submit"><i class="fa fa-check"
+                aria-hidden="true"></i> Programeaza-te</button>
+        <button class="btn btn-danger btn-round" (click)="modalRef.hide()" type="button"><i class="fa fa-arrow-left"
+                aria-hidden="true"></i> Inapoi</button>
     </div>
 </ng-template>

@@ -33,7 +33,7 @@ namespace API.Data
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Message> Messages { get; set; }
-
+        public DbSet<PacientHistory> PacientHistories { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
