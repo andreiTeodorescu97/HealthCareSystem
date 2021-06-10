@@ -74,7 +74,8 @@
 
                     <label>Stare generala</label>
                     <ng-select formControlName="generalFeeling">
-                        <ng-option *ngFor="let generalFeeling of generalFeelingTypes" [value]="generalFeeling.name">{{generalFeeling.name}}</ng-option>
+                        <ng-option *ngFor="let generalFeeling of generalFeelingTypes" [value]="generalFeeling.name">
+                            {{generalFeeling.name}}</ng-option>
                     </ng-select>
 
                     <label>Comentarii</label>
@@ -89,9 +90,10 @@
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="card card-stats">
                 <div class="card-body text-center">
-                    <button [disabled]='!consultationForm.valid' class="btn btn-success mr-2"
-                        type="submit">Salveaza</button>
-                    <button class="btn btn-danger mr-2" (click)="cancel()" type="button">Renunta</button>
+                    <button [disabled]='!consultationForm.valid' class="btn btn-success mr-2" type="submit"><i
+                            class="fa fa-check" aria-hidden="true"></i> Salveaza</button>
+                    <button class="btn btn-danger mr-2" (click)="cancel()" type="button"><i class="fa fa-times"
+                            aria-hidden="true"></i> Renunta</button>
                 </div>
             </div>
         </div>

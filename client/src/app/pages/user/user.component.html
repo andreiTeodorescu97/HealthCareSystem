@@ -1,5 +1,5 @@
 <div class="row" *ngIf="model">
-  <div class="col-md-8">
+  <div class="col-md-12">
     <div class="card card-user">
       <div class="card-header">
         <h5 class="card-title">Editeaza Profilul</h5>
@@ -10,9 +10,9 @@
             <div class="col-md-5 pr-1">
               <div class="form-group">
                 <label>Nume</label>
-                <input type="text" 
-                [class.is-invalid]='editForm.get("firstName").errors && editForm.get("firstName").touched' 
-                class="form-control" formControlName="firstName" placeholder="Nume" value="">
+                <input type="text"
+                  [class.is-invalid]='editForm.get("firstName").errors && editForm.get("firstName").touched'
+                  class="form-control" formControlName="firstName" placeholder="Nume" value="">
                 <div class="invalid-feedback">
                   Numele este obligatoriu
                 </div>
@@ -21,9 +21,9 @@
             <div class="col-md-3 px-1">
               <div class="form-group">
                 <label>Prenume</label>
-                <input type="text" 
-                [class.is-invalid]='editForm.get("secondName").errors && editForm.get("secondName").touched'
-                class="form-control" formControlName="secondName" placeholder="Prenume" value="">
+                <input type="text"
+                  [class.is-invalid]='editForm.get("secondName").errors && editForm.get("secondName").touched'
+                  class="form-control" formControlName="secondName" placeholder="Prenume" value="">
                 <div class="invalid-feedback">
                   Prenumele este obligatoriu
                 </div>
@@ -32,9 +32,8 @@
             <div class="col-md-4 pl-1">
               <div class="form-group">
                 <label for="exampleInputEmail1">Email </label>
-                <input type="email" 
-                [class.is-invalid]='editForm.get("email").errors && editForm.get("email").touched'
-                class="form-control" formControlName="email" placeholder="Email" email>
+                <input type="email" [class.is-invalid]='editForm.get("email").errors && editForm.get("email").touched'
+                  class="form-control" formControlName="email" placeholder="Email" email>
                 <div *ngIf="editForm.get('email').hasError('required')" class="invalid-feedback">
                   Email-ul este obligatoriu
                 </div>
@@ -48,16 +47,14 @@
             <div class="col-md-2 pr-1">
               <div class="form-group">
                 <label>Serie</label>
-                <input type="text" 
-                class="form-control" formControlName="series" disabled="" placeholder="Serie"
+                <input type="text" class="form-control" formControlName="series" disabled="" placeholder="Serie"
                   value="">
               </div>
             </div>
             <div class="col-md-3 pl-1 pr-1">
               <div class="form-group">
                 <label>Numar</label>
-                <input type="text" 
-                class="form-control" formControlName="identityNumber" disabled="" placeholder="Numar"
+                <input type="text" class="form-control" formControlName="identityNumber" disabled="" placeholder="Numar"
                   value="">
               </div>
             </div>
@@ -72,8 +69,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label>Data nasterii</label>
-                <input type="text" class="form-control"  disabled=""
-                  placeholder="Data nasterii" value={{dateFormated}}>
+                <input type="text" class="form-control" disabled="" placeholder="Data nasterii" value={{dateFormated}}>
               </div>
             </div>
           </div>
@@ -138,35 +134,20 @@
               </div>
             </div>
           </div>
-          <!--           <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label>About Me</label>
-                <textarea
-                  class="form-control textarea">Oh so, your weak rhyme You doubt I'll bother, reading into it</textarea>
-              </div>
-            </div>
-          </div> -->
           <div class="row">
             <div class="update ml-auto mr-auto">
-              <button type="submit" [disabled]='!editForm.valid' class="btn btn-primary btn-round">Editeaza profilul</button>
+              <button type="submit" [disabled]='!editForm.valid' class="btn btn-primary btn-round"><i
+                  class="fa fa-check" aria-hidden="true"></i> Editeaza profilul</button>
             </div>
           </div>
-<!--           <div class="row justify-content-center">
-            <p>*Veti fi delogat dupa salvare!</p>
-            <p>
-              Form value: {{editForm.value | json}}
-              Form value: {{editForm.status | json}}
-            </p>
-          </div> -->
         </form>
       </div>
     </div>
   </div>
-  <div class="col-md-4">
+ <!--  <div class="col-md-4">
     <div class="card card-user">
       <div class="image">
-        <img src="assets/img/damir-bosnjak.jpg" alt="...">
+        <img src="https://ptetutorials.com/images/user-profile.png" alt="...">
       </div>
       <div class="card-body">
         <div class="author">
@@ -282,5 +263,5 @@
         </ul>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>

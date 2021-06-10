@@ -98,7 +98,9 @@ export class UserComponent implements OnInit {
               toastClass: "alert alert-success alert-with-icon",
             }
           );
-          this.accountService.logout();
+          this.user.firstName = this.editForm.value.firstName;
+          this.user.secondName = this.editForm.value.secondName;
+          this.accountService.setCurrentUser(this.user);
         })
       }
 
