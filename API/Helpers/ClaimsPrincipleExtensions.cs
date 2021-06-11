@@ -13,5 +13,10 @@ namespace API.Helpers
         {
             return int.Parse(user.FindFirst(ClaimTypes.NameIdentifier)?.Value);
         }
+
+        public static string[] GetRoles(this ClaimsPrincipal user)
+        {
+            return user.GetRoles();
+        }
     }
 }
