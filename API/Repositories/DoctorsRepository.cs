@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
+using API.DTOs.Filters;
 using API.Entities;
 using API.Extensions;
 using API.Interfaces;
@@ -61,10 +62,31 @@ namespace API.Repositories
             return user.Doctor.Id;
         }
 
-        public async Task<IEnumerable<DoctorGridDto>> GetDoctors()
+        public async Task<IEnumerable<DoctorGridDto>> GetDoctors(DoctorFilterDto doctorFilterDto)
         {
-            return await _context.Doctors.Include(c => c.Photos)
-            .OrderBy(c => c.Id)
+            var query = _context.Doctors.Include(c => c.Photos).AsQueryable();
+
+            if (doctorFilterDto.Id != 0)
+            {
+                query = query.Where(c => c.Id == doctorFilterDto.Id);
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(doctorFilterDto.FirstName))
+                {
+                    query = query.Where(c => c.FirstName.Contains(doctorFilterDto.FirstName));
+                }
+                if (!string.IsNullOrEmpty(doctorFilterDto.SecondName))
+                {
+                    query = query.Where(c => c.SecondName.Contains(doctorFilterDto.SecondName));
+                }
+                if (!string.IsNullOrEmpty(doctorFilterDto.Email))
+                {
+                    query = query.Where(c => c.Email == doctorFilterDto.Email);
+                }
+            }
+
+            var result = await query.OrderBy(c => c.Id)
             .Select(c => new DoctorGridDto()
             {
                 Id = c.Id,
@@ -76,6 +98,13 @@ namespace API.Repositories
                 MainPhotoUrl = c.Photos.FirstOrDefault(c => c.IsMain == true).Url
             })
             .ToListAsync();
+
+            if (doctorFilterDto.Age != 0)
+            {
+                result = result.Where(c => c.Age == doctorFilterDto.Age).ToList();;
+            }
+
+            return result;
         }
 
         public async Task<DoctorDto> GetDoctorByDoctorId(int doctorId)

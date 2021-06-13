@@ -4,6 +4,7 @@ import { DoctorDto } from 'app/_models/doctorDto';
 import { DoctorGriDto } from 'app/_models/doctorGridDto';
 import { UserDoctorDto } from 'app/_models/userDoctorDto';
 import { WorkDayDto } from 'app/_models/workDayDto';
+import { DoctorFilterDto } from 'app/_models/_filters/doctorFilterDto';
 import { environment } from 'environments/environment';
 
 @Injectable({
@@ -31,8 +32,8 @@ export class DoctorService {
     return this.http.get<WorkDayDto[]>(this.baseUrl + 'doctors/work-days');
   }
 
-  getDoctors() {
-    return this.http.get<DoctorGriDto[]>(this.baseUrl + 'doctors');
+  getDoctors(doctorFilterDto: DoctorFilterDto) {
+    return this.http.post<DoctorGriDto[]>(this.baseUrl + 'doctors', doctorFilterDto);
   }
 
   getDoctorByDoctorId(id: string) {

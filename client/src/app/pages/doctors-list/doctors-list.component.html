@@ -2,6 +2,49 @@
   <div class="col-md-12">
     <div class="card ">
       <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <label>Id</label>
+            <input [(ngModel)]="filterDoctor.id" class="form-control" type="number" />
+          </div>
+          <div class="col-md-4">
+            <label>Nume</label>
+            <input [(ngModel)]="filterDoctor.firstName" class="form-control" />
+          </div>
+          <div class="col-md-4">
+            <label>Prenume</label>
+            <input [(ngModel)]="filterDoctor.secondName" class="form-control" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <label>Email</label>
+            <input [(ngModel)]="filterDoctor.email" class="form-control" />
+          </div>
+          <div class="col-md-4">
+            <label>Varsta</label>
+            <input [(ngModel)]="filterDoctor.age" class="form-control" type="number" />
+          </div>
+        </div>
+        <br>
+        <div class="card-foooter">
+          <div class="row">
+            <div class="col-md-12">
+              <button (click)="resetFilter()" class="btn btn-danger btn-round float-right ml-2" type="button"><i
+                  class="fa fa-recycle" aria-hidden="true"></i> Reseteaza</button>
+              <button (click)="filterDoctorList()" class="btn btn-primary btn-round float-right" type="submit"><i
+                  class="fa fa-plus" aria-hidden="true"></i> Filtreaza</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card ">
+      <div class="card-body">
         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
           <thead>
             <tr>
@@ -18,7 +61,8 @@
             <tr *ngFor="let doctor of doctors">
               <td>
                 <div>
-                  <img src="{{doctor.mainPhotoUrl || 'assets/img/doctor.png'}}" alt="{{ doctor.firstName }} {{ doctor.secondName }}"
+                  <img src="{{doctor.mainPhotoUrl || 'assets/img/doctor.png'}}"
+                    alt="{{ doctor.firstName }} {{ doctor.secondName }}"
                     class="img-circle img-no-padding img-responsive" width="80" height="80">
                 </div>
               </td>

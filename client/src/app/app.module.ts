@@ -59,6 +59,7 @@ import { TimeagoModule } from "ngx-timeago";
 import { AdminComponent } from './pages/admin/admin/admin.component';
 import { HasRoleDirective } from "./_directives/has-role.directive";
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { TestComponent } from './pages/test/test.component';
 defineLocale("ro", roLocale);
 
 
@@ -96,7 +97,8 @@ defineLocale("ro", roLocale);
     RecipePageComponent,
     PacientMedicalDataComponent,
     MessagesPageComponent,
-    AdminComponent
+    AdminComponent,
+    TestComponent
   ],
   imports: [
     BrowserAnimationsModule,

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
+using API.DTOs.Filters;
 using API.Entities;
 using API.Helpers;
 using API.Interfaces;
@@ -29,10 +30,10 @@ namespace API.Controllers
             _doctorRepository = doctorRepository;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<DoctorGridDto>>> GetDoctors()
+        [HttpPost]
+        public async Task<ActionResult<IEnumerable<DoctorGridDto>>> GetDoctors(DoctorFilterDto doctorFilterDto)
         {
-            var doctors = await _doctorRepository.GetDoctors();
+            var doctors = await _doctorRepository.GetDoctors(doctorFilterDto);
             return Ok(doctors);
         }
 

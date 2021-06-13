@@ -5,3 +5,9 @@
     border-radius: 50%;
     margin-bottom: 15px;
 }
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}

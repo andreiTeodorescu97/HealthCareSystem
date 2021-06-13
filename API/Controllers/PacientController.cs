@@ -45,17 +45,17 @@ namespace API.Controllers
 
                 if (!pacientHasAppoinmentToDoctor)
                 {
-                    return Unauthorized("Accesul este interzis la acest pacient!");
+                    return Unauthorized("Accesul este interzis pentru acest pacient!");
                 }
             }
             else if (User.IsInRole("Pacient"))
             {
                 var userId = User.GetUserId();
                 var pacientIdFromDb = _context.Pacients.FirstOrDefault(c => c.User.Id == userId).Id;
-                
+
                 if (id != pacientIdFromDb)
                 {
-                    return Unauthorized("Accesul este interzis la acest pacient!");
+                    return Unauthorized("Accesul este interzis pentru acest pacient!");
                 }
             }
 

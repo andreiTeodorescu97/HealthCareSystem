@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTOs;
+using API.DTOs.Filters;
 using API.Entities;
 
 namespace API.Interfaces
@@ -13,7 +14,7 @@ namespace API.Interfaces
         Task<AppUser> GetDoctorByUsernameForUpdate (string userName);
         Task<int> GetDoctorId (int userId);
         Task<IEnumerable<WorkDayDto>> GetWorkDays (int userId);
-        Task<IEnumerable<DoctorGridDto>> GetDoctors();
+        Task<IEnumerable<DoctorGridDto>> GetDoctors(DoctorFilterDto doctorFilterDto);
         Task<DoctorDto> GetDoctorByDoctorId (int doctorId);
     }
 }
