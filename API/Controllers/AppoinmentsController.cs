@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTOs;
+using API.DTOs.Filters;
 using API.Helpers;
 using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -65,12 +66,14 @@ namespace API.Controllers
             return Ok(await _appoinmentsRepository.GetPacientAppoinments(userPacient.Id));
         }
 
-        [HttpGet("doctorAppoinmets")]
-        public async Task<ActionResult<IEnumerable<GetAppoimnetsDto>>> GetDoctorAppoinments()
+        [HttpPost("doctorAppoinmets")]
+        public async Task<ActionResult<IEnumerable<GetAppoimnetsDto>>> GetDoctorAppoinments(DoctorAppoinmentsFilterDto filterDto)
         {
             var doctorId = await _doctorRepository.GetDoctorId(User.GetUserId());
 
-            return Ok(await _appoinmentsRepository.GetDoctorAppoinments(doctorId));
+            var result = await _appoinmentsRepository.GetDoctorAppoinments(doctorId, filterDto);
+            
+            return Ok(result);
         }
 
         [HttpPost("updateStatus")]

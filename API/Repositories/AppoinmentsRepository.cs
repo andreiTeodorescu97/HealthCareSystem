@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.Constants;
 using API.Data;
 using API.DTOs;
+using API.DTOs.Filters;
 using API.Email;
 using API.Entities;
 using API.Interfaces;
@@ -101,7 +102,6 @@ namespace API.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-
         public async Task<bool> UpdateAppoinmentStatus(UpdateAppoinmentStatusDto updateAppoinmentStatusDto)
         {
             var apppoinment = await _context.Appoinments.Include(c => c.Doctor)
@@ -142,13 +142,40 @@ namespace API.Repositories
                     .ToListAsync();
         }
 
-        public async Task<IEnumerable<GetAppoimnetsDto>> GetDoctorAppoinments(int doctorId)
+        public async Task<IEnumerable<GetAppoimnetsDto>> GetDoctorAppoinments(int doctorId, DoctorAppoinmentsFilterDto filterObj)
         {
-            return await _context.Appoinments.Where(c => c.DoctorId == doctorId)
-                    .ProjectTo<GetAppoimnetsDto>(_mapper.ConfigurationProvider)
-                    .OrderByDescending(c => c.DateId)
-                    .ToListAsync();
+            var query = _context.Appoinments
+                .Include(c => c.Pacient)
+                .Where(c => c.DoctorId == doctorId)
+                .AsQueryable();
+
+            if (filterObj.DateFrom != 0)
+            {
+                query = query.Where(c => c.DateId >= filterObj.DateFrom);
+            }
+            if (filterObj.DateTo != 0)
+            {
+                query = query.Where(c => c.DateId <= filterObj.DateTo);
+            }
+            if (!string.IsNullOrEmpty(filterObj.PacientFirstName))
+            {
+                query = query.Where(c => c.Pacient.FirstName.Contains(filterObj.PacientFirstName));
+            }
+            if (!string.IsNullOrEmpty(filterObj.PacientSecondName))
+            {
+                query = query.Where(c => c.Pacient.SecondName.Contains(filterObj.PacientSecondName));
+            }
+            if (filterObj.StatusId != 0)
+            {
+                query = query.Where(c => c.StatusId == filterObj.StatusId);
+            }
+
+            return await query
+            .ProjectTo<GetAppoimnetsDto>(_mapper.ConfigurationProvider)
+            .OrderByDescending(c => c.DateId)
+            .ToListAsync();
         }
+
         private string GetEnglishDayName(DateTime date)
         {
             string nameOfDay = date.ToString("dddd");

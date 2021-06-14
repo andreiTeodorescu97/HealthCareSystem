@@ -4,6 +4,7 @@ import { FreeHourDto } from 'app/_models/freehourDto';
 import { GetAppoinmentDto } from 'app/_models/getAppoinmentDto';
 import { MakeAnAppoinmentDto } from 'app/_models/makeAnAppoinmentDto';
 import { UpdateAppoinmentStatusDto } from 'app/_models/updateAppoinmentStatusDto';
+import { DoctorAppoinmentsFilterDto } from 'app/_models/_filters/doctorAppoinmentsFilterDto';
 import { environment } from 'environments/environment';
 
 @Injectable({
@@ -23,8 +24,8 @@ export class AppoinmentsService {
     return this.http.post(this.baseUrl + 'appoinments/add', model);
   }
 
-  getAppoinmentsForDoctor() {
-    return this.http.get<GetAppoinmentDto[]>(this.baseUrl + 'appoinments/doctorAppoinmets');
+  getAppoinmentsForDoctor(filterObj: DoctorAppoinmentsFilterDto) {
+    return this.http.post<GetAppoinmentDto[]>(this.baseUrl + 'appoinments/doctorAppoinmets', filterObj);
   }
 
   getAppoinmentsForPacient() {

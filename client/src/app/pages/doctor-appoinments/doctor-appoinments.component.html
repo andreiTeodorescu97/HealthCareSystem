@@ -2,6 +2,54 @@
     <div class="col-md-12">
         <div class="card ">
             <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Nume pacient</label>
+                        <input [(ngModel)]="filterDoctorAppoinments.pacientFirstName" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        <label>Prenume pacient</label>
+                        <input [(ngModel)]="filterDoctorAppoinments.pacientSecondName" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        <label>Status programare</label>
+                        <ng-select [(ngModel)]="filterDoctorAppoinments.statusId">
+                            <ng-option *ngFor="let appo of appoinmentsStatuses" [value]="appo.id">
+                                {{appo.name}}</ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Data</label>
+                        <input type="text"
+                        class="form-control"
+                        [(ngModel)]="dateRange"
+                        #daterangepicker="bsDaterangepicker"
+                        bsDaterangepicker
+                        [bsConfig]="{ rangeInputFormat : 'DD/MM/YYYY', dateInputFormat: 'DD/MM/YYYY', showWeekNumbers: false }">
+                    </div>
+                </div>
+                <br>
+                <div class="card-foooter">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button (click)="resetFilter()" class="btn btn-danger btn-round float-right ml-2"
+                                type="button"><i class="fa fa-recycle" aria-hidden="true"></i> Reseteaza</button>
+                            <button (click)="filterDoctorAppoinmentsList()"
+                                class="btn btn-primary btn-round float-right" type="submit"><i class="fa fa-plus"
+                                    aria-hidden="true"></i> Filtreaza</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card ">
+            <div class="card-body">
                 <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
                     <thead>
                         <tr>
@@ -27,8 +75,8 @@
                             <td [ngSwitch]="appoinment.statusId">
                                 <h6><span *ngSwitchCase="statuses.Approved"
                                         class="badge badge-pill badge-primary">Aprobat</span></h6>
-                                <h6><span *ngSwitchCase="statuses.Pending"
-                                        class="badge badge-pill badge-warning">In asteptare</span></h6>
+                                <h6><span *ngSwitchCase="statuses.Pending" class="badge badge-pill badge-warning">In
+                                        asteptare</span></h6>
                                 <h6><span *ngSwitchCase="statuses.CanceledByDoctor"
                                         class="badge badge-pill badge-danger">Anulat de doctor</span></h6>
                                 <h6><span *ngSwitchCase="statuses.CanceledByPacient"
@@ -60,8 +108,7 @@
                                                 pacient</a>
                                         </li>
                                         <li role="menuitem">
-                                            <a class="dropdown-item"
-                                                (click)="openMessageModal(messageModal, appoinment.pacientUserName, 
+                                            <a class="dropdown-item" (click)="openMessageModal(messageModal, appoinment.pacientUserName, 
                                                 appoinment.pacientFirstName + ' ' + appoinment.pacientSecondName)">
                                                 <i class="fa fa-commenting" aria-hidden="true"></i> Trimite mesaj</a>
                                         </li>

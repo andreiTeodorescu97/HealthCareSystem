@@ -11,6 +11,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { PacientService } from 'app/_services/pacient.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { MessageService } from 'app/_services/message.service';
+import { DoctorAppoinmentsFilterDto } from 'app/_models/_filters/doctorAppoinmentsFilterDto';
 
 @Component({
   selector: 'app-doctor-appoinments',
@@ -18,16 +19,23 @@ import { MessageService } from 'app/_services/message.service';
   styleUrls: ['./doctor-appoinments.component.css']
 })
 
-
-
 export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
 
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
-  
+
   appoinments: GetAppoinmentDto[] = [];
   statuses = AppoinmentsStatuses;
+
+  appoinmentsStatuses = [
+    { id: 1, name: 'In asteptare' },
+    { id: 2, name: 'Aprobat' },
+    { id: 3, name: 'Anulat de pacient' },
+    { id: 4, name: 'Anulat de doctor' },
+    { id: 5, name: 'Finalizat' },
+    { id: 6, name: 'Respins' },
+  ];
 
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
@@ -39,8 +47,11 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
   receiverName: string;
   content: string;
 
-  constructor(private appoinmentService: AppoinmentsService, private pacientService: PacientService, 
-    private router : Router, private toastr: ToastrService, private messageService: MessageService,
+  filterDoctorAppoinments = {} as DoctorAppoinmentsFilterDto;
+  dateRange: Date;
+
+  constructor(private appoinmentService: AppoinmentsService, private pacientService: PacientService,
+    private router: Router, private toastr: ToastrService, private messageService: MessageService,
     private modalService: BsModalService) { }
 
   ngOnInit(): void {
@@ -51,14 +62,15 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
+      searching: false,
       columnDefs: [
         { orderable: false, targets: 0 },
         { orderable: false, targets: 7 },
       ],
       language: gridSettings,
-      order :[]
+      order: []
     };
-    this.appoinmentService.getAppoinmentsForDoctor().subscribe(data => {
+    this.appoinmentService.getAppoinmentsForDoctor(this.filterDoctorAppoinments).subscribe(data => {
       this.appoinments = data;
       this.dtTrigger.next();
     });
@@ -68,11 +80,11 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
     this.dtTrigger.unsubscribe();
   }
 
-  redirectToConsultation(appoinment : GetAppoinmentDto){
+  redirectToConsultation(appoinment: GetAppoinmentDto) {
     this.router.navigateByUrl('pacient/consultation/' + appoinment.id + "/" + appoinment.pacientFirstName + "/" + appoinment.pacientSecondName);
   }
 
-  updateStatus(newStatusId: number, appoinmentId : number){
+  updateStatus(newStatusId: number, appoinmentId: number) {
     const updateStatusModel: UpdateAppoinmentStatusDto = {
       appoinmentId: appoinmentId,
       newStatusId: newStatusId,
@@ -92,17 +104,25 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+
+      if (this.dateRange) {
+        this.filterDoctorAppoinments.dateFrom = (this.dateRange[0].getFullYear() * 100 + this.dateRange[0].getMonth() + 1) * 100 + this.dateRange[0].getDate();
+        this.filterDoctorAppoinments.dateTo = (this.dateRange[1].getFullYear() * 100 + this.dateRange[1].getMonth() + 1) * 100 + this.dateRange[1].getDate();
+      }
+      this.filterDoctorAppoinments.statusId = this.filterDoctorAppoinments.statusId ?? 0;
+
       // Destroy the table first
       dtInstance.destroy();
+
       // Call the dtTrigger to rerender again
-      this.appoinmentService.getAppoinmentsForDoctor().subscribe(data => {
+      this.appoinmentService.getAppoinmentsForDoctor(this.filterDoctorAppoinments).subscribe(data => {
         this.appoinments = data;
         this.dtTrigger.next();
       });
     });
   }
 
-  goToPacientProfile(id: string){
+  goToPacientProfile(id: string) {
     this.router.navigateByUrl('pacient/pacient_profile/' + id);
   }
 
@@ -129,4 +149,25 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
         this.messageModalRef.hide();
       })
   }
+
+  filterDoctorAppoinmentsList() {
+    console.log(this.dateRange);
+    this.rerender();
+  }
+
+  resetFilter() {
+    this.initializeFilterObject();
+    this.dateRange = undefined;
+    this.rerender();
+  }
+
+  initializeFilterObject() {
+    this.filterDoctorAppoinments = {} as DoctorAppoinmentsFilterDto;;
+  }
+
+
+
+
+
+
 }
