@@ -11,6 +11,8 @@
                         <label>Prenume pacient</label>
                         <input [(ngModel)]="filterDoctorAppoinments.pacientSecondName" class="form-control" />
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-4">
                         <label>Status programare</label>
                         <ng-select [(ngModel)]="filterDoctorAppoinments.statusId">
@@ -18,8 +20,6 @@
                                 {{appo.name}}</ng-option>
                         </ng-select>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-4">
                         <label>Data</label>
                         <input type="text"
