@@ -8,5 +8,6 @@ namespace API.Email
         Task SendEmailAsync(MailRequest mailRequest);
         Task SendWelcomeEmailAsync(WelcomeRequest request);
         Task<bool> SendAppoinmentApproval(AppoinmentApprovalMail appoinmentApproval);
+        Task<bool> SendResetPasswordLink(string userEmail, string resetLink);
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using API.Data;
 using API.DTOs;
 using API.Email;
@@ -11,6 +12,7 @@ using API.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace API.Controllers
 {
@@ -21,14 +23,18 @@ namespace API.Controllers
         private readonly UserManager<AppUser> _userManager;
         public SignInManager<AppUser> _signInManager;
         private readonly IMailService _mailService;
+        private readonly IConfiguration _config;
 
-        public AccountController(DataContext context, ITokenService tokenService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IMailService mailService)
+
+        public AccountController(DataContext context, ITokenService tokenService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IMailService mailService,
+        IConfiguration config)
         {
             _signInManager = signInManager;
             _mailService = mailService;
             _userManager = userManager;
             _tokenService = tokenService;
             _context = context;
+            _config = config;
         }
 
         [HttpPost("login")]
@@ -50,7 +56,7 @@ namespace API.Controllers
             var result = await _signInManager
             .CheckPasswordSignInAsync(user, loginDto.Password, false);
 
-            if (!result.Succeeded) return Unauthorized();
+            if (!result.Succeeded) return Unauthorized("Credentiale invalide!");
 
             var userDto = new UserDto
             {
@@ -150,7 +156,7 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
 
-            return new UserDto
+/*             return new UserDto
             {
 
                 UserName = user.UserName,
@@ -160,24 +166,80 @@ namespace API.Controllers
                 Token = await _tokenService.CreateToken(user),
                 CNP = registerDto.IsPacientAccount == true ? user.Pacient.CNP : null,
                 IsPacientAccount = registerDto.IsPacientAccount
-            };
+            }; */
+
+            return Ok();
         }
 
         public async Task<IActionResult> ConfirmEmail(string token, string email)
         {
-            try{
-            var user = await _userManager.FindByEmailAsync(email);
-            if (user == null)
-                return BadRequest("Nu exista acest utilizator!");
+            try
+            {
+                var user = await _userManager.FindByEmailAsync(email);
+                if (user == null)
+                    return BadRequest("Nu exista acest utilizator!");
 
-            var result = await _userManager.ConfirmEmailAsync(user, token);
-            
-            return Ok("Email-ul a fost confirmat! Va multumim!");
+                var result = await _userManager.ConfirmEmailAsync(user, token);
 
-            }catch(Exception ex)
+                return Ok("Email-ul a fost confirmat! Va multumim!");
+
+            }
+            catch (Exception ex)
             {
                 return BadRequest("Upss..ceva nu a mers!");
             }
+        }
+
+        [HttpPost("forgot-password")]
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordDto forgotPassword)
+        {
+            if (forgotPassword.Email == null) return BadRequest("Te rog adauga email-ul!");
+
+            var user = await _userManager.Users
+                        .Where(e => e.Email.ToLower() == forgotPassword.Email.ToLower())
+                        .FirstOrDefaultAsync();
+
+            if (user == null) return Unauthorized("Username not Found");
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            string urlPath = "";
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").ToLower() == "development")
+            {
+                urlPath = _config["returnPaths:PasswordChange"];
+            }
+            else
+            {
+                urlPath = Environment.GetEnvironmentVariable("ReturnPaths:PasswordChange");
+            }
+
+            var changePasswordLink = BuildUrl(urlPath, token, user.Id.ToString());
+
+            await _mailService.SendResetPasswordLink(user.Email, changePasswordLink);
+
+            return Ok();
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<ActionResult> ResetPassword(ResetPasswordDto resetPassword)
+        {
+            var user = await _userManager.FindByIdAsync(resetPassword.UserId);
+            if (user == null) return Unauthorized("Username-ul nu a fost gasit!");
+
+            var result = await _userManager.ResetPasswordAsync(user, resetPassword.Token, resetPassword.Password);
+            if (result.Succeeded) return Ok();
+
+            return BadRequest("Upps...nu am putut reseta parola!");
+        }
+
+        private static string BuildUrl(string urlPath, string token, string userId)
+        {
+            var uriBuilder = new UriBuilder(urlPath);
+            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+            query["token"] = token;
+            query["userid"] = userId;
+            uriBuilder.Query = query.ToString();
+            return uriBuilder.ToString();
         }
 
         private async Task<bool> UserExists(string username)

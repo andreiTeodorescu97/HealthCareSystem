@@ -60,6 +60,8 @@ import { AdminComponent } from './pages/admin/admin/admin.component';
 import { HasRoleDirective } from "./_directives/has-role.directive";
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { TestComponent } from './pages/test/test.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 defineLocale("ro", roLocale);
 
 
@@ -98,7 +100,9 @@ defineLocale("ro", roLocale);
     PacientMedicalDataComponent,
     MessagesPageComponent,
     AdminComponent,
-    TestComponent
+    TestComponent,
+    ResetPasswordComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserAnimationsModule,

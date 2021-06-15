@@ -13,7 +13,7 @@ export class AccountService {
   private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient, private router : Router) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(model: any) {
     return this.http.post(this.baseUrl + 'account/login', model).pipe(
@@ -28,18 +28,19 @@ export class AccountService {
   }
 
   register(model: any) {
-    return this.http.post(this.baseUrl + 'account/register', model).pipe(
+    return this.http.post(this.baseUrl + 'account/register', model);
+/*     .pipe(
       map((user: User) => {
         if (user) {
           this.setCurrentUser(user);
           this.currentUserSource.next(user);
-          }
-        })
-      )
+        }
+      })
+    ) */
   }
 
-  setCurrentUser(user: User){
-    if(user != null){
+  setCurrentUser(user: User) {
+    if (user != null) {
       user.roles = [];
       const roles = this.getDecodedToken(user.token).role;
       /* we have only one role for one member */
@@ -55,9 +56,16 @@ export class AccountService {
     this.router.navigateByUrl('');
   }
 
-  getDecodedToken(token)
-  {
+  getDecodedToken(token) {
     return JSON.parse(atob(token.split('.')[1]));
+  }
+
+  forgotPassword(model: any) {
+    return this.http.post(this.baseUrl + 'account/forgot-password', model);
+  }
+
+  resetPassword(model: any) {
+    return this.http.post(this.baseUrl + 'account/reset-password', model);
   }
 
 }

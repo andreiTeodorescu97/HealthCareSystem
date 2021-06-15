@@ -17,7 +17,7 @@
       <span class="navbar-toggler-bar navbar-kebab"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="collapseExample" [ngbCollapse]="isCollapsed">
-<!--<form>
+      <!--<form>
         <div class="input-group no-border">
           <input type="text" value="" class="form-control" placeholder="Search...">
           <div class="input-group-append">
@@ -28,25 +28,35 @@
         </div>
       </form>-->
 
-      <form #loginForm="ngForm" class="form-inline mt-2 mt-md-0" autocomplete="off" (ngSubmit)="login()" *ngIf="!(accountService.currentUser$ | async)">
-        <input name="username" [(ngModel)]="model.username" class="form-control mr-sm-2" type="text" placeholder="Nume utilizator">
-        <input name="password" [(ngModel)]="model.password" class="form-control mr-sm-2" type="password" placeholder="Parola">
-        <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
+      <form #loginForm="ngForm" class="form-inline mt-2 mt-md-0" autocomplete="off" (ngSubmit)="login()"
+        *ngIf="!(accountService.currentUser$ | async)">
+        <input name="username" [(ngModel)]="model.username" class="form-control mr-sm-2" type="text"
+          placeholder="Nume utilizator">
+        <input name="password" [(ngModel)]="model.password" class="form-control mr-sm-2" type="password"
+          placeholder="Parola">
+        <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-sign-in" aria-hidden="true"></i>
+          Login</button>
       </form>
+      <button *ngIf="!(accountService.currentUser$ | async)" class="btn btn-primary btn-sm"
+        (click)="redirectToForgotPasswordPage()" type="button"><i class="fa fa-question" aria-hidden="true"></i> Am
+        uitat parola</button>
 
-      <ul class="navbar-nav" *ngIf="(accountService.currentUser$ | async) as user" >
+      <ul class="navbar-nav" *ngIf="(accountService.currentUser$ | async) as user">
 
         <li class="nav-item btn-rotate" ngbDropdown placement="bottom-left">
           <a class="nav-link" ngbDropdownToggle id="navbarDropdownMenuLink">
+            <p class="text-primary">Romania: {{ time | date: 'hh:mm:ss a' }} - 1.0.0</p>
+            <img class="avatar border-gray img-responsive" *ngIf="!user.isPacientAccount"
+            src="{{user.mainPhotoUrl || 'assets/img/doctor.png'}}" alt="{{user.username}}">
             <p>
-              <strong> Bine ai venit, {{user.title}} {{user.firstName}} {{user.secondName}}</strong>
+              
+              <strong>{{user.title}} {{user.firstName}} {{user.secondName}}</strong>
               <!-- <img class="avatar img-no-padding img-responsive" src="{{user.mainPhotoUrl || 'assets/img/doctor.png'}}" alt="{{user.username}}"> -->
             </p>
-            <img class="avatar border-gray img-responsive" *ngIf="!user.isPacientAccount"  src="{{user.mainPhotoUrl || 'assets/img/doctor.png'}}" alt="{{user.username}}">
           </a>
           <div ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
-            <a ngbDropdownItem *ngIf="user.isPacientAccount"  href="user">Editeaza profil</a>
-            <a ngbDropdownItem *ngIf="!user.isPacientAccount"  href="doctor_profile">Editeaza profil</a>
+            <a ngbDropdownItem *ngIf="user.isPacientAccount" href="user">Editeaza profil</a>
+            <a ngbDropdownItem *ngIf="!user.isPacientAccount" href="doctor_profile">Editeaza profil</a>
             <a ngbDropdownItem (click)="logout()">Logout</a>
           </div>
         </li>

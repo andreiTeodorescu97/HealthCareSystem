@@ -52,8 +52,7 @@
                     </app-text-input>
 
                     <app-text-input [formControl]='registerForm.controls["password"]' [label]='"Parola"'
-                        [pattern]='"Trebuie sa contina cel putin o litera mica, o litera mare, o cifra si un caracter special"'
-                        [type]='"password"'>
+                    [patternError]= '"Parola trebuie sa contina cel putin o litera mare, o litera mica, o cifra si un caracter special!"' [type]='"password"'>
                     </app-text-input>
 
                     <app-text-input [formControl]='registerForm.controls["confirmPassword"]' [label]='"Confirma parola"'
