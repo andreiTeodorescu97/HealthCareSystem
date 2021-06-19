@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card ">
+        <div class="card-body">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Nume</th>
+                <th>Prenume</th>
+                <th>Email</th>
+                <th>Data nasterii</th>
+                <th>Serie</th>
+                <th>Nr.</th>
+                <th>CNP</th>
+                <th>Nr. vizite</th>
+                <th>Data ultima vizita</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pacient of pacientsHistory">
+                <td>{{ pacient.pacientId }}</td>
+                <td>{{ pacient.firstName }}</td>
+                <td>{{ pacient.secondName }}</td>
+                <td>{{ pacient.email }}</td>
+                <td>{{ pacient.dateOfBirth | romanianDate }}</td>
+                <td>{{ pacient.series }}</td>
+                <td>{{ pacient.identityNumber }}</td>
+                <td>{{ pacient.cnp }}</td>
+                <td>{{ pacient.totalNumberOfVisits }}</td>
+                <td>{{ pacient.lastVisitDate | date : 'dd/MM/yyyy' }}</td>
+                <td>
+                    <div class="btn-group" dropdown>
+                        <button id="button-basic" dropdownToggle type="button"
+                            class="btn btn-info btn-round dropdown-toggle" aria-controls="dropdown-basic">
+                            <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
+                        </button>
+                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+                            aria-labelledby="button-basic">
+                            <li role="menuitem">
+                                <a class="dropdown-item"
+                                    (click)="redirectToPacientProfile(pacient.pacientId);">
+                                    <i class="fa fa-address-card" aria-hidden="true"></i> Vezi profil pacient</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+</div>

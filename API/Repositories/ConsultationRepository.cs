@@ -62,8 +62,9 @@ namespace API.Repositories
                     CNP = linkedAppoinment.Pacient.CNP,
                     Series = linkedAppoinment.Pacient.Series,
                     DateOfBirth = linkedAppoinment.Pacient.DateOfBirth,
-                    TotalNumberOfVisits = 0,
-                    LastVisitDate = linkedAppoinment.DateCreated
+                    TotalNumberOfVisits = 1,
+                    LastVisitDate = linkedAppoinment.DateCreated,
+                    DoctorId = linkedAppoinment.DoctorId
                 };
                 _context.PacientHistories.Add(newPacientHistory);
             }

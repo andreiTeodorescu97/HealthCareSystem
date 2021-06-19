@@ -1,8 +1,9 @@
 using System;
+using API.Entities;
 
-namespace API.Entities
+namespace API.DTOs
 {
-    public class PacientHistory
+    public class PacientHistoryDto
     {
         public int Id { get; set; }
         public int PacientId { get; set; }
@@ -14,7 +15,6 @@ namespace API.Entities
         public string Series { get; set; }
         public string CNP { get; set; }
         public int DoctorId { get; set; }
-        public Doctor Doctor { get; set; }
         public DateTime DateOfBirth { get; set; }
         public int TotalNumberOfVisits { get; set; }
         public DateTime LastVisitDate { get; set; }

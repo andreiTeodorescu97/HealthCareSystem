@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DoctorDto } from 'app/_models/doctorDto';
 import { DoctorGriDto } from 'app/_models/doctorGridDto';
+import { PacientHistoryDto } from 'app/_models/pacientHistoryDto';
 import { UserDoctorDto } from 'app/_models/userDoctorDto';
 import { WorkDayDto } from 'app/_models/workDayDto';
 import { DoctorFilterDto } from 'app/_models/_filters/doctorFilterDto';
@@ -46,6 +47,10 @@ export class DoctorService {
 
   deletePhoto(photoId: number) {
     return this.http.delete(this.baseUrl + 'doctors/delete-photo/' + photoId);
+  }
+
+  getPacientHistory() {
+    return this.http.get<PacientHistoryDto[]>(this.baseUrl + 'pacientsHistory');
   }
 
 }

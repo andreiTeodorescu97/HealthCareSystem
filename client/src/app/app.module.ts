@@ -62,6 +62,7 @@ import { NgxCaptchaModule } from 'ngx-captcha';
 import { TestComponent } from './pages/test/test.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { PacientHistoryComponent } from './pacient-history/pacient-history.component';
 defineLocale("ro", roLocale);
 
 
@@ -102,7 +103,8 @@ defineLocale("ro", roLocale);
     AdminComponent,
     TestComponent,
     ResetPasswordComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    PacientHistoryComponent
   ],
   imports: [
     BrowserAnimationsModule,

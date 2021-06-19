@@ -3,15 +3,17 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210619151314_AddedDoctorIdToHistory")]
+    partial class AddedDoctorIdToHistory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -572,7 +574,7 @@ namespace API.Data.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("DoctorId")
+                    b.Property<int?>("DoctorId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Email")
@@ -1094,13 +1096,9 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.PacientHistory", b =>
                 {
-                    b.HasOne("API.Entities.Doctor", "Doctor")
+                    b.HasOne("API.Entities.Doctor", null)
                         .WithMany("PacientHistories")
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Doctor");
+                        .HasForeignKey("DoctorId");
                 });
 
             modelBuilder.Entity("API.Entities.Photo", b =>

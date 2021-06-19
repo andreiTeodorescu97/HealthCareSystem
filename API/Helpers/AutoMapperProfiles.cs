@@ -101,6 +101,8 @@ namespace API.Helpers
                 .FirstOrDefault(x => x.IsMain == true).Url));
 
              CreateMap<DateTime, DateTime>().ConvertUsing(d => DateTime.SpecifyKind(d, DateTimeKind.Utc));
+
+             CreateMap<PacientHistory, PacientHistoryDto>();
         } 
     }
 }

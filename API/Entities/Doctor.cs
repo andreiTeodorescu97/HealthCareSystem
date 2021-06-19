@@ -18,5 +18,6 @@ namespace API.Entities
         public ICollection<Photo> Photos { get; set; }
         public ICollection<WorkDay> WorkDays { get; set; }
         public ICollection<Appoinment> Appoinments { get; set; }
+        public ICollection<PacientHistory> PacientHistories { get; set; }
     }
 }

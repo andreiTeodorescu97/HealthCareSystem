@@ -23,11 +23,12 @@ export const ROUTES: RouteInfo[] = [
     { path: '/doctors', title: 'Doctori', icon: 'fa fa-user-md', class: '', isRegisterRequired: true, roles: ["Pacient"] },
     { path: '/pacient/pacient_medical_data', title: 'Fisa Medicala', icon: 'fa fa-book', class: '', isRegisterRequired: true, roles: ["Pacient"] },
     { path: '/upgrade', title: 'Newsletter', icon: 'fa fa-envelope', class: 'active-pro', isRegisterRequired: true, roles: ["Doctor", "Pacient"] },
+    { path: '/pacient_history', title: 'Istoric Pacienti', icon: 'fa fa-history', class: '', isRegisterRequired: true, roles: ["Doctor"] },
     { path: '/messages', title: 'Mesaje', icon: 'fa fa-commenting', class: '', isRegisterRequired: true, roles: ["Doctor", "Pacient"] },
     { path: '/user', title: 'Profil', icon: 'fa fa-user', class: '', isRegisterRequired: true, roles: ["Pacient"] },
     { path: '/doctor_work_days', title: 'Orar', icon: 'fa fa-calendar', class: '', isRegisterRequired: true, roles: ["Doctor"] },
     { path: '/doctor_profile', title: 'Profil', icon: 'fa fa-user', class: '', isRegisterRequired: true, roles: ["Doctor"] },
-    { path: '/admin', title: 'Admin', icon: 'fa fa-user-secret', class: '', isRegisterRequired: true, roles: ["Admin"] }
+    { path: '/admin', title: 'Admin', icon: 'fa fa-user-secret', class: '', isRegisterRequired: true, roles: ["Admin"] },
 ];
 
 @Component({
