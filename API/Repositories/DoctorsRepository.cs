@@ -92,6 +92,7 @@ namespace API.Repositories
                 Id = c.Id,
                 FirstName = c.FirstName,
                 SecondName = c.SecondName,
+                UserName = c.User.UserName,
                 Email = c.Email,
                 DateOfBirth = c.DateOfBirth.ToString(),
                 Age = c.DateOfBirth.CalculateAge(),

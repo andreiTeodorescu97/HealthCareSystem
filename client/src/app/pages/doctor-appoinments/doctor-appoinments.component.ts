@@ -12,6 +12,10 @@ import { PacientService } from 'app/_services/pacient.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { MessageService } from 'app/_services/message.service';
 import { DoctorAppoinmentsFilterDto } from 'app/_models/_filters/doctorAppoinmentsFilterDto';
+import { User } from 'app/_models/user';
+import { take } from 'rxjs/operators';
+import { AccountService } from 'app/_services/account.service';
+import { PresenceService } from 'app/_services/presence.service';
 
 @Component({
   selector: 'app-doctor-appoinments',
@@ -50,9 +54,14 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
   filterDoctorAppoinments = {} as DoctorAppoinmentsFilterDto;
   dateRange: Date;
 
+  user: User;
+  isHubConnectionActive = false;
+
   constructor(private appoinmentService: AppoinmentsService, private pacientService: PacientService,
     private router: Router, private toastr: ToastrService, private messageService: MessageService,
-    private modalService: BsModalService) { }
+    private modalService: BsModalService, private accountService: AccountService, public presence: PresenceService) {
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
+  }
 
   ngOnInit(): void {
     this.initializeGrid();
@@ -78,6 +87,9 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
+    if (this.isHubConnectionActive) {
+      this.messageService.stopHubConnection();
+    }
   }
 
   redirectToConsultation(appoinment: GetAppoinmentDto) {
@@ -133,11 +145,17 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
       template,
       Object.assign({}, { class: 'gray modal-lg' })
     );
+    if (this.isHubConnectionActive) {
+      this.messageService.stopHubConnection();
+      this.isHubConnectionActive = false;
+    }
+    this.messageService.createHubConnection(this.user, this.receiverUserName);
+    this.isHubConnectionActive = true;
   }
 
   sendMessage() {
     this.messageService.sendMessage(this.receiverUserName, this.content)
-      .subscribe(() => {
+      .then(() => {
         this.toastr.success(
           '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Mesajul a fost trimis cu succes!!</span>',
           "Mesaj",

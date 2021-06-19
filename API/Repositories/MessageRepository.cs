@@ -99,7 +99,8 @@ namespace API.Data
                  .ProjectTo<MessageDto>(_mapper.ConfigurationProvider)
                  .FirstOrDefaultAsync();
 
-                result.Add(new LastMessageDto{
+                result.Add(new LastMessageDto
+                {
                     Username = user,
                     Message = messageForUser
                 });
@@ -129,7 +130,7 @@ namespace API.Data
             {
                 foreach (var unreadMessage in unreadMessages)
                 {
-                    unreadMessage.DateRead = DateTime.Now;
+                    unreadMessage.DateRead = DateTime.UtcNow;
                 }
 
                 await _context.SaveChangesAsync();
@@ -172,6 +173,36 @@ namespace API.Data
             .Concat(doctors)
             .OrderBy(c => c.Id)
             .ToList();
+        }
+
+        public void AddGroup(Group group)
+        {
+            _context.Groups.Add(group);
+        }
+
+        public void RemoveConnection(Connection connection)
+        {
+            _context.Connections.Remove(connection);
+        }
+
+        public async Task<Connection> GetConnection(string connectionId)
+        {
+            return await _context.Connections.FindAsync(connectionId);
+        }
+
+        public async Task<Group> GetMessageGroup(string groupName)
+        {
+            return await _context.Groups
+            .Include(c => c.Connections)
+            .FirstOrDefaultAsync(c => c.Name == groupName);
+        }
+
+        public async Task<Group> GetGroupForConnection(string connectionId)
+        {
+            return await _context.Groups
+            .Include(c => c.Connections)
+            .Where(c => c.Connections.Any(x => x.ConnectionId == connectionId))
+            .FirstOrDefaultAsync();
         }
     }
 }

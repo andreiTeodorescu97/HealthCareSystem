@@ -3,6 +3,8 @@ import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { User } from 'app/_models/user';
 import { environment } from 'environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,8 @@ export class PresenceService {
 
   hubUrl = environment.hubUrl;
   private hubConnection: HubConnection;
+  private onlineUsersSource = new BehaviorSubject<string[]>([]);
+  onlineUsers$ = this.onlineUsersSource.asObservable();
 
   constructor(private toastr: ToastrService) { }
 
@@ -25,11 +29,29 @@ export class PresenceService {
       .catch(error => console.log(error));
 
     this.hubConnection.on('UserIsOnline', username => {
-      this.toastr.info(username + " s-a conectat!");
+      this.onlineUsers$.pipe(take(1)).subscribe(usernames => {
+        this.onlineUsersSource.next([...usernames, username])
+      });
     });
 
     this.hubConnection.on('UserIsOffline', username => {
-      this.toastr.warning(username + " s-a deconectat!");
+      this.onlineUsers$.pipe(take(1)).subscribe(usernames => {
+        this.onlineUsersSource.next([...usernames.filter(x => x != username)])
+      });
+    });
+
+    this.hubConnection.on('GetOnlineUsers', (usernames: string[]) => {
+      this.onlineUsersSource.next(usernames);
+    });
+
+    this.hubConnection.on('NewMessageNotification', ({username, name}) => {
+      this.toastr.info(
+        '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">'+ name + ' v-a trimis un mesaj!!</span>',
+        "Mesaj Primit",
+        {
+          toastClass: "alert alert-success alert-with-icon",
+        }
+      );
     });
   }
 

@@ -100,6 +100,7 @@ namespace API.Helpers
                 options => options.MapFrom(source => source.Recipient.Doctor.Photos
                 .FirstOrDefault(x => x.IsMain == true).Url));
 
-        }
+             CreateMap<DateTime, DateTime>().ConvertUsing(d => DateTime.SpecifyKind(d, DateTimeKind.Utc));
+        } 
     }
 }

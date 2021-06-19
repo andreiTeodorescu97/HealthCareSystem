@@ -11,6 +11,7 @@
                             <th>Ora</th>
                             <th>Data adaugarii</th>
                             <th>Status</th>
+                            <th>Doctor conectat?</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -24,8 +25,8 @@
                             <td [ngSwitch]="appoinment.statusId">
                                 <h6><span *ngSwitchCase="statuses.Approved"
                                         class="badge badge-pill badge-primary">Aprobat</span></h6>
-                                <h6><span *ngSwitchCase="statuses.Pending"
-                                        class="badge badge-pill badge-warning">In asteptare</span></h6>
+                                <h6><span *ngSwitchCase="statuses.Pending" class="badge badge-pill badge-warning">In
+                                        asteptare</span></h6>
                                 <h6><span *ngSwitchCase="statuses.CanceledByDoctor"
                                         class="badge badge-pill badge-danger">Anulat de doctor</span></h6>
                                 <h6><span *ngSwitchCase="statuses.CanceledByPacient"
@@ -34,6 +35,14 @@
                                         class="badge badge-pill badge-danger">Respins</span></h6>
                                 <h6><span *ngSwitchCase="statuses.Finalized"
                                         class="badge badge-pill badge-success">Finalizat</span></h6>
+                            </td>
+                            <td> <span *ngIf="(presence.onlineUsers$ | async).includes(appoinment.doctorUserName)"
+                                    class="is-online">
+                                    <i class="fa fa-user mr-2"></i> Da
+                                </span>
+                                <span *ngIf="!(presence.onlineUsers$ | async).includes(appoinment.doctorUserName)">
+                                    <i class="fa fa-user mr-2"></i> Nu
+                                </span>
                             </td>
                             <td>
                                 <div class="btn-group" dropdown>

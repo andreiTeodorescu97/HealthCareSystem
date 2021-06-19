@@ -47,7 +47,7 @@ namespace API.Controllers
                 SenderUsername = sender.UserName,
                 RecipientUsername = recipient.UserName,
                 Content = createMessageDto.Content,
-                MessageSent = DateTime.Now
+                MessageSent = DateTime.UtcNow
             };
 
             _messageRepository.AddMessage(message);

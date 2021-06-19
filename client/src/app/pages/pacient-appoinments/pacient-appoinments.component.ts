@@ -3,12 +3,16 @@ import { DataTableDirective } from 'angular-datatables';
 import { GetAppoinmentDto } from 'app/_models/getAppoinmentDto';
 import { gridSettings } from 'app/_models/grid';
 import { UpdateAppoinmentStatusDto } from 'app/_models/updateAppoinmentStatusDto';
+import { User } from 'app/_models/user';
+import { AccountService } from 'app/_services/account.service';
 import { AppoinmentsService } from 'app/_services/appoinments.service';
 import { MessageService } from 'app/_services/message.service';
+import { PresenceService } from 'app/_services/presence.service';
 import { AppoinmentsStatuses } from 'Constants';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pacient-appoinments',
@@ -34,10 +38,15 @@ export class PacientAppoinmentsComponent implements OnDestroy, OnInit {
     receiverProfileImg: string;
     content: string;
 
+    user: User;
+    isHubConnectionActive = false;
+
   constructor(private appoinmentService: AppoinmentsService, 
     private messageService: MessageService,
     private modalService: BsModalService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService, public presence: PresenceService, private accountService: AccountService) {
+      this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
+     }
 
   ngOnInit(): void {
     this.initializeGrid();
@@ -92,6 +101,9 @@ export class PacientAppoinmentsComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
+    if (this.isHubConnectionActive) {
+      this.messageService.stopHubConnection();
+    }
   }
 
   openMessageModal(template: TemplateRef<any>, receiverUserName: string, receiverName: string, 
@@ -103,11 +115,18 @@ export class PacientAppoinmentsComponent implements OnDestroy, OnInit {
       template,
       Object.assign({}, { class: 'gray modal-lg' })
     );
+    if(this.isHubConnectionActive)
+    {
+      this.messageService.stopHubConnection();
+      this.isHubConnectionActive = false;
+    }
+    this.messageService.createHubConnection(this.user, this.receiverUserName);
+    this.isHubConnectionActive = true;
   }
 
   sendMessage() {
     this.messageService.sendMessage(this.receiverUserName, this.content)
-      .subscribe(() => {
+      .then(() => {
         this.toastr.success(
           '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Mesajul a fost trimis cu succes!!</span>',
           "Mesaj",

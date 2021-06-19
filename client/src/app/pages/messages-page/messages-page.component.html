@@ -42,8 +42,8 @@
             <div *ngIf="selectedUser">
                 <h2 class="text-primary">{{selectedUser.firstName}} {{selectedUser.secondName}}</h2>
             </div>
-            <div class="msg_history" *ngIf="thread.length > 0" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-                <div *ngFor="let item of thread">
+            <div class="msg_history" *ngIf="(messageService.messageThread$ | async).length > 0" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+                <div *ngFor="let item of (messageService.messageThread$ | async)">
                     <ul class="chat">
                         <li>
                             <div [ngClass]="item.recipientUsername == user.userName ? 'incoming_msg' : 'outgoing_msg'">
@@ -55,7 +55,19 @@
                                 <div [ngClass]="item.recipientUsername == user.userName ? 'received_msg' : 'sent_msg'">
                                     <div [ngClass]="{'received_withd_msg': item.recipientUsername == user.userName}">
                                         <p>{{item.content}}</p>
-                                        <span class="time_date"> {{item.messageSent | timeago }} </span>
+                                        <small class="text-muted">
+                                            <span class="fa fa-clock-o">
+                                                {{item.messageSent | timeago}}
+                                            </span>
+                                            <span class="text-danger" *ngIf="!item.dateRead 
+                                                && item.senderUsername == user.userName">
+                                                (unread)
+                                            </span>
+                                            <span class="text-success" *ngIf="item.dateRead 
+                                                && item.senderUsername == user.userName">
+                                                (read {{item.dateRead | timeago}})
+                                            </span>
+                                        </small>
                                     </div>
                                 </div>
                             </div>

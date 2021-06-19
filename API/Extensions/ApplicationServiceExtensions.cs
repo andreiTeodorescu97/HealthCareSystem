@@ -4,6 +4,7 @@ using API.Helpers;
 using API.Interfaces;
 using API.Repositories;
 using API.Services;
+using API.SignalR;
 using DinkToPdf;
 using DinkToPdf.Contracts;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ namespace API.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
+            services.AddSingleton<PresenceTracker>();
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPhotoService, PhotoService>();
@@ -34,6 +36,7 @@ namespace API.Extensions
             services.Configure<MailSettings>(config.GetSection("MailSettings"));
             services.AddTransient<IMailService, MailService>();
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+
 
             return services;
         }

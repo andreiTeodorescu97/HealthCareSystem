@@ -61,6 +61,7 @@
                             <th>Motiv</th>
                             <th>Status</th>
                             <th>Data adaugarii</th>
+                            <th>Pacient conectat?</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -87,6 +88,14 @@
                                         class="badge badge-pill badge-success">Finalizat</span></h6>
                             </td>
                             <td>{{ appoinment.dateCreated | date : 'dd/MM/yyyy'}}</td>
+                            <td> <span *ngIf="(presence.onlineUsers$ | async).includes(appoinment.pacientUserName)"
+                                class="is-online">
+                                <i class="fa fa-user mr-2"></i> Da
+                            </span>
+                            <span *ngIf="!(presence.onlineUsers$ | async).includes(appoinment.pacientUserName)">
+                                <i class="fa fa-user mr-2"></i> Nu
+                            </span>
+                        </td>
                             <td>
                                 <div class="btn-group" dropdown>
                                     <button id="button-basic" dropdownToggle type="button"

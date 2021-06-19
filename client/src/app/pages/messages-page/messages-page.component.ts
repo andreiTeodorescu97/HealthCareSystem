@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from 'app/_models/user';
 import { LastMessagesDto } from 'app/_models/_messages/lastMessagesDto';
@@ -15,7 +15,7 @@ import { ChangeDetectorRef, AfterContentChecked } from '@angular/core';
   templateUrl: './messages-page.component.html',
   styleUrls: ['./messages-page.component.css']
 })
-export class MessagesPageComponent implements OnInit {
+export class MessagesPageComponent implements OnInit, OnDestroy {
 
   user: User;
   allSimpleUsersDto: SimpleUserDto[];
@@ -27,14 +27,22 @@ export class MessagesPageComponent implements OnInit {
   loading = false;
   @ViewChild('scrollMe') scrollMe: ElementRef;
   scrollTop: number = null;
+  
+  isHubConnectionActive = false;
 
-  constructor(private messageService: MessageService, private accountService: AccountService, private cdref: ChangeDetectorRef) {
+  constructor(public messageService: MessageService, private accountService: AccountService, private cdref: ChangeDetectorRef) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
   ngOnInit(): void {
     this.getUsers();
     this.getLastMessages();
+
+    if(localStorage.getItem('lastSelectedUserOnMessagePage') != null)
+    {
+      this.selectedUser = JSON.parse(localStorage.getItem('lastSelectedUserOnMessagePage'));
+      this.manageHubConnection();
+    }
   }
 
   getLastMessages() {
@@ -60,7 +68,18 @@ export class MessagesPageComponent implements OnInit {
     this.selectedUser.secondName = inboxMessage.secondName;
     this.selectedUser.userName = inboxMessage.username;
     this.selectedUser.mainPhotoUrl = inboxMessage.message.recipientPhotoUrl ? inboxMessage.message.recipientPhotoUrl : inboxMessage.message.senderPhotoUrl;
-    this.getAllThread(inboxMessage.username);
+    localStorage.setItem('lastSelectedUserOnMessagePage', JSON.stringify(this.selectedUser));
+    this.manageHubConnection();
+  }
+
+  manageHubConnection(){
+    if(this.isHubConnectionActive)
+    {
+      this.messageService.stopHubConnection();
+      this.isHubConnectionActive = false;
+    }
+    this.messageService.createHubConnection(this.user, this.selectedUser.userName);
+    this.isHubConnectionActive = true;
   }
 
   getAllThread(username: string) {
@@ -72,12 +91,18 @@ export class MessagesPageComponent implements OnInit {
   sendMessage() {
     this.loading = true;
     this.messageService.sendMessage(this.selectedUser.userName, this.messageContent)
-      .subscribe(message => {
-        this.getAllThread(this.selectedUser.userName);
+      .then(() => {
         this.messageForm.reset();
         this.loading = false;
       })
   }
 
-
+  ngOnDestroy(): void {
+    if(this.isHubConnectionActive)
+    {
+      this.messageService.stopHubConnection();
+      this.isHubConnectionActive = false;
+    }
+    this.selectedUser = {} as SimpleUserDto;
+  }
 }
