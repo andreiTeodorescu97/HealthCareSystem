@@ -34,6 +34,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { PacientHistoryComponent } from './pacient-history/pacient-history.component';
+import { ChartComponent } from './pages/chart/chart.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent, canActivate: [NoauthGuard]},
@@ -73,7 +74,8 @@ const routes: Routes = [
       {path:'pacient/pacient_medical_data', component: PacientMedicalDataComponent}, 
       {path:'messages', component: MessagesPageComponent}, 
       {path:'pacient_history', component: PacientHistoryComponent}, 
-      {path:'admin', component: AdminComponent, canActivate: [AdminGuard]}, 
+      {path:'admin', component: AdminComponent, canActivate: [AdminGuard]},
+      {path:'chart', component: ChartComponent},
     ]
   },
   {path:'**', component: HomeComponent, canActivate: [NoauthGuard]}

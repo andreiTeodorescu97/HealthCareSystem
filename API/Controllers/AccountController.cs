@@ -1,7 +1,5 @@
 using System;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using API.Data;
@@ -155,18 +153,6 @@ namespace API.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
-/*             return new UserDto
-            {
-
-                UserName = user.UserName,
-                Title = registerDto.IsPacientAccount == true ? null : "Dr.",
-                FirstName = registerDto.IsPacientAccount ? user.Pacient.FirstName : user.Doctor.FirstName,
-                SecondName = registerDto.IsPacientAccount ? user.Pacient.SecondName : user.Doctor.SecondName,
-                Token = await _tokenService.CreateToken(user),
-                CNP = registerDto.IsPacientAccount == true ? user.Pacient.CNP : null,
-                IsPacientAccount = registerDto.IsPacientAccount
-            }; */
 
             return Ok();
         }

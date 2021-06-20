@@ -1,277 +1,369 @@
-<div class="row">
-  <div class="col-lg-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
-      <div class="card-body ">
-        <div class="row">
-          <div class="col-5 col-md-4">
-            <div class="icon-big text-center icon-warning">
-              <i class="fa fa-calendar text-warning"></i>
+<div *ngIf="pacientStats">
+  <div class="row" *appHasRole='["Pacient"]'>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-5 col-md-4">
+              <div class="icon-big text-center icon-warning">
+                <i class="fa fa-calendar text-warning"></i>
+              </div>
             </div>
-          </div>
-          <div class="col-7 col-md-8">
-            <div class="numbers">
-              <p class="card-category">Ultima vizita</p>
-              <p class="card-title">28/10/2020
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category">Ultima vizita</p>
+                <p class="card-title">{{pacientStats.lastAppoinmentDate}}
                 <p>
+              </div>
             </div>
           </div>
         </div>
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+            <i class="fa fa-clock-o"></i>Ultimul update: {{date | date : 'dd/MM/yyyy HH:MM'}}
+          </div>
+        </div>
       </div>
-      <div class="card-footer ">
-        <hr>
-        <div class="stats">
-          <!-- <i class="fa fa-refresh"></i> Update Now -->
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-5 col-md-4">
+              <div class="icon-big text-center icon-warning">
+                <i class="fa fa-clock-o text-success"></i>
+              </div>
+            </div>
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category">Zile ultima vizita</p>
+                <p class="card-title">{{pacientStats.numberOfDaysFromLastAppoinment}}
+                <p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+            <i class="fa fa-clock-o"></i>Ultimul update: {{date | date : 'dd/MM/yyyy HH:MM'}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-5 col-md-4">
+              <div class="icon-big text-center icon-warning">
+                <i class="fa fa-file-text text-warning"></i>
+              </div>
+            </div>
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category">Retete eliberate</p>
+                <p class="card-title">{{pacientStats.numberOfRecipes}}
+                <p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+            <i class="fa fa-clock-o"></i>Ultimul update: {{date | date : 'dd/MM/yyyy HH:MM'}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-5 col-md-4">
+              <div class="icon-big text-center icon-warning">
+                <i class="fa fa-info-circle text-primary"></i>
+              </div>
+            </div>
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category">Numar total vizite</p>
+                <p class="card-title">{{pacientStats.numberOfAppoinments}}
+                <p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+            <i class="fa fa-clock-o"></i>Ultimul update: {{date | date : 'dd/MM/yyyy HH:MM'}}
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-lg-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
-      <div class="card-body ">
-        <div class="row">
-          <div class="col-5 col-md-4">
-            <div class="icon-big text-center icon-warning">
-              <i class="fa fa-clock-o text-success"></i>
+  <div class="row" *appHasRole='["Pacient"]'>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-5 col-md-4">
+              <div class="icon-big text-center icon-warning">
+                <i class="fa fa-male text-success"></i>
+              </div>
             </div>
-          </div>
-          <div class="col-7 col-md-8">
-            <div class="numbers">
-              <p class="card-category">Zile ultima vizita</p>
-              <p class="card-title">184
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category">Inaltime</p>
+                <p class="card-title">{{pacientStats.lastHeight}} cm
                 <p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="card-footer ">
-        <hr>
-        <div class="stats">
-          <!-- <i class="fa fa-calendar-o"></i> Last day -->
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+            La ultima vizita
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-lg-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
-      <div class="card-body ">
-        <div class="row">
-          <div class="col-5 col-md-4">
-            <div class="icon-big text-center icon-warning">
-              <i class="fa fa-file-text text-warning"></i>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-5 col-md-4">
+              <div class="icon-big text-center icon-warning">
+                <i class="fa fa-balance-scale text-success"></i>
+              </div>
             </div>
-          </div>
-          <div class="col-7 col-md-8">
-            <div class="numbers">
-              <p class="card-category">Retete eliberate</p>
-              <p class="card-title">23
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category">Greutate</p>
+                <p class="card-title">{{pacientStats.lastWeight}} kg
                 <p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="card-footer ">
-        <hr>
-        <div class="stats">
-          <!-- <i class="fa fa-clock-o"></i> In the last hour -->
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+            La ultima vizita
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-lg-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-5 col-md-4">
-            <div class="icon-big text-center icon-warning">
-              <i class="fa fa-info-circle text-primary"></i>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-5 col-md-4">
+              <div class="icon-big text-center icon-warning">
+                <i class="fa fa-thermometer-three-quarters text-success"></i>
+              </div>
             </div>
-          </div>
-          <div class="col-7 col-md-8">
-            <div class="numbers">
-              <p class="card-category">Numar total vizite</p>
-              <p class="card-title">36
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category">Temperatura</p>
+                <p class="card-title">{{pacientStats.lastTemperature}} °C
                 <p>
+              </div>
             </div>
           </div>
         </div>
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+            La ultima vizita
+          </div>
+        </div>
       </div>
-      <div class="card-footer ">
-        <hr>
-        <div class="stats">
-          <!-- <i class="fa fa-refresh"></i> Update now -->
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-5 col-md-4">
+              <div class="icon-big text-center icon-warning">
+                <i class="fa fa-heartbeat text-success"></i>
+              </div>
+            </div>
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category">Puls</p>
+                <p class="card-title">{{pacientStats.lastHeartRate}} bmi
+                <p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+            La ultima vizita
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-lg-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
-      <div class="card-body ">
-        <div class="row">
-          <div class="col-5 col-md-4">
-            <div class="icon-big text-center icon-warning">
-              <i class="fa fa-male text-success"></i>
+<div *ngIf="doctorStats">
+  <div class="row" *appHasRole='["Doctor"]'>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-5 col-md-4">
+              <div class="icon-big text-center icon-warning">
+                <i class="fa fa-calendar text-warning"></i>
+              </div>
             </div>
-          </div>
-          <div class="col-7 col-md-8">
-            <div class="numbers">
-              <p class="card-category">Inaltime</p>
-              <p class="card-title">184 cm
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category">Programari astazi</p>
+                <p class="card-title">{{doctorStats.numberOfAppoinmentsToday}}
                 <p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="card-footer ">
-        <hr>
-        <div class="stats">
-          La ultima vizita
-       </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
-      <div class="card-body ">
-        <div class="row">
-          <div class="col-5 col-md-4">
-            <div class="icon-big text-center icon-warning">
-              <i class="fa fa-balance-scale text-success"></i>
-            </div>
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+            <i class="fa fa-clock-o"></i>Ultimul update: {{date | date : 'dd/MM/yyyy HH:MM'}}
           </div>
-          <div class="col-7 col-md-8">
-            <div class="numbers">
-              <p class="card-category">Greutate</p>
-              <p class="card-title">76 kg
-                <p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-footer ">
-        <hr>
-        <div class="stats">
-           La ultima vizita
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-lg-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
-      <div class="card-body ">
-        <div class="row">
-          <div class="col-5 col-md-4">
-            <div class="icon-big text-center icon-warning">
-              <i class="fa fa-thermometer-three-quarters text-success"></i>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-5 col-md-4">
+              <div class="icon-big text-center icon-warning">
+                <i class="fa fa-users text-primary"></i>
+              </div>
             </div>
-          </div>
-          <div class="col-7 col-md-8">
-            <div class="numbers">
-              <p class="card-category">Temperatura</p>
-              <p class="card-title">36.5 C
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category">Pacienti</p>
+                <p class="card-title">{{doctorStats.numberOfPacients}}
                 <p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="card-footer ">
-        <hr>
-        <div class="stats">
-          La ultima vizita
-       </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-5 col-md-4">
-            <div class="icon-big text-center icon-warning">
-              <i class="fa fa-heartbeat text-success"></i>
-            </div>
-          </div>
-          <div class="col-7 col-md-8">
-            <div class="numbers">
-              <p class="card-category">Puls</p>
-              <p class="card-title"> 60 bmi
-                <p>
-            </div>
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+            <i class="fa fa-clock-o"></i>Ultimul update: {{date | date : 'dd/MM/yyyy HH:MM'}}
           </div>
         </div>
       </div>
-      <div class="card-footer ">
-        <hr>
-        <div class="stats">
-          La ultima vizita
-       </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-5 col-md-4">
+              <div class="icon-big text-center icon-warning">
+                <i class="fa fa-star text-warning"></i>
+              </div>
+            </div>
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category">Recenzii</p>
+                <p class="card-title">{{doctorStats.numberOfReviews}}
+                <p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+            <i class="fa fa-clock-o"></i>Ultimul update: {{date | date : 'dd/MM/yyyy HH:MM'}}
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <div class="card ">
-      <div class="card-header ">
-        <h5 class="card-title">Users Behavior</h5>
-        <p class="card-category">24 Hours performance</p>
-      </div>
-      <div class="card-body ">
-        <canvas id=chartHours width="400" height="100"></canvas>
-      </div>
-      <div class="card-footer ">
-        <hr>
-        <div class="stats">
-          <i class="fa fa-history"></i> Updated 3 minutes ago
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-5 col-md-4">
+              <div class="icon-big text-center icon-warning">
+                <i class="fa fa-info-circle text-primary"></i>
+              </div>
+            </div>
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category">Total vizite</p>
+                <p class="card-title">{{doctorStats.numberOfFinalizedAppoinments}}
+                <p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+            <i class="fa fa-clock-o"></i>Ultimul update: {{date | date : 'dd/MM/yyyy HH:MM'}}
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-4">
-    <div class="card ">
-      <div class="card-header ">
-        <h5 class="card-title">Email Statistics</h5>
-        <p class="card-category">Last Campaign Performance</p>
-      </div>
-      <div class="card-body ">
-        <canvas id="chartEmail"></canvas>
-      </div>
-      <div class="card-footer ">
-        <div class="legend">
-          <i class="fa fa-circle text-primary"></i> Opened
-          <i class="fa fa-circle text-warning"></i> Read
-          <i class="fa fa-circle text-danger"></i> Deleted
-          <i class="fa fa-circle text-gray"></i> Unopened
+
+<app-chart *appHasRole='["Doctor"]'></app-chart>
+<app-vaccine-chart *appHasRole='["Doctor"]'></app-vaccine-chart>
+<!-- <div *appHasRole='["Doctor"]'>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card ">
+        <div class="card-header ">
+          <h5 class="card-title">Email Statistics</h5>
+          <p class="card-category">Last Campaign Performance</p>
         </div>
-        <hr>
-        <div class="stats">
-          <i class="fa fa-calendar"></i> Number of emails sent
+        <div class="card-body ">
+          <canvas id="chartEmail"></canvas>
+        </div>
+        <div class="card-footer ">
+          <div class="legend">
+            <i class="fa fa-circle text-primary"></i> Opened
+            <i class="fa fa-circle text-warning"></i> Read
+            <i class="fa fa-circle text-danger"></i> Deleted
+            <i class="fa fa-circle text-gray"></i> Unopened
+          </div>
+          <hr>
+          <div class="stats">
+            <i class="fa fa-calendar"></i> Number of emails sent
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h5 class="card-title">Evolutie pacienti pe gen</h5>
+        </div>
+        <div class="card-body">
+          <canvas id="speedChart" width="400" height="100"></canvas>
+        </div>
+        <div class="card-footer">
+          <div class="chart-legend">
+            <i class="fa fa-circle text-info"></i> Barbati
+            <i class="fa fa-circle text-warning"></i> Femei
+          </div>
+          <hr />
         </div>
       </div>
     </div>
   </div>
-  <div class="col-md-8">
-    <div class="card card-chart">
-      <div class="card-header">
-        <h5 class="card-title">NASDAQ: AAPL</h5>
-        <p class="card-category">Line Chart with Points</p>
-      </div>
-      <div class="card-body">
-        <canvas id="speedChart" width="400" height="100"></canvas>
-      </div>
-      <div class="card-footer">
-        <div class="chart-legend">
-          <i class="fa fa-circle text-info"></i> Tesla Model S
-          <i class="fa fa-circle text-warning"></i> BMW 5 Series
-        </div>
-        <hr/>
-        <div class="card-stats">
-          <i class="fa fa-check"></i> Data information certified
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+</div> -->

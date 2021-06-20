@@ -4,11 +4,15 @@
     overflow: hidden;
     border-radius: 50%;
     margin-right: 5px;
-    margin-left: 35px;
 }
 
 .btn-primary {
     color: #fff;
     background-color: #007bff;
     border-color: #007bff;
+}
+
+.coco{
+    margin-right: 35px;
+    margin-left: 5px;
 }

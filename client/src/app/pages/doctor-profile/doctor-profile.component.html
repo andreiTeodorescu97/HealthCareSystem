@@ -10,7 +10,8 @@
       <div class="card-body">
         <div class="author">
           <a href="#">
-            <img class="avatar border-gray" src="{{user.mainPhotoUrl || 'assets/img/doctor.png'}}" alt="{{doctor.doctor.firstName}} {{doctor.doctor.secondName}}">
+            <img class="avatar border-gray" src="{{user.mainPhotoUrl || 'assets/img/doctor.png'}}"
+              alt="{{doctor.doctor.firstName}} {{doctor.doctor.secondName}}">
             <h5 class="title">Dr. {{doctor.doctor.firstName}} {{doctor.doctor.secondName}}</h5>
           </a>
         </div>
@@ -71,17 +72,17 @@
                 <div class="form-group">
                   <label>Motto</label>
                   <input type="text"
-                  [class.is-invalid]='editForm.get("doctor.motto").errors && editForm.get("doctor.motto").touched'
-                  class="form-control" formControlName="motto" placeholder="Motto">
+                    [class.is-invalid]='editForm.get("doctor.motto").errors && editForm.get("doctor.motto").touched'
+                    class="form-control" formControlName="motto" placeholder="Motto">
                   <div *ngIf="editForm.get('doctor.motto').hasError('required')" class="invalid-feedback">
                     Motto-ul este obligatoriu
                   </div>
-                <div *ngIf="editForm.get('doctor.motto').hasError('minlength')" class="invalid-feedback">
-                  Motto-ul trebuie sa aibe minim 10 caractere!
-                </div>
-                <div *ngIf="editForm.get('doctor.motto').hasError('maxlength')" class="invalid-feedback">
-                  Motto-ul trebuie sa aibe maxim 10 caractere!
-                </div>
+                  <div *ngIf="editForm.get('doctor.motto').hasError('minlength')" class="invalid-feedback">
+                    Motto-ul trebuie sa aibe minim 10 caractere!
+                  </div>
+                  <div *ngIf="editForm.get('doctor.motto').hasError('maxlength')" class="invalid-feedback">
+                    Motto-ul trebuie sa aibe maxim 10 caractere!
+                  </div>
                 </div>
               </div>
             </div>
@@ -147,194 +148,10 @@
       <div class="row">
         <div class="update ml-auto mr-auto">
           <button type="submit" [disabled]='!editForm.valid' (click)="updateDoctor()"
-            class="btn btn-primary btn-round"><i
-            class="fa fa-check" aria-hidden="true"></i> Editeaza
+            class="btn btn-primary btn-round"><i class="fa fa-check" aria-hidden="true"></i> Editeaza
             profilul</button>
         </div>
       </div>
     </div>
-    <div class="row justify-content-center">
-      <p>
-        Form value: {{editForm.value | json}}
-        Form value: {{editForm.status | json}}
-      </p>
-    </div>
-  </div>
-  <div class="col-md-12">
-    <!--     <div class="card card-user">
-      <div class="image">
-        <img src="assets/img/cover2.jpeg" alt="...">
-      </div>
-      <div class="card-body">
-        <div class="author">
-          <a href="#">
-            <img class="avatar border-gray" src="assets/img/doctor.png" alt="...">
-            <h5 class="title">Dr. {{doctor.doctor.firstName}} {{doctor.doctor.secondName}}</h5>
-          </a>
-        </div>
-        <p class="description text-center">
-          "I like the way you work it
-          <br> No diggity
-          <br> I wanna bag it up"
-        </p>
-      </div>
-      <div class="card-footer">
-        <hr>
-        <div class="button-container">
-          <div class="row">
-            <div class="col-lg-3 col-md-6 col-6 ml-auto">
-              <h5>12
-                <br>
-                <small>Files</small>
-              </h5>
-            </div>
-            <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
-              <h5>2GB
-                <br>
-                <small>Used</small>
-              </h5>
-            </div>
-            <div class="col-lg-3 mr-auto">
-              <h5>24,6$
-                <br>
-                <small>Spent</small>
-              </h5>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-    <!--     <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">Team Members</h4>
-      </div>
-      <div class="card-body">
-        <ul class="list-unstyled team-members">
-          <li>
-            <div class="row">
-              <div class="col-md-2 col-2">
-                <div class="avatar">
-                  <img src="assets/img/faces/ayo-ogunseinde-2.jpg" alt="Circle Image"
-                    class="img-circle img-no-padding img-responsive">
-                </div>
-              </div>
-              <div class="col-md-7 col-7">
-                DJ Khaled
-                <br />
-                <span class="text-muted">
-                  <small>Offline</small>
-                </span>
-              </div>
-              <div class="col-md-3 col-3 text-right">
-                <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i
-                    class="fa fa-envelope"></i></button>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="row">
-              <div class="col-md-2 col-2">
-                <div class="avatar">
-                  <img src="assets/img/faces/joe-gardner-2.jpg" alt="Circle Image"
-                    class="img-circle img-no-padding img-responsive">
-                </div>
-              </div>
-              <div class="col-md-7 col-7">
-                Creative Tim
-                <br />
-                <span class="text-success">
-                  <small>Available</small>
-                </span>
-              </div>
-              <div class="col-md-3 col-3 text-right">
-                <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i
-                    class="fa fa-envelope"></i></button>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="row">
-              <div class="col-md-2 col-2">
-                <div class="avatar">
-                  <img src="assets/img/faces/clem-onojeghuo-2.jpg" alt="Circle Image"
-                    class="img-circle img-no-padding img-responsive">
-                </div>
-              </div>
-              <div class="col-ms-7 col-7">
-                Flume
-                <br />
-                <span class="text-danger">
-                  <small>Busy</small>
-                </span>
-              </div>
-              <div class="col-md-3 col-3 text-right">
-                <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i
-                    class="fa fa-envelope"></i></button>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div> -->
   </div>
 </div>
-<!-- <div class="card">
-  <div class="card-header">
-    <h4 class="card-title">Studii si Experiente</h4>
-  </div>
-  <div class="card-body">
-    <div class="table-responsive">
-      <table class="table">
-        <thead class=" text-primary">
-          <tr>
-            <th>Denumire</th>
-            <th>Locatie</th>
-            <th>Data inceput</th>
-            <th>Data finalizare</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let field of fieldArray; let i = index">
-            <td>
-              <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" />
-            </td>
-            <td>
-              <input [(ngModel)]="field.name" class="form-control" type="text" name="{{field.name}}" />
-            </td>
-            <td>
-              <input [(ngModel)]="field.price" class="form-control" type="text" name="{{field.price}}" />
-            </td>
-            <td>
-              <input [(ngModel)]="field.price" class="form-control" type="text" name="{{field.price}}" />
-            </td>
-            <td>
-              <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)">Delete</button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input class="form-control" type="text" id="newAttributeCode" [(ngModel)]="newAttribute.code"
-                name="newAttributeCode" />
-            </td>
-            <td>
-              <input class="form-control" type="text" id="newAttributeName" [(ngModel)]="newAttribute.name"
-                name="newAttributeName" />
-            </td>
-            <td>
-              <input class="form-control" type="text" id="newAttributePrice" [(ngModel)]="newAttribute.price"
-                name="newAttributePrice" />
-            </td>
-            <td>
-              <input class="form-control" type="text" id="newAttributePrice" [(ngModel)]="newAttribute.price"
-                name="newAttributePrice" />
-            </td>
-            <td>
-              <button class="btn btn-success btn-fill" (click)="addFieldValue()">+</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div> -->

@@ -28,7 +28,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/user', title: 'Profil', icon: 'fa fa-user', class: '', isRegisterRequired: true, roles: ["Pacient"] },
     { path: '/doctor_work_days', title: 'Orar', icon: 'fa fa-calendar', class: '', isRegisterRequired: true, roles: ["Doctor"] },
     { path: '/doctor_profile', title: 'Profil', icon: 'fa fa-user', class: '', isRegisterRequired: true, roles: ["Doctor"] },
-    { path: '/admin', title: 'Admin', icon: 'fa fa-user-secret', class: '', isRegisterRequired: true, roles: ["Admin"] },
+    { path: '/admin', title: 'Admin', icon: 'fa fa-user-secret', class: '', isRegisterRequired: true, roles: ["Admin"] }
 ];
 
 @Component({

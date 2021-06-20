@@ -17,17 +17,6 @@
       <span class="navbar-toggler-bar navbar-kebab"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="collapseExample" [ngbCollapse]="isCollapsed">
-      <!--<form>
-        <div class="input-group no-border">
-          <input type="text" value="" class="form-control" placeholder="Search...">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <i class="nc-icon nc-zoom-split"></i>
-            </div>
-          </div>
-        </div>
-      </form>-->
-
       <form #loginForm="ngForm" class="form-inline mt-2 mt-md-0" autocomplete="off" (ngSubmit)="login()"
         *ngIf="!(accountService.currentUser$ | async)">
         <input name="username" [(ngModel)]="model.username" class="form-control mr-sm-2" type="text"
@@ -45,11 +34,11 @@
 
         <li class="nav-item btn-rotate" ngbDropdown placement="bottom-left">
           <a class="nav-link" ngbDropdownToggle id="navbarDropdownMenuLink">
-            <p class="text-primary">Romania: {{ time | date: 'hh:mm:ss a' }} - 1.0.0</p>
+            <p class="text-primary coco">Romania: {{ time | date: 'hh:mm:ss a' }} - 1.0.0</p>
             <img class="avatar border-gray img-responsive" *ngIf="!user.isPacientAccount"
-            src="{{user.mainPhotoUrl || 'assets/img/doctor.png'}}" alt="{{user.username}}">
+              src="{{user.mainPhotoUrl || 'assets/img/doctor.png'}}" alt="{{user.username}}">
             <p>
-              
+
               <strong>{{user.title}} {{user.firstName}} {{user.secondName}}</strong>
               <!-- <img class="avatar img-no-padding img-responsive" src="{{user.mainPhotoUrl || 'assets/img/doctor.png'}}" alt="{{user.username}}"> -->
             </p>

@@ -63,6 +63,8 @@ import { TestComponent } from './pages/test/test.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { PacientHistoryComponent } from './pacient-history/pacient-history.component';
+import { ChartComponent } from './pages/chart/chart.component';
+import { VaccineChartComponent } from './pages/vaccine-chart/vaccine-chart.component';
 defineLocale("ro", roLocale);
 
 
@@ -104,7 +106,9 @@ defineLocale("ro", roLocale);
     TestComponent,
     ResetPasswordComponent,
     ForgotPasswordComponent,
-    PacientHistoryComponent
+    PacientHistoryComponent,
+    ChartComponent,
+    VaccineChartComponent
   ],
   imports: [
     BrowserAnimationsModule,
