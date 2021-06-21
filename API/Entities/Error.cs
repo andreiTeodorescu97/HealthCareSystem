@@ -12,5 +12,6 @@ namespace API.Entities
         public string Route { get; set; }
         public string Section { get; set; }
         public DateTime TimeStamp { get; set; }
+        public string caca { get; set; }
     }
 }
