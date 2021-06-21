@@ -5,8 +5,8 @@ using API.Data;
 using API.DTOs.Recipes;
 using API.Interfaces;
 using API.RecipePDF;
-using DinkToPdf;
-using DinkToPdf.Contracts;
+using WkHtmlToPdfDotNet;
+using WkHtmlToPdfDotNet.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
