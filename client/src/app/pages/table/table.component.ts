@@ -42,15 +42,5 @@ export class TableComponent implements OnInit{
                 ['6', 'Mason Porter', '$78,615', 'Chile', 'Gloucester' ]
             ]
         };
-
-        this.getUsers();
     }
-
-    getUsers(){
-        this.http.get('https://localhost:5001/api/users').subscribe(response => {
-          this.users = response;
-        }, error => {
-          console.log(error);
-        })
-      }
 }
