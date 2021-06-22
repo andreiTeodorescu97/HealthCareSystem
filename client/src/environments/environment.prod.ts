@@ -2,5 +2,5 @@ export const environment = {
   production: true,
   apiUrl: 'api/',  
   hubUrl: 'hubs/',
-  googleCaptchaSiteKey: '6LebWEwbAAAAAEQYxnbfSsaBr0gkE8e7aDEOD3Zc'
+  googleCaptchaSiteKey: '6LebLk0bAAAAADf-bxTfV6TQVGKBMTwhRt2s38MV'
 };
