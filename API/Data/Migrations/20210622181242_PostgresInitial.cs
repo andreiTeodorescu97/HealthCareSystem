@@ -70,6 +70,17 @@ namespace API.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Groups",
+                columns: table => new
+                {
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Groups", x => x.Name);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Medicines",
                 columns: table => new
                 {
@@ -325,6 +336,25 @@ namespace API.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Connections",
+                columns: table => new
+                {
+                    ConnectionId = table.Column<string>(type: "text", nullable: false),
+                    Username = table.Column<string>(type: "text", nullable: true),
+                    GroupName = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Connections", x => x.ConnectionId);
+                    table.ForeignKey(
+                        name: "FK_Connections_Groups_GroupName",
+                        column: x => x.GroupName,
+                        principalTable: "Groups",
+                        principalColumn: "Name",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cities",
                 columns: table => new
                 {
@@ -340,6 +370,36 @@ namespace API.Data.Migrations
                         name: "FK_Cities_Regions_RegionId",
                         column: x => x.RegionId,
                         principalTable: "Regions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PacientHistories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PacientId = table.Column<int>(type: "integer", nullable: false),
+                    FirstName = table.Column<string>(type: "text", nullable: true),
+                    SecondName = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    Gender = table.Column<string>(type: "text", nullable: true),
+                    IdentityNumber = table.Column<string>(type: "text", nullable: true),
+                    Series = table.Column<string>(type: "text", nullable: true),
+                    CNP = table.Column<string>(type: "text", nullable: true),
+                    DoctorId = table.Column<int>(type: "integer", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    TotalNumberOfVisits = table.Column<int>(type: "integer", nullable: false),
+                    LastVisitDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PacientHistories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PacientHistories_Doctors_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Doctors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -691,6 +751,11 @@ namespace API.Data.Migrations
                 column: "RegionId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Connections_GroupName",
+                table: "Connections",
+                column: "GroupName");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Consultations_AppoinmentId",
                 table: "Consultations",
                 column: "AppoinmentId",
@@ -733,6 +798,11 @@ namespace API.Data.Migrations
                 table: "PacientGeneralMedicalData",
                 column: "PacientId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PacientHistories_DoctorId",
+                table: "PacientHistories",
+                column: "DoctorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pacients_UserId",
@@ -800,6 +870,9 @@ namespace API.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Connections");
+
+            migrationBuilder.DropTable(
                 name: "Errors");
 
             migrationBuilder.DropTable(
@@ -810,6 +883,9 @@ namespace API.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "PacientGeneralMedicalData");
+
+            migrationBuilder.DropTable(
+                name: "PacientHistories");
 
             migrationBuilder.DropTable(
                 name: "Photos");
@@ -828,6 +904,9 @@ namespace API.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Groups");
 
             migrationBuilder.DropTable(
                 name: "Cities");

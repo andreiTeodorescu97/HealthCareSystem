@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210619151314_AddedDoctorIdToHistory")]
-    partial class AddedDoctorIdToHistory
+    [Migration("20210622181242_PostgresInitial")]
+    partial class PostgresInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -574,7 +574,7 @@ namespace API.Data.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int?>("DoctorId")
+                    b.Property<int>("DoctorId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Email")
@@ -1096,9 +1096,13 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.PacientHistory", b =>
                 {
-                    b.HasOne("API.Entities.Doctor", null)
+                    b.HasOne("API.Entities.Doctor", "Doctor")
                         .WithMany("PacientHistories")
-                        .HasForeignKey("DoctorId");
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
                 });
 
             modelBuilder.Entity("API.Entities.Photo", b =>
