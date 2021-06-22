@@ -1,6 +1,9 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using API.Constants;
+using API.Data;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
@@ -11,8 +14,10 @@ namespace API.Email
     public class MailService : IMailService
     {
         private readonly MailSettings _mailSettings;
-        public MailService(IOptions<MailSettings> mailSettings)
+        private readonly DataContext _context;
+        public MailService(IOptions<MailSettings> mailSettings, DataContext context)
         {
+            _context = context;
             _mailSettings = mailSettings.Value;
         }
 
@@ -20,11 +25,7 @@ namespace API.Email
         {
             try
             {
-                string FilePath = Directory.GetCurrentDirectory() + "\\Templates\\ResetPasswordTemplate.html";
-                
-                StreamReader str = new StreamReader(FilePath);
-                string MailText = str.ReadToEnd();
-                str.Close();
+                string MailText = _context.EmailTemplates.FirstOrDefault(c => c.Id == (int)EmailTemplates.ResetPassword).Template;
                 MailText = MailText.Replace("[confirmationLink]", resetLink);
 
                 var email = new MimeMessage();
@@ -52,10 +53,7 @@ namespace API.Email
         {
             try
             {
-                string FilePath = Directory.GetCurrentDirectory() + "\\Templates\\ConfirmEmailTemplate.html";
-                StreamReader str = new StreamReader(FilePath);
-                string MailText = str.ReadToEnd();
-                str.Close();
+                string MailText = _context.EmailTemplates.FirstOrDefault(c => c.Id == (int)EmailTemplates.ConfirmAccount).Template;
                 MailText = MailText.Replace("[confirmationLink]", confirmationLink);
 
                 var email = new MimeMessage();
@@ -83,10 +81,7 @@ namespace API.Email
         {
             try
             {
-                string FilePath = Directory.GetCurrentDirectory() + "\\Templates\\AppointmentTemplate.html";
-                StreamReader str = new StreamReader(FilePath);
-                string MailText = str.ReadToEnd();
-                str.Close();
+                string MailText = _context.EmailTemplates.FirstOrDefault(c => c.Id == (int)EmailTemplates.AppoinmentConfirmation).Template;
                 MailText = MailText.Replace("[appoinmentDate]", appoinmentApproval.AppoinmentDate)
                 .Replace("[firstName]", appoinmentApproval.DoctorFirstName)
                 .Replace("[secondName]", appoinmentApproval.DoctorSecondName);
@@ -146,10 +141,7 @@ namespace API.Email
 
         public async Task SendWelcomeEmailAsync(WelcomeRequest request)
         {
-            string FilePath = Directory.GetCurrentDirectory() + "\\Templates\\WelcomeTemplate.html";
-            StreamReader str = new StreamReader(FilePath);
-            string MailText = str.ReadToEnd();
-            str.Close();
+            string MailText = _context.EmailTemplates.FirstOrDefault(c => c.Id == (int)EmailTemplates.Welcome).Template;
             MailText = MailText.Replace("[username]", request.UserName).Replace("[email]", request.ToEmail);
             var email = new MimeMessage();
             email.Sender = MailboxAddress.Parse(_mailSettings.Mail);

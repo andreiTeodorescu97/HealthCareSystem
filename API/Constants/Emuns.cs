@@ -8,4 +8,12 @@ namespace API.Constants
         CanceledByDoctor = 4,
         Finalized = 5
     }
+
+    public enum EmailTemplates
+    {
+        ResetPassword = 1,
+        Welcome = 2,
+        ConfirmAccount = 3,
+        AppoinmentConfirmation = 4,
+    }
 }
