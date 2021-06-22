@@ -53,7 +53,6 @@ namespace API.Data
             .IsRequired();
 
             builder.Entity<Doctor>().HasKey(g => new { g.Id });
-            builder.ApplyUtcDateTimeConverter();
 
             builder.Entity<VaccineXPacient>()
             .HasOne(s => s.Pacient)
@@ -76,6 +75,8 @@ namespace API.Data
             .HasOne(u => u.Sender)
             .WithMany(m => m.MessagesSent)
             .OnDelete(DeleteBehavior.Restrict);
+
+            builder.ApplyUtcDateTimeConverter();
         }
     }
 
