@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Constants;
 using API.Data;
+using API.Entities;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
@@ -45,7 +46,14 @@ namespace API.Email
             }
             catch (Exception ex)
             {
-                throw ex;
+                var error = new Error{
+                    Message = ex.Message,
+                    InnerMessage = ex.InnerException.Message,
+                    StackTrace = ex.InnerException.StackTrace,
+                };
+                _context.Errors.Add(error);
+                await _context.SaveChangesAsync();
+                return false;
             }
         }
 
