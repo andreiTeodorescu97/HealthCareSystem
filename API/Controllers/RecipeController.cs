@@ -9,6 +9,7 @@ using WkHtmlToPdfDotNet;
 using WkHtmlToPdfDotNet.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace API.Controllers
 {
@@ -17,8 +18,10 @@ namespace API.Controllers
     {
         private readonly IRecipeRepository _recipeRepository;
         private readonly IConverter _converter;
+        private readonly DataContext _context;
         public RecipeController(IRecipeRepository recipeRepository, DataContext context, IConverter converter)
         {
+            _context = context;
             _converter = converter;
             _recipeRepository = recipeRepository;
 
@@ -81,11 +84,12 @@ namespace API.Controllers
                 Margins = new MarginSettings { Top = 10 },
                 DocumentTitle = "Reteta"
             };
+            var styleSheet = _context.EmailTemplates.FirstOrDefault(c => c.Id == 5).Template;
             var objectSettings = new ObjectSettings
             {
                 PagesCount = true,
                 HtmlContent = TemplateGenerator.GetRecipeHTMLString(fullRecipeInfoDto),
-                WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "wassets", "styles.css") },
+                WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = "" },
                 HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
                 FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
             };
