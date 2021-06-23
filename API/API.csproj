@@ -28,28 +28,13 @@
   <Content Include="wassets\styles.css">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </Content>
-    <None Update="wkhtmltox\32bit\libwkhtmltox.dll">
+    <None Update="libwkhtmltox.dll">
      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
   </None>
-  <None Update="wkhtmltox\32bit\libwkhtmltox.dylib">
+  <None Update="libjpeg-62.dll">
      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-  </None>
-  <None Update="wkhtmltox\32bit\libwkhtmltox.so">
-     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-     <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </None>
-  <None Update="wkhtmltox\64bit\libwkhtmltox.dll">
-     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-     <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-  </None>
-  <None Update="wkhtmltox\64bit\libwkhtmltox.dylib">
-     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  </None>
-  <None Update="wkhtmltox\64bit\libwkhtmltox.so">
-     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </None>
 </ItemGroup>
 </Project>
