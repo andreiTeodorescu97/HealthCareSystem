@@ -26,11 +26,11 @@
   <None Remove="wassets\styles.css" />
 </ItemGroup>
 <ItemGroup>
-  <EmbeddedResource Include="libwkhtmltox.dll">
+  <Content Include="libwkhtmltox.dll">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-  </EmbeddedResource>
-  <EmbeddedResource Include="wassets\styles.css">
+  </Content>
+  <Content Include="wassets\styles.css">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-  </EmbeddedResource>
+  </Content>
 </ItemGroup>
 </Project>
