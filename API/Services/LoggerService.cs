@@ -20,7 +20,7 @@ namespace API.Services
 
         public async Task<bool> LogError(Exception ex, string route = null)
         {
-            var errorDto = new ErrorDto()
+            var error = new Error()
             {
                 StatusCode = 200,
                 Message = ex.Message,
@@ -29,10 +29,6 @@ namespace API.Services
                 Route = route,
                 TimeStamp = DateTime.UtcNow,
             };
-
-            var error = new Error();
-            _mapper.Map(errorDto, error);
-            _context.ChangeTracker.Clear();
 
             _context.Errors.Add(error);
 
