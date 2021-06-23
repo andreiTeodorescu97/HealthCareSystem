@@ -11,6 +11,7 @@ using System.Linq;
 using DinkToPdf;
 using DinkToPdf.Contracts;
 using System;
+using API.Entities;
 
 namespace API.Controllers
 {
@@ -109,7 +110,14 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                await _loggerService.LogError(ex);
+                var error = new Error
+                {
+                    Message = ex.Message,
+                    InnerMessage = ex.InnerException.Message,
+                    StackTrace = ex.InnerException.StackTrace,
+                };
+                _context.Errors.Add(error);
+                await _context.SaveChangesAsync();
                 return BadRequest("Upps..ceva nu a mers!");
             }
         }
