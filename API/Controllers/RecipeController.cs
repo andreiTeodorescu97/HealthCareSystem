@@ -5,11 +5,11 @@ using API.Data;
 using API.DTOs.Recipes;
 using API.Interfaces;
 using API.RecipePDF;
-using WkHtmlToPdfDotNet;
-using WkHtmlToPdfDotNet.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 
 namespace API.Controllers
 {
@@ -89,7 +89,8 @@ namespace API.Controllers
             {
                 PagesCount = true,
                 HtmlContent = TemplateGenerator.GetRecipeHTMLString(fullRecipeInfoDto),
-                WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = "" },
+                /* WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = styleSheet }, */
+                WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "wassets", "styles.css") },
                 HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
                 FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
             };
