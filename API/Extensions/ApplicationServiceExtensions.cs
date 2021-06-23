@@ -72,7 +72,7 @@ namespace API.Extensions
             services.AddTransient<IMailService, MailService>();
 
             var architectureFolder = (IntPtr.Size == 8) ? "64bit" : "32bit";
-            var wkHtmlToPdfPath = Path.Combine(env.ContentRootPath, $"wkhtmltox\\{architectureFolder}\\libwkhtmltox");
+            var wkHtmlToPdfPath = Path.Combine(env.ContentRootPath, $"wkhtmltox\\{architectureFolder}\\libwkhtmltox.dll");
             CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
             context.LoadUnmanagedLibrary(wkHtmlToPdfPath);
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
