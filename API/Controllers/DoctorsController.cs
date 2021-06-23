@@ -73,6 +73,8 @@ namespace API.Controllers
 
             _mapper.Map(doctorDto.Doctor, doctorUser.Doctor);
 
+            doctorUser.Email = doctorDto.Doctor.Email;
+
             _doctorRepository.Update(doctorUser.Doctor);
 
             if (await _doctorRepository.SaveAllAsync()) return NoContent();

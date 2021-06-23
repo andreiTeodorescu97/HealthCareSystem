@@ -25,9 +25,9 @@ export class MessagesPageComponent implements OnInit, OnDestroy {
   @ViewChild('messageForm') messageForm: NgForm;
   messageContent: string;
   loading = false;
-  @ViewChild('scrollMe') scrollMe: ElementRef;
-  scrollTop: number = null;
-  
+/*   @ViewChild('scrollMe') scrollMe: ElementRef;
+  scrollTop: number = null; */
+
   isHubConnectionActive = false;
 
   constructor(public messageService: MessageService, private accountService: AccountService, private cdref: ChangeDetectorRef) {
@@ -38,8 +38,7 @@ export class MessagesPageComponent implements OnInit, OnDestroy {
     this.getUsers();
     this.getLastMessages();
 
-    if(localStorage.getItem('lastSelectedUserOnMessagePage') != null)
-    {
+    if (localStorage.getItem('lastSelectedUserOnMessagePage') != null) {
       this.selectedUser = JSON.parse(localStorage.getItem('lastSelectedUserOnMessagePage'));
       this.manageHubConnection();
     }
@@ -72,9 +71,8 @@ export class MessagesPageComponent implements OnInit, OnDestroy {
     this.manageHubConnection();
   }
 
-  manageHubConnection(){
-    if(this.isHubConnectionActive)
-    {
+  manageHubConnection() {
+    if (this.isHubConnectionActive) {
       this.messageService.stopHubConnection();
       this.isHubConnectionActive = false;
     }
@@ -93,13 +91,11 @@ export class MessagesPageComponent implements OnInit, OnDestroy {
     this.messageService.sendMessage(this.selectedUser.userName, this.messageContent)
       .then(() => {
         this.messageForm.reset();
-        this.loading = false;
-      })
+      }).finally(() => this.loading = false);
   }
 
   ngOnDestroy(): void {
-    if(this.isHubConnectionActive)
-    {
+    if (this.isHubConnectionActive) {
       this.messageService.stopHubConnection();
       this.isHubConnectionActive = false;
     }

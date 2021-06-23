@@ -9,6 +9,7 @@ import { SimpleUserDto } from 'app/_models/_messages/simpleUserDto';
 import { environment } from 'environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { BusyService } from './busy.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +22,10 @@ export class MessageService {
   private messageThreadSource = new BehaviorSubject<MessageDto[]>([]);
   messageThread$ = this.messageThreadSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private busyService: BusyService) { }
 
   createHubConnection(user: User, otherUsername: string) {
+    this.busyService.busy();
     this.hubConnection = new HubConnectionBuilder()
       .withUrl(this.hubUrl + 'message?user=' + otherUsername, {
         accessTokenFactory: () => user.token
@@ -31,7 +33,9 @@ export class MessageService {
       .withAutomaticReconnect()
       .build();
 
-    this.hubConnection.start().catch(error => console.log(error));
+    this.hubConnection.start()
+      .catch(error => console.log(error))
+      .finally(() => this.busyService.idle());
 
     this.hubConnection.on('ReceiveMessageThread', messages => {
       this.messageThreadSource.next(messages);
@@ -44,10 +48,10 @@ export class MessageService {
     })
 
     this.hubConnection.on('UpdatedGroup', (group: Group) => {
-      if(group.connections.some(x => x.username == otherUsername)){
+      if (group.connections.some(x => x.username == otherUsername)) {
         this.messageThread$.pipe(take(1)).subscribe(messages => {
           messages.forEach(message => {
-            if(!message.dateRead){
+            if (!message.dateRead) {
               message.dateRead = new Date(Date.now());
             }
           })
@@ -58,7 +62,10 @@ export class MessageService {
   }
 
   stopHubConnection() {
-    this.hubConnection.stop();
+    if (this.hubConnection) {
+      this.messageThreadSource.next([]);
+      this.hubConnection.stop();
+    }
   }
 
   getLastMessages() {
@@ -73,17 +80,17 @@ export class MessageService {
     return this.http.get<MessageDto[]>(this.baseUrl + 'message/thread/' + userName);
   }
 
-/*   async sendMessage(username: string, content: string) {
-    try {
-      return this.hubConnection.invoke('SendMessage', { recipientUsername: username, content: content });
-    } catch (error) {
-      return console.log(error);
-    }
-  } */
+  /*   async sendMessage(username: string, content: string) {
+      try {
+        return this.hubConnection.invoke('SendMessage', { recipientUsername: username, content: content });
+      } catch (error) {
+        return console.log(error);
+      }
+    } */
 
-  async sendMessage(username : string, content : string){
+  async sendMessage(username: string, content: string) {
     return this.hubConnection.invoke('SendMessage',
-      {recipientUsername: username, content: content })
-    .catch(error => console.log(error));
+      { recipientUsername: username, content: content })
+      .catch(error => console.log(error));
   }
 }

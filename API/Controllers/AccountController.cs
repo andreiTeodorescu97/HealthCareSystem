@@ -235,12 +235,7 @@ namespace API.Controllers
 
         private async Task<bool> EmailExists(string email, bool IsPacientAccount)
         {
-            if (IsPacientAccount)
-            {
-                return await _context.Pacients.AnyAsync(c => c.Email == email);
-            }
-
-            return await _context.Doctors.AnyAsync(c => c.Email == email);
+            return await _context.Users.AnyAsync(c => c.Email == email);
         }
 
         private async Task<bool> CnpExists(string cnp)

@@ -81,6 +81,7 @@ namespace API.Controllers
 
             pacient.Pacient.FirstName = pacientDto.FirstName;
             pacient.Pacient.SecondName = pacientDto.SecondName;
+            pacient.Pacient.User.Email = pacientDto.Email;
             pacient.Pacient.Email = pacientDto.Email;
             pacient.Pacient.PacientContact.Street = pacientDto.PacientContact.Street;
             pacient.Pacient.PacientContact.StreetNumber = pacientDto.PacientContact.StreetNumber;

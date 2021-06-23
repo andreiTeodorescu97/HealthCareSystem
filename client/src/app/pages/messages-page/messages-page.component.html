@@ -42,7 +42,10 @@
             <div *ngIf="selectedUser">
                 <h2 class="text-primary">{{selectedUser.firstName}} {{selectedUser.secondName}}</h2>
             </div>
-            <div class="msg_history" *ngIf="(messageService.messageThread$ | async).length > 0" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+            <div class="msg_history" *ngIf="(messageService.messageThread$ | async).length > 0" 
+                #scrollMe 
+                style="overflow: scroll; height: 715px; overflow-x: auto;"
+                [scrollTop]="scrollMe.scrollHeight">
                 <div *ngFor="let item of (messageService.messageThread$ | async)">
                     <ul class="chat">
                         <li>
