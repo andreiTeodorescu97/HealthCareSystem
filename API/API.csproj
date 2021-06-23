@@ -22,15 +22,16 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.9.0" />
   </ItemGroup>
 <ItemGroup>
-  <None Remove="libwkhtmltox.dll" />
   <None Remove="wassets\styles.css" />
 </ItemGroup>
 <ItemGroup>
-  <Content Include="libwkhtmltox.dll">
-    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-  </Content>
   <Content Include="wassets\styles.css">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </Content>
+</ItemGroup>
+<ItemGroup>
+  <None Update="libwkhtmltox.dll">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
 </ItemGroup>
 </Project>
