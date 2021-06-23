@@ -71,10 +71,10 @@ namespace API.Extensions
             services.Configure<MailSettings>(config.GetSection("MailSettings"));
             services.AddTransient<IMailService, MailService>();
 
-            var architectureFolder = (IntPtr.Size == 8) ? "64bit" : "32bit";
+/*             var architectureFolder = (IntPtr.Size == 8) ? "64bit" : "32bit";
             var wkHtmlToPdfPath = Path.Combine(env.ContentRootPath, $"wkhtmltox\\{architectureFolder}\\libwkhtmltox.dll");
             CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
-            context.LoadUnmanagedLibrary(wkHtmlToPdfPath);
+            context.LoadUnmanagedLibrary(wkHtmlToPdfPath); */
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
             return services;
