@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using DinkToPdf;
 using DinkToPdf.Contracts;
+using System;
 
 namespace API.Controllers
 {
@@ -19,8 +20,10 @@ namespace API.Controllers
         private readonly IRecipeRepository _recipeRepository;
         private readonly IConverter _converter;
         private readonly DataContext _context;
-        public RecipeController(IRecipeRepository recipeRepository, DataContext context, IConverter converter)
+        private readonly ILoggerService _loggerService;
+        public RecipeController(IRecipeRepository recipeRepository, DataContext context, IConverter converter, ILoggerService loggerService)
         {
+            _loggerService = loggerService;
             _context = context;
             _converter = converter;
             _recipeRepository = recipeRepository;
@@ -74,33 +77,41 @@ namespace API.Controllers
         [HttpGet("generateRecipePdf")]
         public async Task<IActionResult> CreateRecipePDFAsync(int consultationId)
         {
-            var fullRecipeInfoDto = await _recipeRepository.GetRecipe(consultationId);
+            try
+            {
+                var fullRecipeInfoDto = await _recipeRepository.GetRecipe(consultationId);
 
-            var globalSettings = new GlobalSettings
+                var globalSettings = new GlobalSettings
+                {
+                    ColorMode = ColorMode.Color,
+                    Orientation = Orientation.Portrait,
+                    PaperSize = PaperKind.A4,
+                    Margins = new MarginSettings { Top = 10 },
+                    DocumentTitle = "Reteta"
+                };
+                var styleSheet = _context.EmailTemplates.FirstOrDefault(c => c.Id == 5).Template;
+                var objectSettings = new ObjectSettings
+                {
+                    PagesCount = true,
+                    HtmlContent = TemplateGenerator.GetRecipeHTMLString(fullRecipeInfoDto),
+                    /* WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = styleSheet }, */
+                    WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "wassets", "styles.css") },
+                    HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
+                    FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
+                };
+                var pdf = new HtmlToPdfDocument()
+                {
+                    GlobalSettings = globalSettings,
+                    Objects = { objectSettings }
+                };
+                var file = _converter.Convert(pdf);
+                return File(file, "application/pdf", "Reteta");
+            }
+            catch (Exception ex)
             {
-                ColorMode = ColorMode.Color,
-                Orientation = Orientation.Portrait,
-                PaperSize = PaperKind.A4,
-                Margins = new MarginSettings { Top = 10 },
-                DocumentTitle = "Reteta"
-            };
-            var styleSheet = _context.EmailTemplates.FirstOrDefault(c => c.Id == 5).Template;
-            var objectSettings = new ObjectSettings
-            {
-                PagesCount = true,
-                HtmlContent = TemplateGenerator.GetRecipeHTMLString(fullRecipeInfoDto),
-                /* WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = styleSheet }, */
-                WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "wassets", "styles.css") },
-                HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
-                FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
-            };
-            var pdf = new HtmlToPdfDocument()
-            {
-                GlobalSettings = globalSettings,
-                Objects = { objectSettings }
-            };
-            var file = _converter.Convert(pdf);
-            return File(file, "application/pdf", "Reteta");
+                await _loggerService.LogError(ex);
+                return BadRequest("Upps..ceva nu a mers!");
+            }
         }
 
 

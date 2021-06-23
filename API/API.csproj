@@ -23,15 +23,14 @@
   </ItemGroup>
 <ItemGroup>
   <None Remove="libwkhtmltox.dll" />
+  <None Remove="wassets\styles.css" />
 </ItemGroup>
 <ItemGroup>
   <EmbeddedResource Include="libwkhtmltox.dll">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </EmbeddedResource>
-</ItemGroup>
-<ItemGroup>
-  <None Update="wassets\styles.css">
+  <EmbeddedResource Include="wassets\styles.css">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-  </None>
+  </EmbeddedResource>
 </ItemGroup>
 </Project>
