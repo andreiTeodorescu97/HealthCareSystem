@@ -6,6 +6,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="CloudinaryDotNet" Version="1.11.0" />
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
     <PackageReference Include="DinkToPdfIncludesDependencies" Version="1.0.8" />
     <PackageReference Include="ExcelMapper" Version="5.2.298" />
     <PackageReference Include="Haukcode.WkHtmlToPdfDotNet" Version="1.5.8" />
@@ -28,5 +29,16 @@
   <Content Include="wassets\styles.css">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </Content>
+    <None Update="libwkhtmltox.dll">
+     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+     <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+  </None>
+  <None Update="libwkhtmltox.dylib">
+     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+  <None Update="libwkhtmltox.so">
+     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
 </ItemGroup>
 </Project>

@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System;
 using API.Entities;
-using WkHtmlToPdfDotNet.Contracts;
-using WkHtmlToPdfDotNet;
+using DinkToPdf.Contracts;
+using DinkToPdf;
 
 namespace API.Controllers
 {
@@ -151,5 +151,11 @@ namespace API.Controllers
             var file = _converter.Convert(pdf);
             return File(file, "application/pdf");
         }
+
+/*         [HttpGet("generatePdfTextSharp")]
+        public IActionResult GeneratePdfTextSharp()
+        {
+
+        } */
     }
 }

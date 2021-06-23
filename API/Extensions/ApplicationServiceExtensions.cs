@@ -7,8 +7,8 @@ using API.Interfaces;
 using API.Repositories;
 using API.Services;
 using API.SignalR;
-using WkHtmlToPdfDotNet.Contracts;
-using WkHtmlToPdfDotNet;
+using DinkToPdf.Contracts;
+using DinkToPdf;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -71,10 +71,10 @@ namespace API.Extensions
             services.Configure<MailSettings>(config.GetSection("MailSettings"));
             services.AddTransient<IMailService, MailService>();
 
-/*             var architectureFolder = (IntPtr.Size == 8) ? "64bit" : "32bit";
-            var wkHtmlToPdfPath = Path.Combine(env.ContentRootPath, $"wkhtmltox\\{architectureFolder}\\libwkhtmltox.dll");
-            CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
-            context.LoadUnmanagedLibrary(wkHtmlToPdfPath); */
+            var architecture = (IntPtr.Size == 8) ? "64bit" : "32bit";
+            var wkHtmlToPdfPath = Path.Combine(env.ContentRootPath, $"libwkhtmltox.dll");
+            var context = new CustomAssemblyLoadContext();
+            context.LoadUnmanagedLibrary(wkHtmlToPdfPath);
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
             return services;
