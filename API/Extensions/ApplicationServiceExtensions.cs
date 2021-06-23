@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using API.Data;
 using API.Email;
 using API.Helpers;
@@ -8,6 +9,7 @@ using API.Services;
 using API.SignalR;
 using DinkToPdf;
 using DinkToPdf.Contracts;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +18,7 @@ namespace API.Extensions
 {
     public static class ApplicationServiceExtensions
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config, IWebHostEnvironment env)
         {
             services.AddSingleton<PresenceTracker>();
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
@@ -68,8 +70,12 @@ namespace API.Extensions
             });
             services.Configure<MailSettings>(config.GetSection("MailSettings"));
             services.AddTransient<IMailService, MailService>();
-            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
+            var architectureFolder = (IntPtr.Size == 8) ? "64 bit" : "32 bit";
+            var wkHtmlToPdfPath = Path.Combine(env.ContentRootPath, $"wkhtmltox\\{architectureFolder}\\libwkhtmltox");
+            CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
+            context.LoadUnmanagedLibrary(wkHtmlToPdfPath);
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
             return services;
         }
