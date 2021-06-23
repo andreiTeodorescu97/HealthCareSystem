@@ -6,9 +6,9 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="CloudinaryDotNet" Version="1.11.0" />
+    <PackageReference Include="DinkToPdfIncludesDependencies" Version="1.0.8" />
     <PackageReference Include="ExcelMapper" Version="5.2.298" />
     <PackageReference Include="Haukcode.WkHtmlToPdfDotNet" Version="1.5.8" />
-    <PackageReference Include="HtmlToPdfConverter.Core" Version="2.0.0" />
     <PackageReference Include="MailKit" Version="2.11.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.6" />

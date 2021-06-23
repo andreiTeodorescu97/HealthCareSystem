@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System;
 using API.Entities;
-using DinkToPdf;
-using DinkToPdf.Contracts;
+using WkHtmlToPdfDotNet.Contracts;
+using WkHtmlToPdfDotNet;
 
 namespace API.Controllers
 {
