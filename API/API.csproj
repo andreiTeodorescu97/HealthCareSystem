@@ -7,7 +7,6 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="CloudinaryDotNet" Version="1.11.0" />
     <PackageReference Include="DinkToPdf" Version="1.0.8" />
-    <PackageReference Include="DinkToPdfIncludesDependencies" Version="1.0.8" />
     <PackageReference Include="ExcelMapper" Version="5.2.298" />
     <PackageReference Include="Haukcode.WkHtmlToPdfDotNet" Version="1.5.8" />
     <PackageReference Include="MailKit" Version="2.11.1" />
