@@ -77,6 +77,7 @@ namespace API.Extensions
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 wkHtmlToPdfPath += ".so";
+                wkHtmlToPdfPath = wkHtmlToPdfPath.Replace(@"\", @"/");
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
