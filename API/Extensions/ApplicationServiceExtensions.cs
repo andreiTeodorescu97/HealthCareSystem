@@ -7,12 +7,12 @@ using API.Interfaces;
 using API.Repositories;
 using API.Services;
 using API.SignalR;
-using DinkToPdf;
-using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WkHtmlToPdfDotNet;
+using WkHtmlToPdfDotNet.Contracts;
 
 namespace API.Extensions
 {
@@ -71,7 +71,7 @@ namespace API.Extensions
             services.Configure<MailSettings>(config.GetSection("MailSettings"));
             services.AddTransient<IMailService, MailService>();
 
-            var architectureFolder = (IntPtr.Size == 8) ? "64 bit" : "32 bit";
+            var architectureFolder = (IntPtr.Size == 8) ? "64bit" : "32bit";
             var wkHtmlToPdfPath = Path.Combine(env.ContentRootPath, $"wkhtmltox\\{architectureFolder}\\libwkhtmltox");
             CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
             context.LoadUnmanagedLibrary(wkHtmlToPdfPath);

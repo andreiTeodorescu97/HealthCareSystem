@@ -8,8 +8,8 @@ using API.RecipePDF;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using DinkToPdf;
-using DinkToPdf.Contracts;
+using WkHtmlToPdfDotNet;
+using WkHtmlToPdfDotNet.Contracts;
 using System;
 using API.Entities;
 

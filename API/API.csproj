@@ -28,26 +28,26 @@
   <Content Include="wassets\styles.css">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </Content>
-    <None Update="wkhtmltox\32 bit\libwkhtmltox.dll">
+    <None Update="wkhtmltox\32bit\libwkhtmltox.dll">
      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
   </None>
-  <None Update="wkhtmltox\32 bit\libwkhtmltox.dylib">
+  <None Update="wkhtmltox\32bit\libwkhtmltox.dylib">
      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
   </None>
-  <None Update="wkhtmltox\32 bit\libwkhtmltox.so">
+  <None Update="wkhtmltox\32bit\libwkhtmltox.so">
      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
-  <None Update="wkhtmltox\64 bit\libwkhtmltox.dll">
+  <None Update="wkhtmltox\64bit\libwkhtmltox.dll">
      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
   </None>
-  <None Update="wkhtmltox\64 bit\libwkhtmltox.dylib">
+  <None Update="wkhtmltox\64bit\libwkhtmltox.dylib">
      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </None>
-  <None Update="wkhtmltox\64 bit\libwkhtmltox.so">
+  <None Update="wkhtmltox\64bit\libwkhtmltox.so">
      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </None>
