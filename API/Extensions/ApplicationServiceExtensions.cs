@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using API.Data;
 using API.Email;
 using API.Helpers;
@@ -73,6 +74,14 @@ namespace API.Extensions
 
             var architecture = (IntPtr.Size == 8) ? "64bit" : "32bit";
             var wkHtmlToPdfPath = Path.Combine(env.ContentRootPath, $"libwkhtmltox");
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                wkHtmlToPdfPath += ".so";
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                wkHtmlToPdfPath += ".dylib";
+            }
             var context = new CustomAssemblyLoadContext();
             context.LoadUnmanagedLibrary(wkHtmlToPdfPath);
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
