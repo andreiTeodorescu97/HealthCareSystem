@@ -66,6 +66,8 @@ namespace API.Repositories
         {
             var query = _context.Doctors.Include(c => c.Photos).AsQueryable();
 
+            query = query.Where(c => c.User.IsAccountLocked != true);
+
             if (doctorFilterDto.Id != 0)
             {
                 query = query.Where(c => c.Id == doctorFilterDto.Id);

@@ -6,6 +6,7 @@ namespace API.Entities
 {
     public class AppUser : IdentityUser<int>
     {
+        public bool? IsAccountLocked { get; set; }
         public Pacient Pacient { get; set; }
         public Doctor Doctor { get; set; }
         public DateTime DateCreated { get; set; }

@@ -55,7 +55,7 @@ export class PacientAppoinmentsComponent implements OnDestroy, OnInit {
   initializeGrid() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10,
+      pageLength: 50,
       columnDefs: [
         { orderable: false, targets: 0 },
         { orderable: false, targets: 5 },

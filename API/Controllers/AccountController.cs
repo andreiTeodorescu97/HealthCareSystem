@@ -24,7 +24,8 @@ namespace API.Controllers
         private readonly IConfiguration _config;
 
 
-        public AccountController(DataContext context, ITokenService tokenService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IMailService mailService,
+        public AccountController(DataContext context, ITokenService tokenService, UserManager<AppUser> userManager, 
+        SignInManager<AppUser> signInManager, IMailService mailService,
         IConfiguration config)
         {
             _signInManager = signInManager;
@@ -45,6 +46,10 @@ namespace API.Controllers
             if (user == null)
             {
                 return Unauthorized("Credentiale invalide!");
+            }
+            if (user?.IsAccountLocked == true)
+            {
+                return Unauthorized("Contul este blocat!");
             }
             if (!user.EmailConfirmed)
             {

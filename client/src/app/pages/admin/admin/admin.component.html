@@ -1,1 +1,59 @@
-<p>admin works!</p>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card ">
+            <div class="card-body">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nume</th>
+                            <th>Prenume</th>
+                            <th>Email</th>
+                            <th>Username</th>
+                            <th>Rol</th>
+                            <th>Status cont</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of usersWithRoles">
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.firstName }}</td>
+                            <td>{{ user.secondName }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.roles[0] }}</td>
+                            <td *ngIf="user.isAccountLocked"><span class="badge badge-pill badge-danger">Blocat</span>
+                            </td>
+                            <td *ngIf="!user.isAccountLocked"><span
+                                    class="badge badge-pill badge-primary">Deblocat</span></td>
+                            <td>
+                                <div class="btn-group" dropdown>
+                                    <button id="button-basic" dropdownToggle type="button"
+                                        class="btn btn-info btn-round dropdown-toggle" aria-controls="dropdown-basic">
+                                        <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-right-right" role="menu"
+                                        aria-labelledby="button-basic">
+                                        <li role="menuitem" *ngIf="!user.isAccountLocked">
+                                            <a class="dropdown-item"
+                                                (click)="block(user.username)">
+                                                <i class="fa fa-lock" aria-hidden="true"></i> 
+                                                Blocheaza utilizator</a>
+                                        </li>
+                                        <li role="menuitem" *ngIf="user.isAccountLocked">
+                                            <a class="dropdown-item"
+                                                (click)="unblock(user.username)">
+                                                <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                                                Deblocheaza utilizator</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
