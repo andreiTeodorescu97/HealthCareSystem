@@ -1417,6 +1417,7 @@ INSERT INTO public."EmailTemplates" ("Id", "Template", "Name") VALUES (3, '<!DOC
 </body>
 
 </html>', 'ConfirmEmailTemplate');
+
 INSERT INTO public."EmailTemplates" ("Id", "Template", "Name") VALUES (4, '<!DOCTYPE html
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
@@ -1772,7 +1773,8 @@ INSERT INTO public."EmailTemplates" ("Id", "Template", "Name") VALUES (4, '<!DOC
 
 </html>', 'AppoinmentCofirmationEmailTemplate');
 
-.header {
+INSERT INTO public."EmailTemplates" ("Id", "Template", "Name") VALUES
+(5, 'RecipeStylesheet', '.header {
     text-align: center;
     color: green;
     padding-bottom: 35px;
@@ -1807,8 +1809,7 @@ li{
 #div4{
     margin-left: 500px;
     display: inline-block;
-}
-
+}');
 
 
 INSERT INTO public."Medicines" ("Id", "CimCode", "CommercialName", "Name", "PharmaceuticalForm", "Concentration", "Producer", "TerapeuticalAction", "Valability") VALUES (1, 'W65161001', 'ABASAGLAR', 'INSULINUM GLARGINE', 'SOL INJ.', '100UI/ml', 'LILLY FRANCE S.A.S - FRANTA', 'INSULINE SI ALTE PREPARATE PARENTERALE INSULINE SI ANALOGI CU ACTIUNE DE LUNGA DURATA, INJECTABILE', '2 ani');
@@ -2880,7 +2881,96 @@ insert into public."Appoinments" ("AppoinmentDate", "AppoinmentHour", "Appoinmen
 insert into public."Appoinments" ("AppoinmentDate", "AppoinmentHour", "AppoinmentStartSpan", "AppoinmentEndSpan", "Reason", "DateId", "IsConsultationAdded", "DateCreated", "PacientId", "DoctorId", "StatusId") values ('12/10/2020', '11:00-11:30', 715, 553, 'Concediu', 20210622, true, '2020-07-20 19:57:11', 60, 1, 3);
 insert into public."Appoinments" ("AppoinmentDate", "AppoinmentHour", "AppoinmentStartSpan", "AppoinmentEndSpan", "Reason", "DateId", "IsConsultationAdded", "DateCreated", "PacientId", "DoctorId", "StatusId") values ('06/17/2020', '11:00-11:30', 559, 565, 'Concediu', 20210610, true, '2021-02-09 02:11:18', 59, 1, 6);
 
-
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (1, 1, 15, '2021-04-26 18:37:50');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (2, 1, 22, '2021-01-03 16:08:28');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (3, 1, 15, '2020-06-24 13:49:47');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (4, 1, 21, '2020-03-06 13:24:11');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (5, 1, 22, '2020-07-19 18:44:08');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (6, 1, 14, '2021-01-17 17:47:32');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (7, 1, 12, '2020-08-03 09:39:27');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (8, 1, 14, '2020-11-01 12:03:06');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (9, 1, 16, '2020-10-29 14:26:11');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (10, 1, 13, '2021-02-25 07:42:35');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (11, 1, 15, '2020-06-02 07:21:38');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (12, 1, 20, '2020-07-31 10:52:32');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (13, 1, 23, '2020-11-28 14:39:12');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (14, 1, 17, '2020-03-25 19:36:55');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (15, 1, 19, '2021-05-06 22:36:26');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (16, 1, 19, '2021-04-11 01:11:12');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (17, 1, 13, '2021-06-25 08:24:41');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (18, 1, 24, '2020-11-16 10:44:13');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (19, 1, 12, '2021-02-12 21:20:01');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (20, 1, 16, '2020-03-22 21:45:51');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (21, 1, 17, '2020-09-17 05:38:10');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (22, 1, 14, '2020-12-28 22:04:14');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (23, 1, 15, '2021-04-01 23:19:32');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (24, 1, 23, '2020-10-30 19:43:07');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (25, 1, 22, '2020-04-24 05:49:20');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (26, 1, 15, '2021-05-01 07:59:34');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (27, 1, 20, '2020-09-30 02:57:14');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (28, 1, 13, '2021-02-03 13:24:09');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (29, 1, 14, '2020-03-27 09:27:04');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (30, 1, 23, '2021-03-04 01:09:38');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (31, 1, 21, '2020-05-21 03:47:18');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (32, 1, 20, '2020-05-07 20:54:47');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (33, 1, 22, '2021-01-25 20:45:50');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (34, 1, 19, '2021-02-20 06:14:07');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (35, 1, 16, '2021-03-28 23:24:03');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (36, 1, 14, '2020-11-22 15:02:06');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (37, 1, 20, '2021-03-27 16:50:57');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (38, 1, 22, '2020-03-27 06:22:16');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (39, 1, 18, '2020-04-24 13:21:27');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (40, 1, 21, '2021-06-08 00:01:09');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (41, 1, 15, '2021-04-16 14:09:10');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (42, 1, 22, '2021-03-26 17:08:11');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (43, 1, 24, '2020-12-24 10:20:28');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (44, 1, 15, '2021-02-07 07:23:36');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (45, 1, 13, '2021-04-17 15:28:04');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (46, 1, 19, '2020-12-10 00:01:27');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (47, 1, 12, '2020-08-24 09:53:46');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (48, 1, 16, '2020-11-26 13:15:07');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (49, 1, 15, '2020-05-15 10:54:02');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (50, 1, 14, '2020-04-27 07:13:44');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (51, 1, 12, '2020-04-02 03:18:18');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (52, 1, 17, '2021-01-13 20:14:13');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (53, 1, 23, '2020-07-24 03:58:39');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (54, 1, 17, '2020-06-22 20:24:30');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (55, 1, 19, '2021-04-17 00:50:47');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (56, 1, 16, '2020-08-21 05:39:56');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (57, 1, 19, '2021-01-12 18:32:17');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (58, 1, 13, '2020-09-21 16:02:09');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (59, 1, 14, '2021-02-11 23:00:15');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (60, 1, 23, '2021-02-11 05:45:45');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (61, 1, 24, '2020-11-21 05:24:47');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (62, 1, 17, '2020-07-22 12:38:47');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (63, 1, 17, '2021-05-30 01:36:46');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (64, 1, 16, '2020-04-03 06:36:04');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (65, 1, 21, '2021-03-02 12:55:32');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (66, 1, 19, '2020-08-02 05:56:09');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (67, 1, 20, '2021-01-24 04:20:21');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (68, 1, 20, '2020-07-24 23:59:00');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (69, 1, 15, '2020-06-12 01:45:19');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (70, 1, 12, '2021-04-11 02:44:21');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (71, 1, 19, '2020-03-12 13:25:39');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (72, 1, 12, '2021-03-29 16:25:03');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (73, 1, 13, '2020-10-07 09:21:39');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (74, 1, 15, '2020-08-20 09:22:34');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (75, 1, 19, '2021-04-10 11:36:51');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (76, 1, 21, '2020-11-13 20:37:29');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (77, 1, 21, '2020-04-27 15:51:13');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (78, 1, 16, '2021-03-23 16:55:03');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (79, 1, 18, '2020-07-09 07:09:52');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (80, 1, 16, '2021-01-01 00:51:49');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (81, 1, 15, '2020-08-14 14:45:55');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (82, 1, 16, '2021-03-15 04:48:59');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (83, 1, 13, '2020-10-28 23:52:56');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (84, 1, 19, '2020-06-30 22:39:23');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (85, 1, 21, '2020-10-15 17:38:12');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (86, 1, 14, '2020-09-20 22:01:45');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (87, 1, 24, '2020-07-06 02:54:47');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (88, 1, 20, '2021-05-31 05:40:39');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (89, 1, 17, '2020-09-22 10:00:46');
+insert into public."PacientHistories" ("PacientId", "DoctorId", "TotalNumberOfVisits", "LastVisitDate") values (90, 1, 23, '2020-07-01 08:48:43');
 
 
 

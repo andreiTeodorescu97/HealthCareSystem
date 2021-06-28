@@ -53,14 +53,6 @@ namespace API.Repositories
                 var newPacientHistory = new PacientHistory
                 {
                     PacientId = linkedAppoinment.PacientId,
-                    FirstName = linkedAppoinment.Pacient.FirstName,
-                    SecondName = linkedAppoinment.Pacient.SecondName,
-                    Email = linkedAppoinment.Pacient.Email,
-                    Gender = linkedAppoinment.Pacient.Gender,
-                    IdentityNumber = linkedAppoinment.Pacient.IdentityNumber,
-                    CNP = linkedAppoinment.Pacient.CNP,
-                    Series = linkedAppoinment.Pacient.Series,
-                    DateOfBirth = linkedAppoinment.Pacient.DateOfBirth,
                     TotalNumberOfVisits = 1,
                     LastVisitDate = linkedAppoinment.DateCreated,
                     DoctorId = linkedAppoinment.DoctorId

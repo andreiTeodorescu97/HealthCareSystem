@@ -32,8 +32,23 @@ namespace API.Controllers
             var doctorId = _context.Doctors.FirstOrDefault(c => c.UserId == userId).Id;
 
             var result = await _context.PacientHistories
+            .Include(c => c.Pacient)
             .Where(c => c.DoctorId == doctorId)
-            .ProjectTo<PacientHistoryDto>(_mapper.ConfigurationProvider)
+            .Select(c => new PacientHistoryDto {
+                Id = c.Id,
+                PacientId = c.PacientId,
+                FirstName = c.Pacient.FirstName,
+                SecondName = c.Pacient.SecondName,
+                Email = c.Pacient.Email,
+                Gender = c.Pacient.Gender,
+                IdentityNumber = c.Pacient.IdentityNumber,
+                Series= c.Pacient.Series,
+                CNP = c.Pacient.CNP,
+                DoctorId = c.DoctorId,
+                DateOfBirth = c.Pacient.DateOfBirth,
+                TotalNumberOfVisits = c.TotalNumberOfVisits,
+                LastVisitDate = c.LastVisitDate
+            })
             .ToListAsync();
 
             return result;
