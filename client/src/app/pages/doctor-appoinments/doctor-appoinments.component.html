@@ -22,12 +22,9 @@
                     </div>
                     <div class="col-md-4">
                         <label>Data</label>
-                        <input type="text"
-                        class="form-control"
-                        [(ngModel)]="dateRange"
-                        #daterangepicker="bsDaterangepicker"
-                        bsDaterangepicker
-                        [bsConfig]="{ rangeInputFormat : 'DD/MM/YYYY', dateInputFormat: 'DD/MM/YYYY', showWeekNumbers: false }">
+                        <input type="text" class="form-control" [(ngModel)]="dateRange"
+                            #daterangepicker="bsDaterangepicker" bsDaterangepicker
+                            [bsConfig]="{ rangeInputFormat : 'DD/MM/YYYY', dateInputFormat: 'DD/MM/YYYY', showWeekNumbers: false }">
                     </div>
                 </div>
                 <br>
@@ -89,26 +86,32 @@
                             </td>
                             <td>{{ appoinment.dateCreated | date : 'dd/MM/yyyy'}}</td>
                             <td> <span *ngIf="(presence.onlineUsers$ | async).includes(appoinment.pacientUserName)"
-                                class="is-online">
-                                <i class="fa fa-user mr-2"></i> Da
-                            </span>
-                            <span *ngIf="!(presence.onlineUsers$ | async).includes(appoinment.pacientUserName)">
-                                <i class="fa fa-user mr-2"></i> Nu
-                            </span>
-                        </td>
+                                    class="is-online">
+                                    <i class="fa fa-user mr-2"></i> Da
+                                </span>
+                                <span *ngIf="!(presence.onlineUsers$ | async).includes(appoinment.pacientUserName)">
+                                    <i class="fa fa-user mr-2"></i> Nu
+                                </span>
+                            </td>
                             <td>
                                 <div class="btn-group" dropdown>
                                     <button id="button-basic" dropdownToggle type="button"
                                         class="btn btn-info btn-round dropdown-toggle" aria-controls="dropdown-basic">
                                         <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
                                     </button>
-                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
-                                        aria-labelledby="button-basic">
+                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right"
+                                        role="menu" aria-labelledby="button-basic">
                                         <li role="menuitem" *ngIf="appoinment.statusId == statuses.Pending"><a
                                                 class="dropdown-item"
                                                 (click)="updateStatus(statuses.Approved, appoinment.id)">
                                                 <i class="fa fa-check" aria-hidden="true"></i>
                                                 Aproba</a>
+                                        </li>
+                                        <li role="menuitem" *ngIf="appoinment.statusId == statuses.Approved"><a
+                                                class="dropdown-item"
+                                                (click)="updateStatus(statuses.Finalized, appoinment.id)"><i
+                                                    class="fa fa-flag-checkered" aria-hidden="true"></i> Finalizeaza
+                                                vizita</a>
                                         </li>
                                         <li role="menuitem" *ngIf="appoinment.statusId == statuses.Approved"><a
                                                 class="dropdown-item"

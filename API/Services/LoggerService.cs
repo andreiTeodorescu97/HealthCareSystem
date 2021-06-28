@@ -29,7 +29,8 @@ namespace API.Services
                 Route = route,
                 TimeStamp = DateTime.UtcNow,
             };
-
+            
+            _context.ChangeTracker.Clear();
             _context.Errors.Add(error);
 
             if (await _context.SaveChangesAsync() > 0)

@@ -83,6 +83,10 @@ namespace API.Extensions
             {
                 wkHtmlToPdfPath += ".dylib";
             }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                wkHtmlToPdfPath += ".dll";
+            }
             var context = new CustomAssemblyLoadContext();
             context.LoadUnmanagedLibrary(wkHtmlToPdfPath);
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));

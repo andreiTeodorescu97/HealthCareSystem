@@ -52,7 +52,7 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
   content: string;
 
   filterDoctorAppoinments = {} as DoctorAppoinmentsFilterDto;
-  dateRange: Date;
+  dateRange = [];
 
   user: User;
   isHubConnectionActive = false;
@@ -64,6 +64,7 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
+    this.initializeDateRangeWithToday();
     this.initializeGrid();
   }
 
@@ -73,12 +74,12 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
       pageLength: 50,
       searching: false,
       columnDefs: [
-        { orderable: false, targets: 0 },
         { orderable: false, targets: 7 },
       ],
       language: gridSettings,
       order: []
     };
+    this.getDateIdsFromDateRange();
     this.appoinmentService.getAppoinmentsForDoctor(this.filterDoctorAppoinments).subscribe(data => {
       this.appoinments = data;
       this.dtTrigger.next();
@@ -89,6 +90,19 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
     this.dtTrigger.unsubscribe();
     if (this.isHubConnectionActive) {
       this.messageService.stopHubConnection();
+    }
+  }
+
+  initializeDateRangeWithToday(){
+    this.dateRange = [];
+    this.dateRange[0] = new Date();
+    this.dateRange[1] = new Date();
+  }
+
+  getDateIdsFromDateRange(){
+    if (this.dateRange) {
+      this.filterDoctorAppoinments.dateFrom = (this.dateRange[0].getFullYear() * 100 + this.dateRange[0].getMonth() + 1) * 100 + this.dateRange[0].getDate();
+      this.filterDoctorAppoinments.dateTo = (this.dateRange[1].getFullYear() * 100 + this.dateRange[1].getMonth() + 1) * 100 + this.dateRange[1].getDate();
     }
   }
 
@@ -117,10 +131,7 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
 
-      if (this.dateRange) {
-        this.filterDoctorAppoinments.dateFrom = (this.dateRange[0].getFullYear() * 100 + this.dateRange[0].getMonth() + 1) * 100 + this.dateRange[0].getDate();
-        this.filterDoctorAppoinments.dateTo = (this.dateRange[1].getFullYear() * 100 + this.dateRange[1].getMonth() + 1) * 100 + this.dateRange[1].getDate();
-      }
+      this.getDateIdsFromDateRange();
       this.filterDoctorAppoinments.statusId = this.filterDoctorAppoinments.statusId ?? 0;
 
       // Destroy the table first
@@ -175,7 +186,7 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
 
   resetFilter() {
     this.initializeFilterObject();
-    this.dateRange = undefined;
+    this.initializeDateRangeWithToday();
     this.rerender();
   }
 

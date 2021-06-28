@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTOs;
+using API.Helpers;
 using API.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,6 +33,11 @@ namespace API.Controllers
             if(pacientId == 0 || pacientId < 0)
             {
                 return BadRequest("Upps..ceva nu a mers!");
+            }
+
+            if(User.IsInRole("Doctor"))
+            {
+                return Ok(await _consultationRepository.GetPacientConsultations(pacientId, User.GetUserId()));
             }
 
             var consultations = await _consultationRepository.GetPacientConsultations(pacientId);

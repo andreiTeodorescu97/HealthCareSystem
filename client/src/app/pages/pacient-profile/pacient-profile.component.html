@@ -46,8 +46,8 @@
                             <div class="row justify-content-center">
                                 <div class="col-3">
                                     <label>Grupa sanguina</label>
-                                    <select [attr.disabled]='user.roles.includes("Pacient") ? "disabled" : null' 
-                                    formControlName="bloodType" class="form-control" placeholder="Oras" >
+                                    <select [attr.disabled]='user.roles.includes("Pacient") ? "disabled" : null'
+                                        formControlName="bloodType" class="form-control" placeholder="Oras">
                                         <option *ngFor="let bloodType of bloodTypes" [value]="bloodType.name">
                                             {{bloodType.name}}
                                         </option>
@@ -60,36 +60,40 @@
 
                                     <label>Greutate la nastere [KG]</label>
                                     <app-text-input [formControl]='pacientGeneralDataForm.controls["weightBirth"]'
-                                        [label]='"Greutate la nastere [kg]"' [disabled]='user.roles.includes("Pacient") ? true : false'>
+                                        [label]='"Greutate la nastere [kg]"'
+                                        [disabled]='user.roles.includes("Pacient") ? true : false'>
                                     </app-text-input>
 
                                     <label>Inaltime la nastere [CM]</label>
                                     <app-text-input [formControl]='pacientGeneralDataForm.controls["heightBirth"]'
-                                        [label]='"Inaltime la nastere [cm]"' [disabled]='user.roles.includes("Pacient") ? true : false'>
+                                        [label]='"Inaltime la nastere [cm]"'
+                                        [disabled]='user.roles.includes("Pacient") ? true : false'>
                                     </app-text-input>
                                 </div>
                                 <div class="col-3">
                                     <label>Numar nasteri</label>
                                     <app-text-input [formControl]='pacientGeneralDataForm.controls["numberOfBirths"]'
-                                        [label]='"Numar nasteri"' [disabled]='user.roles.includes("Pacient") ? true : false'>
+                                        [label]='"Numar nasteri"'
+                                        [disabled]='user.roles.includes("Pacient") ? true : false'>
                                     </app-text-input>
 
                                     <label>Numar avorturi</label>
                                     <app-text-input [formControl]='pacientGeneralDataForm.controls["numberOfAvortions"]'
-                                        [label]='"Numar avorturi"' [disabled]='user.roles.includes("Pacient") ? true : false'>
+                                        [label]='"Numar avorturi"'
+                                        [disabled]='user.roles.includes("Pacient") ? true : false'>
                                     </app-text-input>
 
                                     <label></label>
                                     <div class="form-group">
                                         <label class="control-label" style="margin-right: 10px;">Fumator: </label>
                                         <label class="radio-inline">
-                                            <input type="radio" value="True" formControlName='isSmoker' 
-                                            [attr.disabled]='user.roles.includes("Pacient") ? "disabled" : null'>
+                                            <input type="radio" value="True" formControlName='isSmoker'
+                                                [attr.disabled]='user.roles.includes("Pacient") ? "disabled" : null'>
                                             Da
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" value="False" class="ml-3" formControlName='isSmoker' 
-                                            [attr.disabled]='user.roles.includes("Pacient") ? "disabled" : null'>
+                                            <input type="radio" value="False" class="ml-3" formControlName='isSmoker'
+                                                [attr.disabled]='user.roles.includes("Pacient") ? "disabled" : null'>
                                             Nu
                                         </label>
                                     </div>
@@ -100,8 +104,8 @@
                                 <h5 class="text-primary">Vaccinuri</h5>
                             </div>
                             <div class="form-group pull-right" *appHasRole='["Doctor","Moderator"]'>
-                                <button class="btn btn-info" type="button"
-                                    (click)="openVaccineModal(vaccineModal)">Adauga vaccin</button>
+                                <button class="btn btn-info" type="button" (click)="openVaccineModal(vaccineModal)"><i
+                                        class="fa fa-plus" aria-hidden="true"></i> Adauga vaccin</button>
                             </div>
 
                             <div class="table-responsive" style="overflow-x: hidden; overflow-y:hidden;">
@@ -143,8 +147,8 @@
                                                         <i class="fa fa-ban" aria-hidden="true"></i></span></h5>
                                             </td>
                                             <td style="width: 10%">
-                                                <button *appHasRole='["Doctor","Moderator"]' class="btn btn-danger" type="button"
-                                                    (click)="deleteVaccine(madeVaccine)">-</button>
+                                                <button *appHasRole='["Doctor","Moderator"]' class="btn btn-danger"
+                                                    type="button" (click)="deleteVaccine(madeVaccine)">-</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -152,8 +156,9 @@
                             </div>
 
                             <div class="form-group pull-right">
-                                <button *appHasRole='["Doctor","Moderator"]' [disabled]='!pacientGeneralDataForm.valid' class="btn btn-success"
-                                    type="submit">Salveaza</button>
+                                <button *appHasRole='["Doctor","Moderator"]' [disabled]='!pacientGeneralDataForm.valid'
+                                    class="btn btn-success" type="submit"><i class="fa fa-check" aria-hidden="true"></i>
+                                    Salveaza</button>
                             </div>
                         </form>
                         <div class="row" *ngIf="validationErrors.length > 0">
@@ -172,8 +177,8 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <table style="width:100%" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
-                                            class="row-border hover">
+                                        <table style="width:100%" datatable [dtOptions]="dtOptions"
+                                            [dtTrigger]="dtTrigger" class="row-border hover">
                                             <thead>
                                                 <tr>
                                                     <th>Inaltime</th>
@@ -213,20 +218,22 @@
                                                                 aria-labelledby="button-basic">
 
                                                                 <li *appHasRole='["Doctor","Moderator"]'
-                                                                role="menuitem"><a class="dropdown-item">
+                                                                    role="menuitem"><a class="dropdown-item">
                                                                         <i class="fa fa-heart" aria-hidden="true"></i>
                                                                         Adauga Diagnostic</a>
                                                                 </li>
 
-                                                                <li *appHasRole='["Doctor","Moderator"]' 
-                                                                role="menuitem"><a class="dropdown-item" *ngIf="!pacientConsultation.hasRecipe" 
-                                                                    (click)="redirectToRecipeForm(pacientConsultation.id)">
+                                                                <li *appHasRole='["Doctor","Moderator"]'
+                                                                    role="menuitem"><a class="dropdown-item"
+                                                                        *ngIf="!pacientConsultation.hasRecipe"
+                                                                        (click)="redirectToRecipeForm(pacientConsultation.id)">
                                                                         <i class="fa fa-file-text"
                                                                             aria-hidden="true"></i>
                                                                         Adauga Reteta</a>
                                                                 </li>
-                                                                <li role="menuitem"><a class="dropdown-item" *ngIf="pacientConsultation.hasRecipe" 
-                                                                    (click)="redirectToRecipePage(pacientConsultation.id)">
+                                                                <li role="menuitem"><a class="dropdown-item"
+                                                                        *ngIf="pacientConsultation.hasRecipe"
+                                                                        (click)="redirectToRecipePage(pacientConsultation.id)">
                                                                         <i class="fa fa-file-text"
                                                                             aria-hidden="true"></i>
                                                                         Vezi Reteta</a>

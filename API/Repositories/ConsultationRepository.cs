@@ -15,7 +15,7 @@ namespace API.Repositories
     public interface IConsultationRepository
     {
         Task<bool> AddConsultationAsync(ConsultationDto consultationDto);
-        Task<IEnumerable<ConsultationDto>> GetPacientConsultations(int pacientId);
+        Task<IEnumerable<ConsultationDto>> GetPacientConsultations(int pacientId, int? userDoctorId = null);
     }
     public class ConsultationRepository : IConsultationRepository
     {
@@ -44,7 +44,6 @@ namespace API.Repositories
             _context.Consultations.Add(consultation);
 
             linkedAppoinment.IsConsultationAdded = true;
-            linkedAppoinment.StatusId = (int)AppoinmentStatuses.Finalized;
             _context.Entry(linkedAppoinment).State = EntityState.Modified;
 
             var pacientHistory = await _context.PacientHistories.FirstOrDefaultAsync(c => c.PacientId == linkedAppoinment.PacientId);
@@ -78,12 +77,18 @@ namespace API.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<IEnumerable<ConsultationDto>> GetPacientConsultations(int pacientId)
+        public async Task<IEnumerable<ConsultationDto>> GetPacientConsultations(int pacientId, int? userDoctorId = null)
         {
-            var consultations = await _context.Consultations
-            .Where(C => C.PacientId == pacientId)
-            .ProjectTo<ConsultationDto>(_mapper.ConfigurationProvider)
-            .ToListAsync();
+            var query = _context.Consultations.Include(c => c.Appoinment)
+            .Where(C => C.PacientId == pacientId);
+
+            if(userDoctorId != null)
+            {
+                var doctor = _context.Users.Include(c => c.Doctor).FirstOrDefault(c => c.Id == userDoctorId).Doctor;
+                query = query.Where(c => c.Appoinment.DoctorId == doctor.Id);
+            }
+
+            var consultations = await query.ProjectTo<ConsultationDto>(_mapper.ConfigurationProvider).ToListAsync();
 
             return consultations;
         }

@@ -15,5 +15,6 @@ namespace API.Constants
         Welcome = 2,
         ConfirmAccount = 3,
         AppoinmentConfirmation = 4,
+        RecipeStylesheet = 5
     }
 }
