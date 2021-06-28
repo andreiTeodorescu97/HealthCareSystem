@@ -33,8 +33,7 @@ export class PacientHistoryComponent implements OnInit, OnDestroy {
   initializeGrid() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10,
-      searching: false,
+      pageLength: 25,
       columnDefs: [
         { orderable: false, targets: 5 },
       ],
