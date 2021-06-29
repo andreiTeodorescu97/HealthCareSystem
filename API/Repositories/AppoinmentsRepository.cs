@@ -136,10 +136,12 @@ namespace API.Repositories
 
         public async Task<IEnumerable<GetAppoimnetsDto>> GetPacientAppoinments(int pacientId)
         {
-            return await _context.Appoinments.Where(c => c.PacientId == pacientId)
+            var result = await _context.Appoinments.Where(c => c.PacientId == pacientId)
                     .ProjectTo<GetAppoimnetsDto>(_mapper.ConfigurationProvider)
                     .OrderBy(c => c.DateId)
                     .ToListAsync();
+
+            return result;
         }
 
         public async Task<IEnumerable<GetAppoimnetsDto>> GetDoctorAppoinments(int doctorId, DoctorAppoinmentsFilterDto filterObj)

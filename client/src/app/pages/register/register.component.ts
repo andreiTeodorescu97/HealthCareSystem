@@ -78,6 +78,7 @@ export class RegisterComponent implements OnInit {
           toastClass: "alert alert-success alert-with-icon",
         }
       );
+      this.router.navigateByUrl('/home');
     }, error => {
       this.validationErrors = error;
     }

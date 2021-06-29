@@ -83,6 +83,12 @@ namespace API.Controllers
             pacient.Pacient.SecondName = pacientDto.SecondName;
             pacient.Pacient.User.Email = pacientDto.Email;
             pacient.Pacient.Email = pacientDto.Email;
+
+            if(pacient.Pacient.PacientContact == null)
+            {
+                pacient.Pacient.PacientContact = new Entities.PacientContact();
+            }
+            
             pacient.Pacient.PacientContact.Street = pacientDto.PacientContact.Street;
             pacient.Pacient.PacientContact.StreetNumber = pacientDto.PacientContact.StreetNumber;
             pacient.Pacient.PacientContact.FirstPhone = pacientDto.PacientContact.FirstPhone;

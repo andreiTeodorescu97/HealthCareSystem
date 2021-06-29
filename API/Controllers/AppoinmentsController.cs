@@ -63,7 +63,7 @@ namespace API.Controllers
         {
             var userPacient = await _pacientRepository.GetPacientByUsername(User.GetUserName());
 
-            return Ok(await _appoinmentsRepository.GetPacientAppoinments(userPacient.Id));
+            return Ok(await _appoinmentsRepository.GetPacientAppoinments(userPacient.Pacient.Id));
         }
 
         [HttpPost("doctorAppoinmets")]
