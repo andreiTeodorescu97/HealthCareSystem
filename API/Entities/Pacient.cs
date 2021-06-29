@@ -22,5 +22,6 @@ namespace API.Entities
         public ICollection<Appoinment> Appoinments { get; set; }
         public ICollection<Consultation> Consultations { get; set; }
         public ICollection<VaccineXPacient> ReceivedVaccines { get; set; }
+        public ICollection<Review> Reviews { get; set; }
     }
 }

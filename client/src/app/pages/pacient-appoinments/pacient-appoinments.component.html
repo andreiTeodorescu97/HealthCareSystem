@@ -50,18 +50,25 @@
                                         class="btn btn-info btn-round dropdown-toggle" aria-controls="dropdown-basic">
                                         <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
                                     </button>
-                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
-                                        aria-labelledby="button-basic">
+                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right"
+                                        role="menu" aria-labelledby="button-basic">
                                         <li role="menuitem">
                                             <a class="dropdown-item"
                                                 (click)="openMessageModal(messageModal, appoinment.doctorUserName, 
                                                 'Dr. ' + appoinment.doctorFirstName + ' ' + appoinment.doctorSecondName, appoinment.doctorProfilePhotoUrl)">
                                                 <i class="fa fa-commenting" aria-hidden="true"></i> Trimite mesaj</a>
                                         </li>
-                                        <li role="menuitem"><a class="dropdown-item"
+                                        <li role="menuitem" *ngIf="appoinment.statusId == statuses.Finalized">
+                                            <a class="dropdown-item" (click)="openReviewModal(reviewModal, appoinment)">
+                                                <i class="fa fa-star" aria-hidden="true"></i> Adauga Review</a>
+                                        </li>
+                                        <li role="menuitem"
+                                            *ngIf="appoinment.statusId == statuses.Approved || appoinment.statusId == statuses.Pending">
+                                            <a class="dropdown-item"
                                                 (click)="updateStatus(statuses.CanceledByPacient, appoinment.id)">
                                                 <i class="fa fa-times" aria-hidden="true"></i>
-                                                Anuleaza</a></li>
+                                                Anuleaza</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </td>
@@ -94,6 +101,40 @@
             <button (click)="sendMessage()" class="btn btn-success mr-2 btn-round" type="submit"><i
                     class="fa fa-paper-plane" aria-hidden="true"></i> Trimite</button>
             <button class="btn btn-danger btn-round" (click)="messageModalRef.hide()" type="button"><i
+                    class="fa fa-times" aria-hidden="true"></i> Renunta</button>
+        </div>
+    </ng-template>
+
+    <ng-template #reviewModal>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left text-primary">Adauga recenzie</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="reviewModalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row text-center">
+                <img src="{{reviewDoctorProfileImg || 'assets/img/doctor.png'}}" class="avatar" alt="doctor">
+                <p class="plm text-primary">{{reviewDoctorFullName}}</p>
+            </div>
+            <br>
+            <label>Rating</label>
+            <div>
+                <rating [max]="10" [(ngModel)]="review.rating" [customTemplate]="tt"></rating>
+                <ng-template #tt let-i="index" let-v="value">
+                  <button class="btn btn-{{i < v ? 'warning' : 'default'}}">
+                    {{i < v ? '&#9733;' : '&#9734;'}}
+                  </button>
+                </ng-template>
+              </div>
+            <br>
+            <textarea type="text" [(ngModel)]="review.content" class="form-control" rows=3 placeholder="Recenzie"
+                value=""></textarea>
+        </div>
+        <div class="modal-footer">
+            <button (click)="addReview()" class="btn btn-success mr-2 btn-round" type="submit"><i
+                    class="fa fa-plus" aria-hidden="true"></i> Adauga</button>
+            <button class="btn btn-danger btn-round" (click)="reviewModalRef.hide()" type="button"><i
                     class="fa fa-times" aria-hidden="true"></i> Renunta</button>
         </div>
     </ng-template>

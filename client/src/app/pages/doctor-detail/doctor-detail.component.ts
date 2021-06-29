@@ -4,8 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DoctorDto } from 'app/_models/doctorDto';
 import { FreeHourDto } from 'app/_models/freehourDto';
 import { MakeAnAppoinmentDto } from 'app/_models/makeAnAppoinmentDto';
+import { ReviewDto } from 'app/_models/_reviews/ReviewDto';
 import { AppoinmentsService } from 'app/_services/appoinments.service';
 import { DoctorService } from 'app/_services/doctor.service';
+import { ReviewService } from 'app/_services/review.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 
@@ -32,6 +34,7 @@ export class DoctorDetailComponent implements OnInit {
   unixTime: number;
 
   staticModalFdReference: BsModalRef;
+  reviews: ReviewDto[];
 
   reasonTypes = [
     { id: 1, name: 'Control rutina' },
@@ -49,6 +52,7 @@ export class DoctorDetailComponent implements OnInit {
     private modalService: BsModalService,
     private appoinmentsService: AppoinmentsService,
     private toastr: ToastrService,
+    private reviewService: ReviewService,
     private router: Router) {
     this.doctorId = this.route.snapshot.paramMap.get('id');
   }
@@ -57,6 +61,7 @@ export class DoctorDetailComponent implements OnInit {
     this.loadMember();
     this.initializeForm();
     this.minDate = new Date();
+    this.getDoctorReviews();
   }
 
   loadMember() {
@@ -120,5 +125,11 @@ export class DoctorDetailComponent implements OnInit {
       this.modalRef.hide();
     })
   }
+
+  getDoctorReviews(){
+    this.reviewService.getReviewsForDoctor(+this.doctorId).subscribe(data => {
+      this.reviews = data;
+    });
+  };
 
 }

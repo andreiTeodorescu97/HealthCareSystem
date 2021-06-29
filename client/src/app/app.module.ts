@@ -64,6 +64,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { PacientHistoryComponent } from './pacient-history/pacient-history.component';
 import { ChartComponent } from './pages/chart/chart.component';
 import { VaccineChartComponent } from './pages/vaccine-chart/vaccine-chart.component';
+import { RatingModule } from 'ngx-bootstrap/rating';
+import { ReviewsComponent } from './pages/reviews/reviews.component';
 defineLocale("ro", roLocale);
 
 
@@ -106,7 +108,8 @@ defineLocale("ro", roLocale);
     ForgotPasswordComponent,
     PacientHistoryComponent,
     ChartComponent,
-    VaccineChartComponent
+    VaccineChartComponent,
+    ReviewsComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -134,7 +137,8 @@ defineLocale("ro", roLocale);
     FileUploadModule,
     NgSelectModule,
     TimeagoModule.forRoot(),
-    NgxCaptchaModule
+    NgxCaptchaModule,
+    RatingModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

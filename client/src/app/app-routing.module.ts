@@ -34,6 +34,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { PacientHistoryComponent } from './pacient-history/pacient-history.component';
 import { ChartComponent } from './pages/chart/chart.component';
+import { ReviewsComponent } from './pages/reviews/reviews.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent, canActivate: [NoauthGuard]},
@@ -74,6 +75,7 @@ const routes: Routes = [
       {path:'pacient_history', component: PacientHistoryComponent}, 
       {path:'admin', component: AdminComponent, canActivate: [AdminGuard]},
       {path:'chart', component: ChartComponent},
+      {path:'reviews', component: ReviewsComponent},
     ]
   },
   {path:'**', component: HomeComponent, canActivate: [NoauthGuard]}

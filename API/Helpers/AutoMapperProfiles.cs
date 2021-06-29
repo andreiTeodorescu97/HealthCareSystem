@@ -3,6 +3,7 @@ using System.Linq;
 using API.DTOs;
 using API.DTOs.Messages;
 using API.DTOs.Recipes;
+using API.DTOs.Reviews;
 using API.DTOs.Vaccines;
 using API.Entities;
 using API.Extensions;
@@ -103,6 +104,7 @@ namespace API.Helpers
              CreateMap<DateTime, DateTime>().ConvertUsing(d => DateTime.SpecifyKind(d, DateTimeKind.Utc));
 
              CreateMap<PacientHistory, PacientHistoryDto>();
+             CreateMap<Review, ReviewDto>();
         } 
     }
 }

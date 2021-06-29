@@ -44,4 +44,16 @@
     padding: 15px 0;
   }
 
-  
+  .avatar {
+    width: 65px;
+    height: 65px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-left: 15px;
+}
+
+.plm{
+    padding-top: 17px;
+    margin-left: 5px;
+    font-size: 20px;
+}

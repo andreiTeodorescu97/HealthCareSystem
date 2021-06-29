@@ -92,7 +92,7 @@ namespace API.Controllers
                 _context.Appoinments.Count(c => c.DoctorId == doctorId && c.AppoinmentDate == dateToday);
             result.NumberOfFinalizedAppoinments =
                 _context.Appoinments.Count(c => c.DoctorId == doctorId && c.StatusId == (int)AppoinmentStatuses.Finalized);
-            result.NumberOfReviews = 174;
+            result.NumberOfReviews = _context.Reviews.Count(c => c.DoctorId == doctorId);
             result.NumberOfPacients = _context.PacientHistories.Where(c => c.DoctorId == doctorId).Count();
 
             return Ok(result);

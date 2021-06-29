@@ -4,10 +4,12 @@ import { GetAppoinmentDto } from 'app/_models/getAppoinmentDto';
 import { gridSettings } from 'app/_models/grid';
 import { UpdateAppoinmentStatusDto } from 'app/_models/updateAppoinmentStatusDto';
 import { User } from 'app/_models/user';
+import { AddReviewDto } from 'app/_models/_reviews/AddReviewDto';
 import { AccountService } from 'app/_services/account.service';
 import { AppoinmentsService } from 'app/_services/appoinments.service';
 import { MessageService } from 'app/_services/message.service';
 import { PresenceService } from 'app/_services/presence.service';
+import { ReviewService } from 'app/_services/review.service';
 import { AppoinmentsStatuses } from 'Constants';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -24,29 +26,36 @@ export class PacientAppoinmentsComponent implements OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
   appoinments: GetAppoinmentDto[] = [];
   statuses = AppoinmentsStatuses;
-  
-  @ViewChild(DataTableDirective, {static: false})
+
+  @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-    //send message modal
-    messageModalRef: BsModalRef;
-    receiverUserName: string;
-    receiverName: string;
-    receiverProfileImg: string;
-    content: string;
+  //send message modal
+  messageModalRef: BsModalRef;
+  receiverUserName: string;
+  receiverName: string;
+  receiverProfileImg: string;
+  content: string;
 
-    user: User;
-    isHubConnectionActive = false;
+  user: User;
+  isHubConnectionActive = false;
 
-  constructor(private appoinmentService: AppoinmentsService, 
+  reviewDoctorFullName: string;
+  reviewModalRef: BsModalRef;
+  reviewDoctorProfileImg: string;
+  reviewDoctorRating: number;
+  review = {} as AddReviewDto;
+
+  constructor(private appoinmentService: AppoinmentsService,
     private messageService: MessageService,
     private modalService: BsModalService,
-    private toastr: ToastrService, public presence: PresenceService, private accountService: AccountService) {
-      this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
-     }
+    private toastr: ToastrService, public presence: PresenceService, private accountService: AccountService,
+    private reviewService: ReviewService) {
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
+  }
 
   ngOnInit(): void {
     this.initializeGrid();
@@ -61,7 +70,7 @@ export class PacientAppoinmentsComponent implements OnDestroy, OnInit {
         { orderable: false, targets: 5 },
       ],
       language: gridSettings,
-      order :[]
+      order: []
     };
     this.appoinmentService.getAppoinmentsForPacient().subscribe(data => {
       this.appoinments = data;
@@ -69,7 +78,7 @@ export class PacientAppoinmentsComponent implements OnDestroy, OnInit {
     });
   };
 
-  updateStatus(newStatusId: number, appoinmentId : number){
+  updateStatus(newStatusId: number, appoinmentId: number) {
     const updateStatusModel: UpdateAppoinmentStatusDto = {
       appoinmentId: appoinmentId,
       newStatusId: newStatusId,
@@ -106,7 +115,7 @@ export class PacientAppoinmentsComponent implements OnDestroy, OnInit {
     }
   }
 
-  openMessageModal(template: TemplateRef<any>, receiverUserName: string, receiverName: string, 
+  openMessageModal(template: TemplateRef<any>, receiverUserName: string, receiverName: string,
     receiverProfileImg: string) {
     this.receiverUserName = receiverUserName;
     this.receiverName = receiverName;
@@ -115,8 +124,7 @@ export class PacientAppoinmentsComponent implements OnDestroy, OnInit {
       template,
       Object.assign({}, { class: 'gray modal-lg' })
     );
-    if(this.isHubConnectionActive)
-    {
+    if (this.isHubConnectionActive) {
       this.messageService.stopHubConnection();
       this.isHubConnectionActive = false;
     }
@@ -137,5 +145,30 @@ export class PacientAppoinmentsComponent implements OnDestroy, OnInit {
         this.content = "";
         this.messageModalRef.hide();
       })
+  }
+
+  openReviewModal(template: TemplateRef<any>, appoinment: GetAppoinmentDto) {
+    this.reviewDoctorFullName = "Dr. " + appoinment.doctorFirstName + " " + appoinment.doctorSecondName;
+    this.reviewDoctorProfileImg = appoinment.doctorProfilePhotoUrl;
+    this.review.rating = 0;
+    this.review.content = null;
+    this.review.doctorId = appoinment.doctorId;
+    this.reviewModalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray modal-lg' })
+    );
+  }
+
+  addReview() {
+    this.reviewService.addReview(this.review).subscribe(() => {
+      this.toastr.success(
+        '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Recenzia a fost adaugata cu succes!!</span>',
+        "Recenzie",
+        {
+          toastClass: "alert alert-success alert-with-icon",
+        }
+      );
+      this.reviewModalRef.hide();
+    })
   }
 }

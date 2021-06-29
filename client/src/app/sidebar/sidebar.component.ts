@@ -25,6 +25,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/upgrade', title: 'Newsletter', icon: 'fa fa-envelope', class: 'active-pro', isRegisterRequired: true, roles: ["Doctor", "Pacient"] },
     { path: '/pacient_history', title: 'Istoric Pacienti', icon: 'fa fa-history', class: '', isRegisterRequired: true, roles: ["Doctor"] },
     { path: '/messages', title: 'Mesaje', icon: 'fa fa-commenting', class: '', isRegisterRequired: true, roles: ["Doctor", "Pacient"] },
+    { path: '/reviews', title: 'Recenzii', icon: 'fa fa-star', class: '', isRegisterRequired: true, roles: ["Doctor", "Pacient"] },
     { path: '/user', title: 'Profil', icon: 'fa fa-user', class: '', isRegisterRequired: true, roles: ["Pacient"] },
     { path: '/doctor_work_days', title: 'Orar', icon: 'fa fa-calendar', class: '', isRegisterRequired: true, roles: ["Doctor"] },
     { path: '/doctor_profile', title: 'Profil', icon: 'fa fa-user', class: '', isRegisterRequired: true, roles: ["Doctor"] },

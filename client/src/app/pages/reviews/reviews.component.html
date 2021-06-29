@@ -1,0 +1,41 @@
+<div class="row" *ngIf="reviews">
+    <div class="col-md-12">
+        <div class="card ">
+            <div class="card-body" *appHasRole='["Pacient"]'>
+                <div *ngFor="let review of reviews">
+                    <div class="row">
+                        <img src="{{review.doctorProfilePicture || 'assets/img/doctor.png'}}" class="avatar" alt="doctor">
+                        <p class="plm text-primary">Dr. {{review.doctorFirstName}} {{review.doctorSecondName}}</p>
+                    </div>
+                    <rating [max]="10" [(ngModel)]="review.rating" [customTemplate]="tt" [readonly]="true"></rating>
+                    <ng-template #tt let-i="index" let-v="value">
+                        <button class="btn btn-{{i < v ? 'warning' : 'default'}}">
+                          {{i < v ? '&#9733;' : '&#9734;'}}
+                        </button>
+                      </ng-template>
+                    <p>{{review.content}}</p>
+                    <p><small>{{review.dateAdded | date : 'dd/MM/yyyy'}}</small></p>
+                    <button (click)="deleteReview(review.id)" class="btn btn-danger btn-sm" type="submit"><i
+                        class="fa fa-trash" aria-hidden="true"></i> Sterge</button>
+                    <hr>
+                </div>
+            </div>
+            <div class="card-body" *appHasRole='["Doctor"]'>
+                <div *ngFor="let review of reviews">
+                    <div class="row">
+                        <img src="https://ptetutorials.com/images/user-profile.png" class="avatar" alt="doctor">
+                        <p class="plm text-primary">{{review.pacientFirstName}} {{review.pacientSecondName}}</p>
+                    </div>
+                    <rating [max]="10" [(ngModel)]="review.rating" [customTemplate]="tt" [readonly]="true"></rating>
+                    <ng-template #tt let-i="index" let-v="value">
+                        <button class="btn btn-{{i < v ? 'warning' : 'default'}}">
+                          {{i < v ? '&#9733;' : '&#9734;'}}
+                        </button>
+                      </ng-template>
+                    <p>{{review.content}}</p>
+                    <p><small>{{review.dateAdded | date : 'dd/MM/yyyy'}}</small></p>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -32,6 +32,7 @@ namespace API.Extensions
             services.AddScoped<IRecipeRepository, RecipeRepository>();
             services.AddScoped<ILoggerService, LoggerService>();
             services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options =>
             {

@@ -77,7 +77,27 @@
                                 <hr>
                             </div>
                         </tab>
-                        <tab heading="Recenzii">Recenziile vor fi aici!</tab>
+                        <tab heading="Recenzii">
+                            <div *ngIf="reviews">
+                                <div *ngFor="let review of reviews">
+                                    <div class="row">
+                                        <img src="https://ptetutorials.com/images/user-profile.png" class="avatar"
+                                            alt="doctor">
+                                        <p class="plm text-primary">{{review.pacientFirstName}}
+                                            {{review.pacientSecondName}}</p>
+                                    </div>
+                                    <rating [max]="10" [(ngModel)]="review.rating" [customTemplate]="tt"
+                                        [readonly]="true"></rating>
+                                    <ng-template #tt let-i="index" let-v="value">
+                                        <button class="btn btn-{{i < v ? 'warning' : 'default'}}">
+                                            {{i < v ? '&#9733;' : '&#9734;' }} </button>
+                                    </ng-template>
+                                    <p>{{review.content}}</p>
+                                    <p><small>{{review.dateAdded | date : 'dd/MM/yyyy'}}</small></p>
+                                    <hr>
+                                </div>
+                            </div>
+                        </tab>
                     </tabset>
                 </div>
             </div>

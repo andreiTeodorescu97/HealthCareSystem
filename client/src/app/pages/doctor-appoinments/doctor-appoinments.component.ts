@@ -96,7 +96,10 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
   initializeDateRangeWithToday(){
     this.dateRange = [];
     this.dateRange[0] = new Date();
+    this.dateRange[0].setDate(this.dateRange[0].getDate() - 1);
+    
     this.dateRange[1] = new Date();
+    this.dateRange[1].setDate(this.dateRange[1].getDate() + 1);
   }
 
   getDateIdsFromDateRange(){
