@@ -18,6 +18,7 @@ export class ConsultationFormComponent implements OnInit {
   appoinmentId : string;
   pacientFirstName: string;
   pacientSecondName: string;
+  pacientId: string;
   consultation: ConsultationDto;
 
   @HostListener('window:beforeunload', ['$event']) unloadNotification($event : any){
@@ -46,6 +47,7 @@ export class ConsultationFormComponent implements OnInit {
       this.appoinmentId = this.route.snapshot.paramMap.get('appoinmentId');
       this.pacientFirstName = this.route.snapshot.paramMap.get('pacientFirstName');
       this.pacientSecondName = this.route.snapshot.paramMap.get('pacientSecondName');
+      this.pacientId = this.route.snapshot.paramMap.get('pacientId');
      }
 
   ngOnInit(): void 
@@ -76,7 +78,6 @@ export class ConsultationFormComponent implements OnInit {
     this.consultation = this.consultationForm.value;
     this.consultationForm.markAsPristine();
     this.consultationService.addConsultation(this.consultation).subscribe(response => {
-      console.log(response);
       this.toastr.success(
         '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Consultatia a fost adaugata cu succes!!</span>',
         "Consultatie",
@@ -84,7 +85,8 @@ export class ConsultationFormComponent implements OnInit {
           toastClass: "alert alert-success alert-with-icon",
         }
       );
-      this.router.navigateByUrl('/doctor/appoinments');
+      this.router.navigateByUrl('pacient/pacient_profile/' + this.pacientId);
+      
     }, error => {
       this.validationErrors = error;
     }

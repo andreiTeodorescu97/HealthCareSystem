@@ -66,7 +66,7 @@ const routes: Routes = [
       {path:'doctor/detail/:id', component: DoctorDetailComponent}, 
       {path:'doctor/appoinments', component: DoctorAppoinmentsComponent}, 
       {path:'pacient/appoinments', component: PacientAppoinmentsComponent}, 
-      {path:'pacient/consultation/:appoinmentId/:pacientFirstName/:pacientSecondName', component: ConsultationFormComponent, canDeactivate : [PreventUnsavedChangesGuard]}, 
+      {path:'pacient/consultation/:appoinmentId/:pacientFirstName/:pacientSecondName/:pacientId', component: ConsultationFormComponent, canDeactivate : [PreventUnsavedChangesGuard]}, 
       {path:'pacient/pacient_profile/:id', component: PacientProfileComponent}, 
       {path:'pacient/recipe/:consultationId/:pacientId/:pacientFirstName/:pacientSecondName', component: RecipeFormComponent}, 
       {path:'pacient/recipe_page/:consultationId', component: RecipePageComponent}, 

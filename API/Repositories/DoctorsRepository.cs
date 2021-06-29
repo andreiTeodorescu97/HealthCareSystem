@@ -84,7 +84,7 @@ namespace API.Repositories
                 }
                 if (!string.IsNullOrEmpty(doctorFilterDto.Email))
                 {
-                    query = query.Where(c => c.Email == doctorFilterDto.Email);
+                    query = query.Where(c => c.Email.Contains(doctorFilterDto.Email));
                 }
             }
 

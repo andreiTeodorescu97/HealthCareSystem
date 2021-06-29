@@ -49,12 +49,9 @@ export class RecipeFormComponent implements OnInit {
 
   routeTypes = [
     { id: 1, name: 'Oral' },
-    { id: 3, name: 'Vaginal' },
-    { id: 4, name: 'Uretral' },
-    { id: 4, name: 'Cutanat' },
-    { id: 5, name: 'Subcutanat' },
-    { id: 5, name: 'Intravenos' },
-    { id: 2, name: 'Intrarectal' },
+    { id: 2, name: 'Cutanat' },
+    { id: 3, name: 'Subcutanat' },
+    { id: 4, name: 'Intravenos' },
     { id: 5, name: 'Intramuscular' },
   ];
 

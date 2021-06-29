@@ -110,7 +110,7 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
   }
 
   redirectToConsultation(appoinment: GetAppoinmentDto) {
-    this.router.navigateByUrl('pacient/consultation/' + appoinment.id + "/" + appoinment.pacientFirstName + "/" + appoinment.pacientSecondName);
+    this.router.navigateByUrl('pacient/consultation/' + appoinment.id + "/" + appoinment.pacientFirstName + "/" + appoinment.pacientSecondName + "/" + appoinment.pacientId);
   }
 
   updateStatus(newStatusId: number, appoinmentId: number) {
@@ -183,7 +183,6 @@ export class DoctorAppoinmentsComponent implements OnDestroy, OnInit {
   }
 
   filterDoctorAppoinmentsList() {
-    console.log(this.dateRange);
     this.rerender();
   }
 
