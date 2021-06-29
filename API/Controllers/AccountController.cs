@@ -24,7 +24,7 @@ namespace API.Controllers
         private readonly IConfiguration _config;
 
 
-        public AccountController(DataContext context, ITokenService tokenService, UserManager<AppUser> userManager, 
+        public AccountController(DataContext context, ITokenService tokenService, UserManager<AppUser> userManager,
         SignInManager<AppUser> signInManager, IMailService mailService,
         IConfiguration config)
         {
@@ -164,21 +164,14 @@ namespace API.Controllers
 
         public async Task<IActionResult> ConfirmEmail(string token, string email)
         {
-            try
-            {
-                var user = await _userManager.FindByEmailAsync(email);
-                if (user == null)
-                    return BadRequest("Nu exista acest utilizator!");
 
-                var result = await _userManager.ConfirmEmailAsync(user, token);
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return BadRequest("Nu exista acest utilizator!");
 
-                return Ok("Email-ul a fost confirmat! Va multumim!");
+            var result = await _userManager.ConfirmEmailAsync(user, token);
 
-            }
-            catch (Exception ex)
-            {
-                return BadRequest("Upss..ceva nu a mers!");
-            }
+            return Ok("Email-ul a fost confirmat! Va multumim!");
         }
 
         [HttpPost("forgot-password")]
